@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataCol>
+    <Column>
+      <columnname>cfg_dc_power</columnname>
+      <alias>Wdcconfigured</alias>
+      <from>config</from>
+    </Column>
+  <Column>
+    <columnname>cfg_dc_voltage</columnname>
+    <alias>Vdcconfigured</alias>
+    <from>config</from>
+  </Column>
+    <Column>
+      <columnname>pcu_qP_DCW</columnname>
+      <alias>Wdcpcu</alias>
+      <from>pcu</from>
+    </Column>
+  <Column>
+    <columnname>pm_dc_amps_1</columnname>
+    <alias>Idcpowermeter</alias>
+    <from>powermeter</from>
+  </Column>
+  <Column>
+    <columnname>pm_dc_volts_1</columnname>
+    <alias>Vdcpowermeter</alias>
+    <from>powermeter</from>
+  </Column>
+    <Column>
+      <columnname>pm_dc_watts_1</columnname>
+      <alias>Wdcpowermeter</alias>
+      <from>powermeter</from>
+    </Column>
+</DataCol>
+
+
+
+
+
