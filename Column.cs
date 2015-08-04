@@ -17,6 +17,14 @@ namespace PlotDVT
         List<float> floatcolvalues;
         //bool convertedtofloat;
 
+        public List<string> Columnvalues
+        {
+            get
+            {
+                return colvalues;
+            }
+        }
+
         public Column()
         {
             //convertedtofloat = false;
@@ -35,9 +43,7 @@ namespace PlotDVT
             // Get distinct elements and convert into a list again.
             //List<int> distinct = list.Distinct().ToList();
             distinctList = new List<float>();
-
             List<string> s = new List<string>(colvalues.Distinct().ToList());
-            //s = colvalues.Distinct().ToList();
             foreach(string value in s)
             {
                 float f = 0.0f;
@@ -47,7 +53,7 @@ namespace PlotDVT
                 }
                 catch (FormatException e)
                 {
-                    Console.WriteLine(e.Message);
+                    f = -1.0f;
                 }
                 distinctList.Add(f);
             }

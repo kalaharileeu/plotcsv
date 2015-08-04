@@ -18,6 +18,7 @@ namespace PlotDVT
         int rowcount;
         DataCol datacolumns;
         Dictionary<string, Column> realpowerdict;
+        RealPowerAnswer realpoweranswers;
 
         public Form1()
         {
@@ -27,9 +28,7 @@ namespace PlotDVT
             XmlManager<DataCol> columnloader = new XmlManager<DataCol>();
             datacolumns = columnloader.Load("Content/XMLFile1.xml");
             realpowerdict = new Dictionary<string, Column>();
-
-            
-
+            realpoweranswers = new RealPowerAnswer();
 
             foreach(Column c in datacolumns.namealiaslist)
             {
@@ -64,13 +63,18 @@ namespace PlotDVT
                     }
                     rowcount++;
                 }
-
             }
 
             foreach (Column c in wantedcolumns)
             {
                 realpowerdict.Add(c.alias, c);
             }
+
+            //test for some answers
+            float maxcurrent = realpoweranswers.FindMaxPmcurrent(realpowerdict);
+            string value = Convert.ToString(maxcurrent);
+            this.richTextBox1.AppendText("The maximum powermeter current is: ");
+            this.richTextBox1.AppendText(value + "A\n");
         }
 
         public Dictionary<string, Column> Realpowerdictionary
