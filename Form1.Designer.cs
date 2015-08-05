@@ -42,22 +42,22 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(12, 40);
+            this.chart1.Location = new System.Drawing.Point(24, 21);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "Wdc pm";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(652, 164);
+            this.chart1.Size = new System.Drawing.Size(715, 164);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(24, 274);
+            this.richTextBox1.Location = new System.Drawing.Point(24, 470);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(260, 354);
+            this.richTextBox1.Size = new System.Drawing.Size(260, 158);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 

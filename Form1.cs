@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 
 namespace PlotDVT
 {
@@ -19,6 +18,8 @@ namespace PlotDVT
         DataCol datacolumns;
         Dictionary<string, Column> realpowerdict;
         RealPowerAnswer realpoweranswers;
+        private List<Baselist> columnobjectlist;
+        private PlotIdcpowermeter plotidcpowermeter;
 
         public Form1()
         {
@@ -28,13 +29,11 @@ namespace PlotDVT
             XmlManager<DataCol> columnloader = new XmlManager<DataCol>();
             datacolumns = columnloader.Load("Content/XMLFile1.xml");
             realpowerdict = new Dictionary<string, Column>();
-            realpoweranswers = new RealPowerAnswer();
 
             foreach(Column c in datacolumns.namealiaslist)
             {
                 wantedcolumns.Add(c);
             }
-
             //var result = engine.ReadFile("C:/2015y07m11d_04h48m53s_SN121519038545_S230_60_LN_RealPwrMap.csv");
             // Read sample data from CSV file
             using (CsvFileReader reader = new CsvFileReader("C:/2015y07m11d_04h48m53s_SN121519038545_S230_60_LN_RealPwrMap.csv"))
@@ -59,6 +58,7 @@ namespace PlotDVT
                         foreach (Column c in wantedcolumns)
                         {
                             c.colvalues.Add(row[c.columnnumber]);
+
                         }
                     }
                     rowcount++;
@@ -70,12 +70,26 @@ namespace PlotDVT
                 realpowerdict.Add(c.alias, c);
             }
 
+            columnobjectlist = new List<Baselist>();
+            foreach (var VAR in realpowerdict)
+            {
+                columnobjectlist.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
+            }
+            plotidcpowermeter = new PlotIdcpowermeter(columnobjectlist);
+
             //test for some answers
-            float maxcurrent = realpoweranswers.FindMaxPmcurrent(realpowerdict);
-            string value = Convert.ToString(maxcurrent);
-            this.richTextBox1.AppendText("The maximum powermeter current is: ");
-            this.richTextBox1.AppendText(value + "A\n");
+           // realpoweranswers = new RealPowerAnswer(realpowerdict);
+
+            //float maxcurrent = realpoweranswers.FindMaxPmcurrent();
+            //string value = Convert.ToString(maxcurrent);
+            //this.richTextBox1.AppendText("The maximum powermeter current is: ");
+            //this.richTextBox1.AppendText(value + "A\n");
+            //plotidcpowermeter = realpoweranswers.GetPlotIdcpowermeter;
+
+            float maxidc = plotidcpowermeter.Max;
         }
+
+
 
         public Dictionary<string, Column> Realpowerdictionary
         {
