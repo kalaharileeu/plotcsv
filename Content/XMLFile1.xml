@@ -10,6 +10,11 @@
     <alias>Vdcconfigured</alias>
     <from>config</from>
   </Column>
+  <Column>
+    <columnname>cfg_dc_current</columnname>
+    <alias>Idcconfigured</alias>
+    <from>config</from>
+  </Column>
     <Column>
       <columnname>pcu_qP_DCW</columnname>
       <alias>Wdcpcu</alias>
@@ -21,6 +26,11 @@
     <from>powermeter</from>
   </Column>
   <Column>
+  <columnname>pcu_qP_IDC</columnname>
+  <alias>Idcpcu</alias>
+  <from>pcu</from>
+  </Column>
+  <Column>
     <columnname>pm_dc_volts_1</columnname>
     <alias>Vdcpowermeter</alias>
     <from>powermeter</from>
@@ -30,6 +40,11 @@
       <alias>Wdcpowermeter</alias>
       <from>powermeter</from>
     </Column>
+  <Column>
+    <columnname>pm_eff</columnname>
+    <alias>Efficiency</alias>
+    <from>powermeter</from>
+  </Column>
 </DataCol>
 
 

@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace PlotDVT
 {
-    class RealPowerAnswer
-    {
-        private List<Baselist> columnobjectlist;
+//    class RealPowerAnswer
+//    {
+/*        private List<Baselist> columnobjectlist;
         private PlotIdcpowermeter plotidcpowermeter;
         //private Wdcconfigured w;
 
@@ -28,7 +28,7 @@ namespace PlotDVT
         {
             get { return plotidcpowermeter; }
         }
-/*
+
         public float FindMaxPmcurrent()
         {
             //using var with dictionary more readible
@@ -40,5 +40,5 @@ namespace PlotDVT
             return plotidcpowermeter.Max;
         }
  */
-    }
+//    }
 }
