@@ -15,20 +15,25 @@
     <alias>Idcconfigured</alias>
     <from>config</from>
   </Column>
-    <Column>
-      <columnname>pcu_qP_DCW</columnname>
-      <alias>Wdcpcu</alias>
-      <from>pcu</from>
-    </Column>
   <Column>
-    <columnname>pm_dc_amps_1</columnname>
-    <alias>Idcpowermeter</alias>
-    <from>powermeter</from>
+    <columnname>pcu_qP_DCW</columnname>
+    <alias>Wdcpcu</alias>
+    <from>pcu</from>
   </Column>
   <Column>
   <columnname>pcu_qP_IDC</columnname>
   <alias>Idcpcu</alias>
   <from>pcu</from>
+  </Column>
+  <Column>
+    <columnname>pcu_qP_VDC</columnname>
+    <alias>Vdcpcu</alias>
+    <from>pcu</from>
+  </Column>
+  <Column>
+    <columnname>pm_dc_amps_1</columnname>
+    <alias>Idcpowermeter</alias>
+    <from>powermeter</from>
   </Column>
   <Column>
     <columnname>pm_dc_volts_1</columnname>
