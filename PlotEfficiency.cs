@@ -41,7 +41,30 @@ namespace PlotDVT
                         foreach (Baselist bltwo in columnobjects)
                         {
                             if (bltwo is Vdcconfigured)
-                                (bl as Efficiency).Populareslices((bltwo as Vdcconfigured).Listslices);
+                                (bl as Efficiency).Populareslices((bltwo as Vdcconfigured).Slicelist);
+                        }
+                    }
+                    catch (InvalidCastException)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        public void CreatSlices(float deg)
+        {
+            foreach (Baselist bl in columnobjects)
+            {
+                if (bl is Efficiency)
+                {
+                    try
+                    {
+                        //Find Vdcconfigure to get slice parameters
+                        foreach (Baselist bltwo in columnobjects)
+                        {
+                            if (bltwo is Vdcconfigured)
+                                (bl as Efficiency).Populareslices((bltwo as Vdcconfigured).Slicelist, deg);
                         }
                     }
                     catch (InvalidCastException)

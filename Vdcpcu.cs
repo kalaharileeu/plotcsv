@@ -12,7 +12,6 @@ namespace PlotDVT
 
         public Vdcpcu(List<string> stringvaluelist) : base(stringvaluelist)
         {
-            valuesstring = stringvaluelist;
             slices = new Dictionary<float, List<float>>();
         }
 
@@ -26,6 +25,26 @@ namespace PlotDVT
             foreach (KeyValuePair<float, List<int>> kv in slicedvalues)
             {
                 slices.Add(kv.Key, valuesfloat.GetRange(kv.Value[0], kv.Value[1] - kv.Value[0]));
+            }
+        }
+
+        public void Populareslices(List<Slice> slice)
+        {
+            foreach (Slice s in slice)
+            {
+                if (s.phaseangle == 0.0f)
+                    slices.Add(s.vfloat, valuesfloat.GetRange(s.vlist[0], s.vlist[1] - s.vlist[0]));
+            }
+        }
+
+        public void Populareslices(List<Slice> slice, float deg)
+        {
+            if (slices.Count > 0)
+                slices.Clear();
+            foreach (Slice s in slice)
+            {
+                if (s.phaseangle == deg)
+                    slices.Add(s.vfloat, valuesfloat.GetRange(s.vlist[0], s.vlist[1] - s.vlist[0]));
             }
         }
 

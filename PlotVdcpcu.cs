@@ -40,7 +40,30 @@ namespace PlotDVT
                         {
                             //Vdc congfigured is need in all the plot classes
                             if (bltwo is Vdcconfigured)
-                                (bl as Vdcpcu).Populareslices((bltwo as Vdcconfigured).Listslices);
+                                (bl as Vdcpcu).Populareslices((bltwo as Vdcconfigured).Slicelist);
+                        }
+                    }
+                    catch (InvalidCastException)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        public void CreatSlices(float deg)
+        {
+            foreach (Baselist bl in columnobjects)
+            {
+                if (bl is Vdcpcu)
+                {
+                    try
+                    {
+                        //Find Vdcconfigure to get slice parameters
+                        foreach (Baselist bltwo in columnobjects)
+                        {
+                            if (bltwo is Vdcconfigured)
+                                (bl as Vdcpcu).Populareslices((bltwo as Vdcconfigured).Slicelist, deg);
                         }
                     }
                     catch (InvalidCastException)

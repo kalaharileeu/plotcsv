@@ -27,6 +27,7 @@ namespace PlotDVT
         private PlotIdcconfigured plotidcconfigure;
         private PlotEfficiency plotefficiency;
         private PlotVdcpowermeter plotvdcpowermeter;
+        private PlotPhaseconfigured plotphaseconfigured;
         //private PlotVdcconfigured plotvdcconfigured;
         private PlotVdcpcu plotvdcpcu;
         /// <summary>
@@ -40,10 +41,13 @@ namespace PlotDVT
         private PlotIdcconfigured plotidcconfigurebl;
         private PlotEfficiency plotefficiencybl;
         private PlotVdcpcu plotvdcpcubl;
+        private PlotPhaseconfigured plotphaseconfiguredbl;
         private List<Column> wantedcolumnsbl;
 
         private string filenamebl;
         private string filenamedata;
+        private int numberofrows;
+        private int numberofrowsbl;
 
         public Form1()
         {
@@ -62,10 +66,10 @@ namespace PlotDVT
             columnobjectlistbl = new List<Baselist>();
             wantedcolumnsbl = new List<Column>();
 
-            filenamedata = "C:/2015y07m11d_04h48m53s_SN121519038545_S230_60_LN_RealPwrMap2.csv";
+            filenamedata = "C:/values/2015y06m19d_16h55m35s_SN121519038551_S230_60_LN_ReactivePwrMap.csv";
             populatedatatestunit(filenamedata);
             //****************************************populate the diff data******************************************************
-            filenamebl = "C:/2015y07m11d_04h48m53s_SN121519038545_S230_60_LN_RealPwrMap2.csv";
+            filenamebl = "C:/values/2015y07m10d_15h24m11s_SN121519038545_S230_60_LN_ReactivePwrMap.csv";
             populatedatabaseline(filenamebl);
             //************************************************
             //test for some answers
@@ -146,6 +150,7 @@ namespace PlotDVT
                     }
                     rowcount++;
                 }
+                Richtextedit("Baseline rows imported: " + Convert.ToString(rowcount));
             }
 
             foreach (Column c in wantedcolumnsbl)
@@ -159,11 +164,13 @@ namespace PlotDVT
                 columnobjectlistbl.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
             }
             //Plot stuff baseline values
+            plotphaseconfiguredbl = new PlotPhaseconfigured(columnobjectlistbl);
             plotidcpowermeterbl = new PlotIdcpowermeter(columnobjectlistbl);
             plotidcpcubl = new PlotIdcpcu(columnobjectlistbl);
             plotidcconfigurebl = new PlotIdcconfigured(columnobjectlistbl);
             plotefficiencybl = new PlotEfficiency(columnobjectlistbl);
             plotvdcpcubl = new PlotVdcpcu(columnobjectlistbl);
+
         }
         //************************************Done populating data for baseline*********************
         /// <summary>
@@ -222,6 +229,7 @@ namespace PlotDVT
                     }
                     rowcount++;
                 }
+                Richtextedit("Datarows imported: " + Convert.ToString(rowcount));
             }
 
             foreach (Column c in wantedcolumns)
@@ -235,12 +243,14 @@ namespace PlotDVT
                 columnobjectlist.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
             }
             //Plot Data original
+            plotphaseconfigured = new PlotPhaseconfigured(columnobjectlist);
             plotidcpowermeter = new PlotIdcpowermeter(columnobjectlist);
             plotidcpcu = new PlotIdcpcu(columnobjectlist);
             plotidcconfigure = new PlotIdcconfigured(columnobjectlist);
             plotefficiency = new PlotEfficiency(columnobjectlist);
             plotvdcpowermeter = new PlotVdcpowermeter(columnobjectlist);
             plotvdcpcu = new PlotVdcpcu(columnobjectlist);
+
         }
 //**********************************************Done populating data for unit undertest*********************
         //Efficiency button
@@ -515,10 +525,22 @@ namespace PlotDVT
             this.richTextBox1.AppendText(value + "A\n");
         }
 
+        public void Richtextedit(string text)
+        {
+            this.richTextBox1.AppendText(text + "\n");
+        }
+
         public Dictionary<string, Column> Realpowerdictionary
         {
             get { return realpowerdict; }
         }
+
+        //Load DC voltage compare tables
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PlotVdccompare();
+        }
+
         //Load the baseline file
         private void button3_Click(object sender, EventArgs e)
         {
@@ -530,32 +552,131 @@ namespace PlotDVT
             {
                 filenamebl = openFileDialog1.FileName;
             }
-            populatedatabaseline(filenamebl);
-            //Console.WriteLine(filenamebl); // <-- For debugging use.
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            PlotVdccompare();
+            //get the file info from the path
+            FileInfo info = new FileInfo(filenamebl);
+            //check file info
+            if (IsFileLocked(info))
+            {
+                MessageBox.Show("The file is in use or locked!");
+            }
+            else
+            {
+                populatedatabaseline(filenamebl);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             plotIdc();
         }
+
         //load the unit under test file
         private void button5_Click(object sender, EventArgs e)
         {
             this.openFileDialog2.Filter = "csv files (*.csv)|*.csv";
             // Show the dialog and get result.
             DialogResult result = openFileDialog1.ShowDialog();
-            //string filename = "nothing";
             if (result == DialogResult.OK) // Test result.
             {
                 filenamedata = openFileDialog1.FileName;
             }
-            populatedatatestunit(filenamedata);
+            //get the file info from the path
+            FileInfo info = new FileInfo(filenamedata);
+            //check file info
+            if (IsFileLocked(info))
+            {
+                MessageBox.Show("The file is in use or locked!");
+            }
+            else
+            {
+                populatedatatestunit(filenamedata);
+            }
+        }
+        //Check of the file is in use
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
 
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            float deg = -45.0f;
+            changeplotdegrees(deg);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            float deg = -30.0f;
+            changeplotdegrees(deg);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            float deg = -15.0f;
+            changeplotdegrees(deg);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            float deg = 0.0f;
+            changeplotdegrees(deg);
+        }
+
+        private void changeplotdegrees(float deg)
+        {
+            plotidcconfigure.CreatSlices(deg);
+            plotidcpowermeter.CreatSlices(deg);
+            plotidcpcu.CreatSlices(deg);
+
+            plotvdcpcu.CreatSlices(deg);
+            plotvdcpowermeter.CreatSlices(deg);
+
+            plotefficiency.CreatSlices(deg);
+
+            plotidcconfigurebl.CreatSlices(deg);
+            plotidcpowermeterbl.CreatSlices(deg);
+            plotidcpcubl.CreatSlices(deg);
+            plotvdcpcubl.CreatSlices(deg);
+            plotefficiencybl.CreatSlices(deg);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            float deg = 15.0f;
+            changeplotdegrees(deg);
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            float deg = 30.0f;
+            changeplotdegrees(deg);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            float deg = 45.0f;
+            changeplotdegrees(deg);
         }
     }
 }

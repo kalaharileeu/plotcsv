@@ -13,9 +13,11 @@ namespace PlotDVT
         private float max;
         private float min;
         private Dictionary<float, List<float>> slices;
+        //private Dictionary<int, Slice> plotclaslices;  
 
         public PlotIdcconfigured(List<Baselist> list)
         {
+            //slices = new Dictionary<float, List<float>>();
             columnobjects = new List<Baselist>();
             columnobjects = list;
             CreatSlices();
@@ -41,7 +43,30 @@ namespace PlotDVT
                         foreach (Baselist bltwo in columnobjects)
                         {
                             if (bltwo is Vdcconfigured)
-                                (bl as Idcconfigured).Populareslices((bltwo as Vdcconfigured).Listslices);
+                                (bl as Idcconfigured).Populareslices((bltwo as Vdcconfigured).Slicelist);
+                        }
+                    }
+                    catch (InvalidCastException)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        public void CreatSlices(float deg)
+        {
+            foreach (Baselist bl in columnobjects)
+            {
+                if (bl is Idcconfigured)
+                {
+                    try
+                    {
+                        //Find Vdcconfigure to get slice parameters
+                        foreach (Baselist bltwo in columnobjects)
+                        {
+                            if (bltwo is Vdcconfigured)
+                                (bl as Idcconfigured).Populareslices((bltwo as Vdcconfigured).Slicelist, deg);
                         }
                     }
                     catch (InvalidCastException)

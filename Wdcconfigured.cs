@@ -11,7 +11,7 @@ namespace PlotDVT
     {
         public Wdcconfigured(List<string> stringvaluelist) : base(stringvaluelist)
         {
-            valuesstring = stringvaluelist;
+            //valuesstring = stringvaluelist;
         }
         //new keyword to overide the baselist GetAverage
         public new float GetAverage

@@ -11,6 +11,11 @@
     <from>config</from>
   </Column>
   <Column>
+    <columnname>cfg_phase</columnname>
+    <alias>Phaseconfigured</alias>
+    <from>config</from>
+  </Column>
+  <Column>
     <columnname>cfg_dc_current</columnname>
     <alias>Idcconfigured</alias>
     <from>config</from>

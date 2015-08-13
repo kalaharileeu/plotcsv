@@ -52,11 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Baselist.cs" />
+    <Compile Include="PlotPhaseconfigured.cs" />
+    <Compile Include="Slices.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="Efficiency.cs" />
     <Compile Include="Idcconfigured.cs" />
     <Compile Include="Idcpcu.cs" />
     <Compile Include="Idcpowermeter.cs" />
+    <Compile Include="Phaseconfigured.cs" />
     <Compile Include="PlotEfficiency.cs" />
     <Compile Include="PlotIdcconfigured.cs" />
     <Compile Include="PlotIdcpcu.cs" />
@@ -76,8 +79,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadWriteCsv.cs" />
-    <Compile Include="RealPower25.cs" />
-    <Compile Include="RealPowerAnswers.cs" />
     <Compile Include="Valuelist.cs" />
     <Compile Include="Vdcpcu.cs" />
     <Compile Include="Vdcpowermeter.cs" />

@@ -23,8 +23,6 @@ namespace PlotDVT
         {
             foreach (Baselist bl in columnobjects)
             {
-                //string value = ((V.GetType()).ToString()).Replace("PlotDVT.", "");
-                //string value = ((bl.GetType()).ToString());
                 if (bl is Idcpowermeter)
                 {
                     //downcast as returns reference, is return bool
@@ -39,7 +37,30 @@ namespace PlotDVT
                         foreach (Baselist bltwo in columnobjects)
                         {
                             if (bltwo is Vdcconfigured)
-                                (bl as Idcpowermeter).Populareslices((bltwo as Vdcconfigured).Listslices);
+                                (bl as Idcpowermeter).Populareslices((bltwo as Vdcconfigured).Slicelist);
+                        }
+                    }
+                    catch (InvalidCastException)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        public void CreatSlices(float deg)
+        {
+            foreach (Baselist bl in columnobjects)
+            {
+                if (bl is Idcpowermeter)
+                {
+                    try
+                    {
+                        //Find Vdcconfigure to get slice parameters
+                        foreach (Baselist bltwo in columnobjects)
+                        {
+                            if (bltwo is Vdcconfigured)
+                                (bl as Idcpowermeter).Populareslices((bltwo as Vdcconfigured).Slicelist, deg);
                         }
                     }
                     catch (InvalidCastException)

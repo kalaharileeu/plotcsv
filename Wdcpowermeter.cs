@@ -10,7 +10,7 @@ namespace PlotDVT
     {
         public Wdcpowermeter(List<string> stringvaluelist) : base(stringvaluelist)
         {
-            valuesstring = stringvaluelist;
+            //valuesstring = stringvaluelist;
         }
     }
 }
