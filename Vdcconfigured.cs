@@ -11,20 +11,35 @@ namespace PlotDVT
 
         private List<string> s; 
         private List<Slice> slicelist;
-        private Dictionary<float, List<int>> phaseslicedict;
+        //private Dictionary<float, List<int>> phaseslicedict;
         private Dictionary<float, List<int>> listslices;
-        private bool donewithlist;
+        //private bool donewithlist;
         private int count;
 
         public Vdcconfigured(List<string> stringvaluelist) : base(stringvaluelist)
         {
             slicelist = new List<Slice>();
             listslices = new Dictionary<float, List<int>>();
-            phaseslicedict = new Dictionary<float, List<int>>();
+            //phaseslicedict = new Dictionary<float, List<int>>();
             s = new List<string>(valuesstring.Distinct().ToList());
-            donewithlist = false;
+            //donewithlist = false;
             count = 0;
             Distinct();
+        }
+
+        override public void Populareslices(Dictionary<float, List<int>> slicedvalues)
+        {
+            //override the inherited function, do nothing
+        }
+
+        override public void Populareslices(List<Slice> slice)
+        {
+            //override the inherited function, do nothing
+        }
+
+        override public void Populareslices(List<Slice> slice, float deg)
+        {
+            //override the inherited function, do nothing
         }
 
         public Dictionary<float, List<int>> Listslices
@@ -105,7 +120,7 @@ namespace PlotDVT
                     {
                         firstllast.Add(i);
                         count = i;
-                        donewithlist = true;
+                        //donewithlist = true;
                         return firstllast;
                     }
                 }

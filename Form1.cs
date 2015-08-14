@@ -27,6 +27,8 @@ namespace PlotDVT
         private PlotIdcconfigured plotidcconfigure;
         private PlotEfficiency plotefficiency;
         private PlotVdcpowermeter plotvdcpowermeter;
+        private Plotwacpowermeter plotwacpowermeter;
+        private Plotwdcpowermeter plotwdcpowermeter;
         private PlotPhaseconfigured plotphaseconfigured;
         //private PlotVdcconfigured plotvdcconfigured;
         private PlotVdcpcu plotvdcpcu;
@@ -42,7 +44,10 @@ namespace PlotDVT
         private PlotEfficiency plotefficiencybl;
         private PlotVdcpcu plotvdcpcubl;
         private PlotPhaseconfigured plotphaseconfiguredbl;
+        private Plotwacpowermeter plotwacpowermeterbl;
+        private Plotwdcpowermeter plotwdcpowermeterbl;
         private List<Column> wantedcolumnsbl;
+        private PlotVdcpowermeter plotvdcpowermeterbl;
 
         private string filenamebl;
         private string filenamedata;
@@ -92,6 +97,7 @@ namespace PlotDVT
             this.chart2.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
             this.chart2.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
             //plotIdc();
+            this.textBox1.Text = "0°";
         }
         /// <summary>
         /// populating data for the baseline values
@@ -170,6 +176,9 @@ namespace PlotDVT
             plotidcconfigurebl = new PlotIdcconfigured(columnobjectlistbl);
             plotefficiencybl = new PlotEfficiency(columnobjectlistbl);
             plotvdcpcubl = new PlotVdcpcu(columnobjectlistbl);
+            plotwacpowermeterbl = new Plotwacpowermeter(columnobjectlistbl);
+            plotwdcpowermeterbl = new Plotwdcpowermeter(columnobjectlistbl);
+            plotvdcpowermeterbl = new PlotVdcpowermeter(columnobjectlistbl);
 
         }
         //************************************Done populating data for baseline*********************
@@ -250,6 +259,8 @@ namespace PlotDVT
             plotefficiency = new PlotEfficiency(columnobjectlist);
             plotvdcpowermeter = new PlotVdcpowermeter(columnobjectlist);
             plotvdcpcu = new PlotVdcpcu(columnobjectlist);
+            plotwacpowermeter = new Plotwacpowermeter(columnobjectlist);
+            plotwdcpowermeter = new Plotwdcpowermeter(columnobjectlist);
 
         }
 //**********************************************Done populating data for unit undertest*********************
@@ -259,13 +270,16 @@ namespace PlotDVT
             ploteff();
         }
 
+
         public void plotIdc()
         {
             this.chart1.Series.Clear();
-            //this.chart1.ChartAreas[0].AxisX.Minimum = 13;
+            this.chart1.Titles.Clear();
+
             this.chart1.ChartAreas[0].AxisY.Minimum = 0;
 
             this.chart2.Series.Clear();
+            this.chart2.Titles.Clear();
             //this.chart2.ChartAreas[0].AxisX.Minimum = 13;
             this.chart2.ChartAreas[0].AxisY.Minimum = 0;
             //plot diagonal grey conf line
@@ -278,7 +292,6 @@ namespace PlotDVT
                 chartseries += "_conf";
                 //Add a series
                 this.chart1.Series.Add(chartseries);
-                //set the chart type
                 //set the chart type
                 this.chart1.Series[chartseries].ChartType = SeriesChartType.Line;
                 this.chart1.Series[chartseries].Color = Color.CadetBlue;
@@ -368,7 +381,9 @@ namespace PlotDVT
         {
             this.chart1.Series.Clear();
             this.chart2.Series.Clear();
-            foreach (var kv in plotefficiency.GetSlices)
+            this.chart2.Titles.Clear();
+            this.chart1.Titles.Clear();
+            foreach (var kv in plotefficiencybl.GetSlices)
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -390,7 +405,107 @@ namespace PlotDVT
                 }
             }
 
-            foreach (var kv in plotefficiencybl.GetSlices)
+            foreach (var kv in plotefficiency.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "_testpcu";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                this.chart2.Series[chartseries].MarkerSize = 9;
+                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+                //this.chart1.ChartAreas[0].AxisX.Minimum = 13;
+                foreach (var v in kv.Value)
+                {
+                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                }
+            }
+        }
+
+        private void dcpowerdiff()
+        {
+            this.chart1.Series.Clear();
+            this.chart2.Series.Clear();
+            this.chart2.Titles.Clear();
+            this.chart1.Titles.Clear();
+            foreach (var kv in plotwdcpowermeterbl.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "_baseline";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                this.chart2.Series[chartseries].MarkerSize = 9;
+                this.chart2.Series[chartseries].Color = Color.Black;
+                this.chart2.ChartAreas[0].AxisX.Minimum = 13;
+                this.chart2.ChartAreas[0].AxisY.Minimum = 80;
+                foreach (var v in kv.Value)
+                {
+                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                }
+            }
+
+            foreach (var kv in plotwdcpowermeter.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "_testpcu";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                this.chart2.Series[chartseries].MarkerSize = 9;
+                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+                //this.chart1.ChartAreas[0].AxisX.Minimum = 13;
+                foreach (var v in kv.Value)
+                {
+                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                }
+            }
+        }
+
+        private void acpowerdiff()
+        {
+            this.chart1.Series.Clear();
+            this.chart2.Series.Clear();
+            this.chart2.Titles.Clear();
+            this.chart1.Titles.Clear();
+            foreach (var kv in plotwacpowermeterbl.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "_baseline";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                this.chart2.Series[chartseries].MarkerSize = 9;
+                this.chart2.Series[chartseries].Color = Color.Black;
+                this.chart2.ChartAreas[0].AxisX.Minimum = 13;
+                this.chart2.ChartAreas[0].AxisY.Minimum = 80;
+                foreach (var v in kv.Value)
+                {
+                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                }
+            }
+
+            foreach (var kv in plotwacpowermeter.GetSlices)
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -423,23 +538,74 @@ namespace PlotDVT
             this.chart1.ChartAreas[0].AxisX.Minimum = 13;
             this.chart1.ChartAreas[0].AxisY.Minimum = 13;
 
+            this.chart1.Titles.Clear();
+            Title title = new Title("Vdc compare: Vdc configured, powermeter and PCU", 
+                Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
+            this.chart1.Titles.Add(title);
+            title.DockedToChartArea = this.chart1.ChartAreas[0].Name;
+
             this.chart2.Series.Clear();
             this.chart2.ChartAreas[0].AxisX.Minimum = 13;
             this.chart2.ChartAreas[0].AxisY.Minimum = 13;
+
+            this.chart2.Titles.Clear();
+            Title title2 = new Title("Vdc reported: Test pm vs Baseline pm",
+                Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
+            this.chart2.Titles.Add(title2);
+            title.DockedToChartArea = this.chart2.ChartAreas[0].Name;
+
             //plot diagonal grey conf line
             string series = "_conf";
             //Add a series
             this.chart1.Series.Add(series);
             //set the chart type
-            this.chart1.Series[series].ChartType = SeriesChartType.Line;
+            this.chart1.Series[series].ChartType = SeriesChartType.Point;
+            this.chart1.Series[series].MarkerStyle = MarkerStyle.Star6;
+            this.chart1.Series[series].MarkerSize = 10;
             this.chart1.Series[series].Color = Color.CadetBlue;
-            this.chart1.Series[series].BorderWidth = 8;
+            //this.chart1.Series[series].BorderWidth = 8;
             foreach (var kv in plotvdcpcu.GetSlices)
             {
                 //Name the series
                 this.chart1.Series[series].Points.AddXY(kv.Key, kv.Key);
             }
-            //plot the power meter on chart1
+            series = "conf2";
+            //Add a series
+            this.chart1.Series.Add(series);
+            //set the chart type
+            this.chart1.Series[series].ChartType = SeriesChartType.Line;
+            this.chart1.Series[series].BorderWidth = 1;
+            this.chart1.Series[series].Color = Color.CadetBlue;
+            //this.chart1.Series[series].BorderWidth = 8;
+            foreach (var kv in plotvdcpcu.GetSlices)
+            {
+                //Name the series
+                this.chart1.Series[series].Points.AddXY(kv.Key, kv.Key);
+            }
+
+            // plot the DIFF V powermeter on chart 2
+            foreach (var kv in plotvdcpowermeterbl.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "_basel_pm";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                this.chart2.Series[chartseries].MarkerSize = 9;
+                this.chart2.Series[chartseries].Color = Color.Black;
+                this.chart2.ChartAreas[0].AxisX.Minimum = 13;
+                foreach (var v in kv.Value)
+                {
+                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                }
+            }
+
+            //plot the power meter on chart1 and chart 2
             foreach (var kv in plotvdcpowermeter.GetSlices)
             {
                 //Name the series
@@ -455,33 +621,23 @@ namespace PlotDVT
                 this.chart1.Series[chartseries].MarkerSize = 7;
                 this.chart1.Series[chartseries].Color = Color.Black;
 
+                // plot the pcu on chart 2
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                //set the chart type
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                this.chart2.Series[chartseries].MarkerSize = 7;
+                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+                //Scale the x axis
+
                 foreach (var v in kv.Value)
                 {
                     this.chart1.Series[chartseries].Points.AddXY(kv.Key, v);
-                }
-            }
-            // plot the DIFF V pcu on chart 2
-            foreach (var kv in plotvdcpcubl.GetSlices)
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "_baseline";
-                //Add a series
-                this.chart2.Series.Add(chartseries);
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                this.chart2.Series[chartseries].MarkerSize = 9;
-                this.chart2.Series[chartseries].Color = Color.Black;
-                this.chart2.ChartAreas[0].AxisX.Minimum = 13;
-                foreach (var v in kv.Value)
-                {
                     this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
-            //plot the pcu on chart 1
+            //plot the pcu on chart 1 and 2
             foreach (var kv in plotvdcpcu.GetSlices)
             {
                 //Name the series
@@ -498,18 +654,18 @@ namespace PlotDVT
                 this.chart1.Series[chartseries].Color = Color.DarkOrange;
                 // plot the pcu on chart 2
                 //Add a series
-                this.chart2.Series.Add(chartseries);
-                //set the chart type
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                this.chart2.Series[chartseries].MarkerSize = 8;
-                this.chart2.Series[chartseries].Color = Color.DarkOrange;
-                //Scale the x axis
+                //this.chart2.Series.Add(chartseries);
+                ////set the chart type
+                //this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                //this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                //this.chart2.Series[chartseries].MarkerSize = 8;
+                //this.chart2.Series[chartseries].Color = Color.DarkOrange;
+                ////Scale the x axis
 
                 foreach (var v in kv.Value)
                 {
                     this.chart1.Series[chartseries].Points.AddXY(kv.Key, v);
-                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                    //this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
         }
@@ -622,24 +778,40 @@ namespace PlotDVT
         private void button6_Click(object sender, EventArgs e)
         {
             float deg = -45.0f;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            textBox1.Clear();
+            textBox1.Text = button6.Text;
             changeplotdegrees(deg);
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             float deg = -30.0f;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            textBox1.Clear();
+            textBox1.Text = button7.Text;
             changeplotdegrees(deg);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
             float deg = -15.0f;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            textBox1.Clear();
+            textBox1.Text = button8.Text;
             changeplotdegrees(deg);
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             float deg = 0.0f;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            textBox1.Clear();
+            textBox1.Text = button9.Text;
             changeplotdegrees(deg);
         }
 
@@ -653,30 +825,133 @@ namespace PlotDVT
             plotvdcpowermeter.CreatSlices(deg);
 
             plotefficiency.CreatSlices(deg);
+            plotwacpowermeter.CreatSlices(deg);
+            plotwdcpowermeter.CreatSlices(deg);
 
             plotidcconfigurebl.CreatSlices(deg);
             plotidcpowermeterbl.CreatSlices(deg);
             plotidcpcubl.CreatSlices(deg);
             plotvdcpcubl.CreatSlices(deg);
             plotefficiencybl.CreatSlices(deg);
+            plotwacpowermeterbl.CreatSlices(deg);
+            plotwdcpowermeterbl.CreatSlices(deg);
+            plotvdcpowermeterbl.CreatSlices(deg);
+
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
             float deg = 15.0f;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            textBox1.Clear();
+            textBox1.Text = button10.Text;
             changeplotdegrees(deg);
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
             float deg = 30.0f;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            textBox1.Clear();
+            textBox1.Text = button11.Text;
             changeplotdegrees(deg);
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
             float deg = 45.0f;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            textBox1.Clear();
+            textBox1.Text = button12.Text;
             changeplotdegrees(deg);
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            dcpowerdiff();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            acpowerdiff();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Accuracy();
+        }
+
+        public void Accuracy()
+        {
+            this.chart2.Series.Clear();
+            this.chart2.Titles.Clear();
+            this.chart2.ChartAreas[0].AxisX.Minimum = 13;
+            this.chart2.ChartAreas[0].AxisY.Minimum = -1;
+
+            Dictionary<float, List<float>> dictVdcpm = new Dictionary<float, List<float>>(plotvdcpowermeterbl.GetSlices);
+            List<float> values = new List<float>();
+            // plot the DIFF V powermeter on chart 2
+            foreach (var kv in plotvdcpcubl.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "accuracybl";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                this.chart2.Series[chartseries].MarkerSize = 7;
+                this.chart2.Series[chartseries].Color = Color.Black;
+
+                if (dictVdcpm.ContainsKey(kv.Key))
+                    values = dictVdcpm[kv.Key];
+
+                if (values.Count == kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = ((kv.Value[i] - values[i])/kv.Value[i])*100;
+                        float accuracy2 = (float) (Math.Round((double) accuracy, 2));
+                        this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
+
+            dictVdcpm = new Dictionary<float, List<float>>(plotvdcpowermeter.GetSlices);
+            values = new List<float>();
+            // plot the DIFF V powermeter on chart 2
+            foreach (var kv in plotvdcpcu.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "accuracy";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                this.chart2.Series[chartseries].MarkerSize = 7;
+                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+
+                if (dictVdcpm.ContainsKey(kv.Key))
+                    values = dictVdcpm[kv.Key];
+
+                if (values.Count == kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
         }
     }
 }

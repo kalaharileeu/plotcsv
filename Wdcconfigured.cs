@@ -9,11 +9,12 @@ namespace PlotDVT
 {
     class Wdcconfigured : Valuelist
     {
-        public Wdcconfigured(List<string> stringvaluelist) : base(stringvaluelist)
+
+        public Wdcconfigured(List<string> stringvaluelist)
+            : base(stringvaluelist)
         {
-            //valuesstring = stringvaluelist;
         }
-        //new keyword to overide the baselist GetAverage
+
         public new float GetAverage
         {
             get { return average; }
@@ -21,17 +22,22 @@ namespace PlotDVT
 
         public new float GetMax
         {
-            get { return maxvalue;}
+            get { return maxvalue; }
         }
 
         public new float GetMin
         {
-            get { return minvalue;}
+            get { return minvalue; }
         }
 
         public new List<float> GetFloats
         {
             get { return valuesfloat; }
+        }
+
+        public Dictionary<float, List<float>> Slices
+        {
+            get { return slices; }
         }
     }
 }

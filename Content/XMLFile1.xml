@@ -45,9 +45,14 @@
     <alias>Vdcpowermeter</alias>
     <from>powermeter</from>
   </Column>
-    <Column>
-      <columnname>pm_dc_watts_1</columnname>
-      <alias>Wdcpowermeter</alias>
+  <Column>
+    <columnname>pm_dc_watts_1</columnname>
+    <alias>Wdcpowermeter</alias>
+    <from>powermeter</from>
+  </Column>
+  <Column>
+      <columnname>pm_ac_watts</columnname>
+      <alias>Wacpowermeter</alias>
       <from>powermeter</from>
     </Column>
   <Column>

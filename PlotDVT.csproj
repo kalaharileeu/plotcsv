@@ -52,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Baselist.cs" />
+    <Compile Include="Plotwacpowermeter.cs" />
     <Compile Include="PlotPhaseconfigured.cs" />
+    <Compile Include="Plotwdcpowermeter.cs" />
     <Compile Include="Slices.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="Efficiency.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Valuelist.cs" />
     <Compile Include="Vdcpcu.cs" />
     <Compile Include="Vdcpowermeter.cs" />
+    <Compile Include="Wacpowermeter.cs" />
     <Compile Include="Wdcconfigured.cs" />
     <Compile Include="Wdcpcu.cs" />
     <Compile Include="Wdcpowermeter.cs" />

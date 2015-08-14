@@ -19,5 +19,19 @@ namespace PlotDVT
         {
             get { return headerlist;}
         }
+
+        override public void Populareslices(Dictionary<float, List<int>> slicedvalues)
+        {}
+
+        override public void Populareslices(List<Slice> slice)
+        {}
+
+        override public void Populareslices(List<Slice> slice, float deg)
+        {}
+
+        override public Dictionary<float, List<float>> GetSlices()
+        {
+            return new Dictionary<float, List<float>>();
+        }
     }
 }

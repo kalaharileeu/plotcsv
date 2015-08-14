@@ -8,9 +8,34 @@ namespace PlotDVT
 {
     class Wdcpowermeter : Valuelist
     {
-        public Wdcpowermeter(List<string> stringvaluelist) : base(stringvaluelist)
+        public Wdcpowermeter(List<string> stringvaluelist)
+            : base(stringvaluelist)
         {
-            //valuesstring = stringvaluelist;
+        }
+
+        public new float GetAverage
+        {
+            get { return average; }
+        }
+
+        public new float GetMax
+        {
+            get { return maxvalue; }
+        }
+
+        public new float GetMin
+        {
+            get { return minvalue; }
+        }
+
+        public new List<float> GetFloats
+        {
+            get { return valuesfloat; }
+        }
+
+        public Dictionary<float, List<float>> Slices
+        {
+            get { return slices; }
         }
     }
 }

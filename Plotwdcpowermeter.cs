@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace PlotDVT
 {
-    class PlotEfficiency
+    class Plotwdcpowermeter
     {
         private List<Baselist> columnobjects;
         private float ave;
         private float max;
-        private float min;
         private Dictionary<float, List<float>> slices;
 
-        public PlotEfficiency(List<Baselist> list)
+        public Plotwdcpowermeter(List<Baselist> list)
         {
             columnobjects = new List<Baselist>();
             columnobjects = list;
@@ -27,7 +26,7 @@ namespace PlotDVT
             {
                 //string value = ((V.GetType()).ToString()).Replace("PlotDVT.", "");
                 //string value = ((bl.GetType()).ToString());
-                if (bl is Efficiency)
+                if (bl is Wdcpowermeter)
                 {
                     slices = bl.GetSlices();
                     try
@@ -51,7 +50,7 @@ namespace PlotDVT
         {
             foreach (Baselist bl in columnobjects)
             {
-                if (bl is Efficiency)
+                if (bl is Wdcpowermeter)
                 {
                     try
                     {
@@ -80,10 +79,10 @@ namespace PlotDVT
             get { return max; }
         }
 
-        public float GetMin
-        {
-            get { return min;}
-        }
+        //public float GetMin
+        //{
+        //    get { return min;}
+        //}
 
         public float GetAverage
         {

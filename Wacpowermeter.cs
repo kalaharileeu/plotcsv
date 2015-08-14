@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace PlotDVT
 {
-    class Efficiency : Valuelist
+    class Wacpowermeter : Valuelist
     {
-        public Efficiency(List<string> stringvaluelist)
+
+        public Wacpowermeter(List<string> stringvaluelist)
             : base(stringvaluelist)
         {
         }

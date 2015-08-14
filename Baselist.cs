@@ -17,5 +17,14 @@ namespace PlotDVT
         public float GetMin;
         public float GetMax;
         public List<float> GetFloats;
+        public Dictionary<float, List<float>> Slices;
+
+        abstract public void Populareslices(Dictionary<float, List<int>> slicedvalues);
+        abstract public void Populareslices(List<Slice> slice);
+        abstract public void Populareslices(List<Slice> slice, float deg);
+
+        abstract public Dictionary<float, List<float>> GetSlices();
+
+
     }
 }
