@@ -60,6 +60,16 @@
     <alias>Efficiency</alias>
     <from>powermeter</from>
   </Column>
+  <Column>
+    <columnname>pm_ac_va</columnname>
+    <alias>ACvapowermeter</alias>
+    <from>powermeter</from>
+  </Column>
+  <Column>
+    <columnname>pm_ac_var</columnname>
+    <alias>ACvarpowermeter</alias>
+    <from>powermeter</from>
+  </Column>
 </DataCol>
 
 

@@ -51,9 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ACvapowermeter.cs" />
+    <Compile Include="ACvarpowermeter.cs" />
     <Compile Include="Baselist.cs" />
+    <Compile Include="Ploracvapowermeter.cs" />
+    <Compile Include="Plotacvarpowermeter.cs" />
     <Compile Include="Plotwacpowermeter.cs" />
     <Compile Include="PlotPhaseconfigured.cs" />
+    <Compile Include="Plotwdcpcu.cs" />
     <Compile Include="Plotwdcpowermeter.cs" />
     <Compile Include="Slices.cs" />
     <Compile Include="Column.cs" />

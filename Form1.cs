@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -18,6 +19,7 @@ namespace PlotDVT
     {
         List<Column> wantedcolumns;//stores a list of wanted data rows
         int rowcount;
+        bool reverse = false;
         DataCol datacolumns;
         Dictionary<string, Column> realpowerdict;
         //RealPowerAnswer realpoweranswers;
@@ -29,6 +31,8 @@ namespace PlotDVT
         private PlotVdcpowermeter plotvdcpowermeter;
         private Plotwacpowermeter plotwacpowermeter;
         private Plotwdcpowermeter plotwdcpowermeter;
+        private Plotwdcpcu plotwdcpcu;
+        private Plotacvarpowermeter plotacvarpowermeter;
         private PlotPhaseconfigured plotphaseconfigured;
         //private PlotVdcconfigured plotvdcconfigured;
         private PlotVdcpcu plotvdcpcu;
@@ -48,6 +52,8 @@ namespace PlotDVT
         private Plotwdcpowermeter plotwdcpowermeterbl;
         private List<Column> wantedcolumnsbl;
         private PlotVdcpowermeter plotvdcpowermeterbl;
+        private Plotwdcpcu plotwdcpcubl;
+        private Plotacvarpowermeter plotacvarpowermeterbl;
 
         private string filenamebl;
         private string filenamedata;
@@ -57,6 +63,8 @@ namespace PlotDVT
         public Form1()
         {
             InitializeComponent();
+            textBox2.Text = "1000";
+
             //Initialize the list of wanted columns
             wantedcolumns = new List<Column>();
             //values for the last measured result
@@ -81,21 +89,21 @@ namespace PlotDVT
             Richtextedit();
             //Xrid lines
             //this.chart1.ChartAreas[0].AxisX.Minimum = 13;
-            this.chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
-            this.chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
-            this.chart1.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
+            chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
+            chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
+            chart1.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
             //Xrid lines
-            this.chart2.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
-            this.chart2.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
-            this.chart2.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
+            chart2.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
+            chart2.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
+            chart2.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
             //Ygrid lines
-            this.chart1.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
-            this.chart1.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
-            this.chart1.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
+            chart1.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
+            chart1.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
+            chart1.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
             //YGrid lines
-            this.chart2.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
-            this.chart2.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
-            this.chart2.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
+            chart2.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
+            chart2.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
+            chart2.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
             //plotIdc();
             this.textBox1.Text = "0°";
         }
@@ -179,6 +187,8 @@ namespace PlotDVT
             plotwacpowermeterbl = new Plotwacpowermeter(columnobjectlistbl);
             plotwdcpowermeterbl = new Plotwdcpowermeter(columnobjectlistbl);
             plotvdcpowermeterbl = new PlotVdcpowermeter(columnobjectlistbl);
+            plotwdcpcubl = new Plotwdcpcu(columnobjectlistbl);
+            plotacvarpowermeterbl = new Plotacvarpowermeter(columnobjectlistbl);
 
         }
         //************************************Done populating data for baseline*********************
@@ -260,7 +270,9 @@ namespace PlotDVT
             plotvdcpowermeter = new PlotVdcpowermeter(columnobjectlist);
             plotvdcpcu = new PlotVdcpcu(columnobjectlist);
             plotwacpowermeter = new Plotwacpowermeter(columnobjectlist);
+            plotwdcpcu = new Plotwdcpcu(columnobjectlist);
             plotwdcpowermeter = new Plotwdcpowermeter(columnobjectlist);
+            plotacvarpowermeter = new Plotacvarpowermeter(columnobjectlist);
 
         }
 //**********************************************Done populating data for unit undertest*********************
@@ -273,15 +285,17 @@ namespace PlotDVT
 
         public void plotIdc()
         {
-            this.chart1.Series.Clear();
-            this.chart1.Titles.Clear();
+            chart1.ChartAreas[0].BackColor = Color.White;
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
 
-            this.chart1.ChartAreas[0].AxisY.Minimum = 0;
+            chart1.ChartAreas[0].AxisY.Minimum = 0;
 
-            this.chart2.Series.Clear();
-            this.chart2.Titles.Clear();
+            chart2.Series.Clear();
+            chart2.Titles.Clear();
             //this.chart2.ChartAreas[0].AxisX.Minimum = 13;
-            this.chart2.ChartAreas[0].AxisY.Minimum = 0;
+            chart2.ChartAreas[0].AxisY.Minimum = 0;
             //plot diagonal grey conf line
             foreach (var kv in plotidcconfigure.GetSlices)
             {
@@ -379,10 +393,12 @@ namespace PlotDVT
         /// </summary>
         private void ploteff()
         {
-            this.chart1.Series.Clear();
-            this.chart2.Series.Clear();
-            this.chart2.Titles.Clear();
-            this.chart1.Titles.Clear();
+            chart1.ChartAreas[0].BackColor = Color.White;
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            chart2.Titles.Clear();
+            chart1.Titles.Clear();
             foreach (var kv in plotefficiencybl.GetSlices)
             {
                 //Name the series
@@ -391,14 +407,14 @@ namespace PlotDVT
                     chartseries = chartseries.Substring(0, 4);
                 chartseries += "_baseline";
                 //Add a series
-                this.chart2.Series.Add(chartseries);
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
                 //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                this.chart2.Series[chartseries].MarkerSize = 9;
-                this.chart2.Series[chartseries].Color = Color.Black;
-                this.chart2.ChartAreas[0].AxisX.Minimum = 13;
-                this.chart2.ChartAreas[0].AxisY.Minimum = 80;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                chart2.Series[chartseries].MarkerSize = 9;
+                chart2.Series[chartseries].Color = Color.Black;
+                chart2.ChartAreas[0].AxisX.Minimum = 13;
+                chart2.ChartAreas[0].AxisY.Minimum = 80;
                 foreach (var v in kv.Value)
                 {
                     this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
@@ -429,10 +445,12 @@ namespace PlotDVT
 
         private void dcpowerdiff()
         {
-            this.chart1.Series.Clear();
-            this.chart2.Series.Clear();
-            this.chart2.Titles.Clear();
-            this.chart1.Titles.Clear();
+            chart1.ChartAreas[0].BackColor = Color.White;
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            chart2.Titles.Clear();
+            chart1.Titles.Clear();
             foreach (var kv in plotwdcpowermeterbl.GetSlices)
             {
                 //Name the series
@@ -441,17 +459,17 @@ namespace PlotDVT
                     chartseries = chartseries.Substring(0, 4);
                 chartseries += "_baseline";
                 //Add a series
-                this.chart2.Series.Add(chartseries);
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
                 //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                this.chart2.Series[chartseries].MarkerSize = 9;
-                this.chart2.Series[chartseries].Color = Color.Black;
-                this.chart2.ChartAreas[0].AxisX.Minimum = 13;
-                this.chart2.ChartAreas[0].AxisY.Minimum = 80;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                chart2.Series[chartseries].MarkerSize = 9;
+                chart2.Series[chartseries].Color = Color.Black;
+                chart2.ChartAreas[0].AxisX.Minimum = 13;
+                chart2.ChartAreas[0].AxisY.Minimum = 0;
                 foreach (var v in kv.Value)
                 {
-                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                    chart2.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
 
@@ -479,10 +497,12 @@ namespace PlotDVT
 
         private void acpowerdiff()
         {
-            this.chart1.Series.Clear();
-            this.chart2.Series.Clear();
-            this.chart2.Titles.Clear();
-            this.chart1.Titles.Clear();
+            chart1.ChartAreas[0].BackColor = Color.White;
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            chart2.Titles.Clear();
+            chart1.Titles.Clear();
             foreach (var kv in plotwacpowermeterbl.GetSlices)
             {
                 //Name the series
@@ -498,7 +518,7 @@ namespace PlotDVT
                 this.chart2.Series[chartseries].MarkerSize = 9;
                 this.chart2.Series[chartseries].Color = Color.Black;
                 this.chart2.ChartAreas[0].AxisX.Minimum = 13;
-                this.chart2.ChartAreas[0].AxisY.Minimum = 80;
+                this.chart2.ChartAreas[0].AxisY.Minimum = 0;
                 foreach (var v in kv.Value)
                 {
                     this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
@@ -534,11 +554,13 @@ namespace PlotDVT
         /// </summary>
         public void PlotVdccompare()
         {
-            this.chart1.Series.Clear();
-            this.chart1.ChartAreas[0].AxisX.Minimum = 13;
-            this.chart1.ChartAreas[0].AxisY.Minimum = 13;
+            chart1.ChartAreas[0].BackColor = Color.White;
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart1.Series.Clear();
+            chart1.ChartAreas[0].AxisX.Minimum = 13;
+            chart1.ChartAreas[0].AxisY.Minimum = 13;
 
-            this.chart1.Titles.Clear();
+            chart1.Titles.Clear();
             Title title = new Title("Vdc compare: Vdc configured, powermeter and PCU", 
                 Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
             this.chart1.Titles.Add(title);
@@ -731,10 +753,10 @@ namespace PlotDVT
         {
             this.openFileDialog2.Filter = "csv files (*.csv)|*.csv";
             // Show the dialog and get result.
-            DialogResult result = openFileDialog1.ShowDialog();
+            DialogResult result = openFileDialog2.ShowDialog();
             if (result == DialogResult.OK) // Test result.
             {
-                filenamedata = openFileDialog1.FileName;
+                filenamedata = openFileDialog2.FileName;
             }
             //get the file info from the path
             FileInfo info = new FileInfo(filenamedata);
@@ -778,18 +800,18 @@ namespace PlotDVT
         private void button6_Click(object sender, EventArgs e)
         {
             float deg = -45.0f;
-            chart1.Series.Clear();
-            chart2.Series.Clear();
-            textBox1.Clear();
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
             textBox1.Text = button6.Text;
+
             changeplotdegrees(deg);
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             float deg = -30.0f;
-            chart1.Series.Clear();
-            chart2.Series.Clear();
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
             textBox1.Clear();
             textBox1.Text = button7.Text;
             changeplotdegrees(deg);
@@ -798,8 +820,8 @@ namespace PlotDVT
         private void button8_Click(object sender, EventArgs e)
         {
             float deg = -15.0f;
-            chart1.Series.Clear();
-            chart2.Series.Clear();
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
             textBox1.Clear();
             textBox1.Text = button8.Text;
             changeplotdegrees(deg);
@@ -808,8 +830,8 @@ namespace PlotDVT
         private void button9_Click(object sender, EventArgs e)
         {
             float deg = 0.0f;
-            chart1.Series.Clear();
-            chart2.Series.Clear();
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
             textBox1.Clear();
             textBox1.Text = button9.Text;
             changeplotdegrees(deg);
@@ -827,6 +849,8 @@ namespace PlotDVT
             plotefficiency.CreatSlices(deg);
             plotwacpowermeter.CreatSlices(deg);
             plotwdcpowermeter.CreatSlices(deg);
+            plotwdcpcu.CreatSlices(deg);
+            plotacvarpowermeter.CreatSlices(deg);
 
             plotidcconfigurebl.CreatSlices(deg);
             plotidcpowermeterbl.CreatSlices(deg);
@@ -836,14 +860,16 @@ namespace PlotDVT
             plotwacpowermeterbl.CreatSlices(deg);
             plotwdcpowermeterbl.CreatSlices(deg);
             plotvdcpowermeterbl.CreatSlices(deg);
+            plotwdcpcubl.CreatSlices(deg);
+            plotacvarpowermeterbl.CreatSlices(deg);
 
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
             float deg = 15.0f;
-            chart1.Series.Clear();
-            chart2.Series.Clear();
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
             textBox1.Clear();
             textBox1.Text = button10.Text;
             changeplotdegrees(deg);
@@ -852,8 +878,8 @@ namespace PlotDVT
         private void button11_Click(object sender, EventArgs e)
         {
             float deg = 30.0f;
-            chart1.Series.Clear();
-            chart2.Series.Clear();
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
             textBox1.Clear();
             textBox1.Text = button11.Text;
             changeplotdegrees(deg);
@@ -862,8 +888,8 @@ namespace PlotDVT
         private void button12_Click(object sender, EventArgs e)
         {
             float deg = 45.0f;
-            chart1.Series.Clear();
-            chart2.Series.Clear();
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
             textBox1.Clear();
             textBox1.Text = button12.Text;
             changeplotdegrees(deg);
@@ -881,17 +907,26 @@ namespace PlotDVT
 
         private void button15_Click(object sender, EventArgs e)
         {
-            Accuracy();
+            Accuracydcv();
         }
 
-        public void Accuracy()
+        public void Accuracydcv()
         {
+            chart2.ChartAreas[0].BackColor = Color.White;
             this.chart2.Series.Clear();
             this.chart2.Titles.Clear();
             this.chart2.ChartAreas[0].AxisX.Minimum = 13;
-            this.chart2.ChartAreas[0].AxisY.Minimum = -1;
+            this.chart2.ChartAreas[0].AxisY.Minimum = -2;
 
-            Dictionary<float, List<float>> dictVdcpm = new Dictionary<float, List<float>>(plotvdcpowermeterbl.GetSlices);
+            chart1.Titles.Clear();
+
+            Title title = new Title("PCU Vdc reporting accurancy. Phase andgle: " + textBox1.Text,
+                Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
+            chart2.Titles.Add(title);
+            title.DockedToChartArea = chart2.ChartAreas[0].Name;
+
+            Dictionary<float, List<float>> dictVdcpm =
+                new Dictionary<float, List<float>>(plotvdcpowermeterbl.GetSlices);
             List<float> values = new List<float>();
             // plot the DIFF V powermeter on chart 2
             foreach (var kv in plotvdcpcubl.GetSlices)
@@ -902,16 +937,16 @@ namespace PlotDVT
                     chartseries = chartseries.Substring(0, 4);
                 chartseries += "accuracybl";
                 //Add a series
-                this.chart2.Series.Add(chartseries);
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                this.chart2.Series[chartseries].MarkerSize = 7;
-                this.chart2.Series[chartseries].Color = Color.Black;
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                chart2.Series[chartseries].MarkerSize = 7;
+                chart2.Series[chartseries].Color = Color.Black;
 
                 if (dictVdcpm.ContainsKey(kv.Key))
                     values = dictVdcpm[kv.Key];
 
-                if (values.Count == kv.Value.Count)
+                if (values.Count <= kv.Value.Count)
                 {
                     for (int i = 0; i < kv.Value.Count; i++)
                     {
@@ -952,6 +987,286 @@ namespace PlotDVT
                     }
                 }
             }
+        }
+
+        public void Accuracyicv()
+        {
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart2.Series.Clear();
+            chart2.Titles.Clear();
+            chart2.ChartAreas[0].AxisX.Minimum = 13;
+            chart2.ChartAreas[0].AxisY.Minimum = -2;
+
+            chart1.Titles.Clear();
+
+            Title title = new Title("PCU Idc reporting accurancy. Phase andgle: " + textBox1.Text,
+                Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
+            chart2.Titles.Add(title);
+            title.DockedToChartArea = chart2.ChartAreas[0].Name;
+
+            Dictionary<float, List<float>> dictidcpm =
+                new Dictionary<float, List<float>>(plotidcpowermeterbl.GetSlices);
+            List<float> values = new List<float>();
+            // plot the DIFF V powermeter on chart 2
+            foreach (var kv in plotidcpcubl.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "accuracybl";
+                //Add a series
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                chart2.Series[chartseries].MarkerSize = 7;
+                chart2.Series[chartseries].Color = Color.Black;
+
+                if (dictidcpm.ContainsKey(kv.Key))
+                    values = dictidcpm[kv.Key];
+
+                if (values.Count <= kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
+
+            dictidcpm = new Dictionary<float, List<float>>(plotidcpowermeter.GetSlices);
+            values = new List<float>();
+            // plot the DIFF V powermeter on chart 2
+            foreach (var kv in plotidcpcu.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "accuracy";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                this.chart2.Series[chartseries].MarkerSize = 7;
+                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+
+                if (dictidcpm.ContainsKey(kv.Key))
+                    values = dictidcpm[kv.Key];
+
+                if (values.Count == kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
+        }
+
+        public void Accuracywdc()
+        {
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart2.Series.Clear();
+            chart2.Titles.Clear();
+            chart2.ChartAreas[0].AxisX.Minimum = 13;
+            chart2.ChartAreas[0].AxisY.Minimum = -2;
+
+            chart1.Titles.Clear();
+
+            Title title = new Title("PCU Wdc reporting accurancy. Phase andgle: " + textBox1.Text,
+                Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
+            chart2.Titles.Add(title);
+            title.DockedToChartArea = chart2.ChartAreas[0].Name;
+
+            Dictionary<float, List<float>> dictwdcpm =
+                new Dictionary<float, List<float>>(plotwdcpowermeterbl.GetSlices);
+            List<float> values = new List<float>();
+            // plot the DIFF V powermeter on chart 2
+            foreach (var kv in plotwdcpcubl.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "accuracybl";
+                //Add a series
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                chart2.Series[chartseries].MarkerSize = 7;
+                chart2.Series[chartseries].Color = Color.Black;
+
+                if (dictwdcpm.ContainsKey(kv.Key))
+                    values = dictwdcpm[kv.Key];
+
+                if (values.Count <= kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
+
+            Dictionary<float, List<float>> dictwdcpm2 = new Dictionary<float, List<float>>(plotwdcpowermeter.GetSlices);
+            values = new List<float>();
+            // plot the DIFF V powermeter on chart 2
+            foreach (var kv in plotwdcpcu.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "accuracy";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                this.chart2.Series[chartseries].MarkerSize = 7;
+                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+
+                if (dictwdcpm2.ContainsKey(kv.Key))
+                    values = dictwdcpm2[kv.Key];
+
+                if (values.Count <= kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
+        }
+
+        private void Pause()
+        {
+            Thread.Sleep(1000);
+
+            //return "done";
+        }
+
+        //private async void acvarvapowerplotx(string seriesx, float x)
+        //{
+
+        //    //chart1.Titles.Clear();
+        //    chart1.Series[seriesx].Points.AddXY(0, 0);
+        //    chart1.Series[seriesx].Points.AddXY(x, 0);
+        //    //Pause();
+        //}
+
+        private async void acvarvapowerploty(List<float> list1, List<float> list2)
+        {
+            //Name the series
+
+            //chart1.Series.Add(series);
+            //chart1.Series[series].ChartType = SeriesChartType.Line;
+            //chart1.Series[series].BorderWidth = 5;
+            //chart1.Series[series].Color = Color.CadetBlue;
+            //for (int i = 0; i < list2.Count; i++)
+            //{
+            ////    chart1.Series[series].Points.AddXY(0, 0);
+            //    chart1.Series[series].Points.AddXY(list1[i], 0);
+            ////    //chart1.Titles.Clear();
+            ////    chart1.Series[series].Points.AddXY(list1[i], 0);
+            ////    chart1.Series[series].Points.AddXY(list1[i], list2[i]);
+
+           //}
+        }
+
+        public async void acvarvapower()
+        {
+            chart1.ChartAreas[0].BackColor = Color.White;
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            chart2.Titles.Clear();
+            chart1.Titles.Clear();
+            chart1.ChartAreas[0].AxisX.Minimum = Double.NaN;
+            //chart1.ChartAreas[0].AxisY.Minimum = -150;
+            chart1.ChartAreas[0].AxisY.Minimum = Double.NaN;
+
+            Title title = new Title("Powermeter VA against VAR: " + textBox1.Text,
+                Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
+            chart1.Titles.Add(title);
+            title.DockedToChartArea = chart1.ChartAreas[0].Name;
+
+            Dictionary<float, List<float>> dictacwpm =
+                new Dictionary<float, List<float>>(plotwacpowermeter.GetSlices);
+            List<float> values = new List<float>();
+
+
+            foreach (var kv in plotacvarpowermeter.GetSlices)
+            {
+
+                string series = (Convert.ToString(kv.Key));
+                if (series.Length > 4)
+                    series = series.Substring(0, 4);
+                series += "Vavar";
+                chart1.Series.Add(series);
+
+                chart1.Series[series].ChartType = SeriesChartType.Line;
+                chart1.Series[series].BorderWidth = 2;
+
+                if (dictacwpm.ContainsKey(kv.Key))
+                    values = dictacwpm[kv.Key];
+
+                if (values.Count <= kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        chart1.Series[series].Points.AddXY(0, 0);
+                        chart1.Series[series].Points.AddXY(values[i], 0);
+                        //chart1.Titles.Clear();
+                        chart1.Series[series].Points.AddXY(values[i], 0);
+                        chart1.Series[series].Points.AddXY(values[i], kv.Value[i]);
+                        await Task.Delay(Convert.ToInt16(textBox2.Text));
+                        //chart1.Series[series].Points.Clear();
+                    }
+                    if(reverse)
+                        chart1.Series[series].Points.Clear();
+                }
+            }
+        }
+
+        //private async void writeto plot 
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            Accuracyicv();
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            Accuracywdc();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            acvarvapower();
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            if(!reverse)
+            {
+                reverse = true;
+                button19.BackColor = Color.DarkGreen;
+            }
+            else
+            {
+                reverse = false;
+                button19.BackColor = Color.LightYellow;
+            }
+                
         }
     }
 }
