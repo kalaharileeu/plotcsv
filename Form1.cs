@@ -34,6 +34,8 @@ namespace PlotDVT
         private Plotwdcpcu plotwdcpcu;
         private Plotacvarpowermeter plotacvarpowermeter;
         private PlotPhaseconfigured plotphaseconfigured;
+        private Plotwacvarconfigured plotwacvarconfigured;
+        private Plotwacconfigured plotwacconfigured;
         //private PlotVdcconfigured plotvdcconfigured;
         private PlotVdcpcu plotvdcpcu;
         /// <summary>
@@ -54,6 +56,8 @@ namespace PlotDVT
         private PlotVdcpowermeter plotvdcpowermeterbl;
         private Plotwdcpcu plotwdcpcubl;
         private Plotacvarpowermeter plotacvarpowermeterbl;
+        private Plotwacvarconfigured plotwacvarconfiguredbl;
+        private Plotwacconfigured plotwacconfiguredbl;
 
         private string filenamebl;
         private string filenamedata;
@@ -189,6 +193,8 @@ namespace PlotDVT
             plotvdcpowermeterbl = new PlotVdcpowermeter(columnobjectlistbl);
             plotwdcpcubl = new Plotwdcpcu(columnobjectlistbl);
             plotacvarpowermeterbl = new Plotacvarpowermeter(columnobjectlistbl);
+            plotwacvarconfiguredbl = new Plotwacvarconfigured(columnobjectlistbl);
+            plotwacconfiguredbl = new Plotwacconfigured(columnobjectlistbl);
 
         }
         //************************************Done populating data for baseline*********************
@@ -273,6 +279,8 @@ namespace PlotDVT
             plotwdcpcu = new Plotwdcpcu(columnobjectlist);
             plotwdcpowermeter = new Plotwdcpowermeter(columnobjectlist);
             plotacvarpowermeter = new Plotacvarpowermeter(columnobjectlist);
+            plotwacvarconfigured = new Plotwacvarconfigured(columnobjectlist);
+            plotwacconfigured = new Plotwacconfigured(columnobjectlist);
 
         }
 //**********************************************Done populating data for unit undertest*********************
@@ -851,6 +859,8 @@ namespace PlotDVT
             plotwdcpowermeter.CreatSlices(deg);
             plotwdcpcu.CreatSlices(deg);
             plotacvarpowermeter.CreatSlices(deg);
+            plotwacvarconfigured.CreatSlices(deg);
+            plotwacconfigured.CreatSlices(deg);
 
             plotidcconfigurebl.CreatSlices(deg);
             plotidcpowermeterbl.CreatSlices(deg);
@@ -862,7 +872,8 @@ namespace PlotDVT
             plotvdcpowermeterbl.CreatSlices(deg);
             plotwdcpcubl.CreatSlices(deg);
             plotacvarpowermeterbl.CreatSlices(deg);
-
+            plotwacvarconfiguredbl.CreatSlices(deg);
+            plotwacconfiguredbl.CreatSlices(deg);
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -1147,41 +1158,6 @@ namespace PlotDVT
             }
         }
 
-        private void Pause()
-        {
-            Thread.Sleep(1000);
-
-            //return "done";
-        }
-
-        //private async void acvarvapowerplotx(string seriesx, float x)
-        //{
-
-        //    //chart1.Titles.Clear();
-        //    chart1.Series[seriesx].Points.AddXY(0, 0);
-        //    chart1.Series[seriesx].Points.AddXY(x, 0);
-        //    //Pause();
-        //}
-
-        private async void acvarvapowerploty(List<float> list1, List<float> list2)
-        {
-            //Name the series
-
-            //chart1.Series.Add(series);
-            //chart1.Series[series].ChartType = SeriesChartType.Line;
-            //chart1.Series[series].BorderWidth = 5;
-            //chart1.Series[series].Color = Color.CadetBlue;
-            //for (int i = 0; i < list2.Count; i++)
-            //{
-            ////    chart1.Series[series].Points.AddXY(0, 0);
-            //    chart1.Series[series].Points.AddXY(list1[i], 0);
-            ////    //chart1.Titles.Clear();
-            ////    chart1.Series[series].Points.AddXY(list1[i], 0);
-            ////    chart1.Series[series].Points.AddXY(list1[i], list2[i]);
-
-           //}
-        }
-
         public async void acvarvapower()
         {
             chart1.ChartAreas[0].BackColor = Color.White;
@@ -1203,36 +1179,67 @@ namespace PlotDVT
                 new Dictionary<float, List<float>>(plotwacpowermeter.GetSlices);
             List<float> values = new List<float>();
 
+            Dictionary<float, List<float>> dictwaccnf =
+                new Dictionary<float, List<float>>(plotwacconfigured.GetSlices);
+            List<float> waccnf = new List<float>();
+
+            Dictionary<float, List<float>> dictwavarccnf =
+                new Dictionary<float, List<float>>(plotwacvarconfigured.GetSlices);
+            List<float> wacvarcnf = new List<float>();
+
 
             foreach (var kv in plotacvarpowermeter.GetSlices)
             {
 
                 string series = (Convert.ToString(kv.Key));
+                string confseries = "conf";
                 if (series.Length > 4)
                     series = series.Substring(0, 4);
+                confseries += series;
                 series += "Vavar";
                 chart1.Series.Add(series);
 
                 chart1.Series[series].ChartType = SeriesChartType.Line;
                 chart1.Series[series].BorderWidth = 2;
 
+                chart1.Series.Add(confseries);
+                chart1.Series[confseries].ChartType = SeriesChartType.Point;
+                chart1.Series[confseries].MarkerStyle = MarkerStyle.Cross;
+                chart1.Series[confseries].MarkerSize = 10;
+                //chart1.Series[confseries].Color = Color.Chocolate;
+
                 if (dictacwpm.ContainsKey(kv.Key))
                     values = dictacwpm[kv.Key];
+
+                if (dictwaccnf.ContainsKey(kv.Key))
+                    waccnf = dictwaccnf[kv.Key];
+
+                if (dictwavarccnf.ContainsKey(kv.Key))
+                    wacvarcnf = dictwavarccnf[kv.Key];
 
                 if (values.Count <= kv.Value.Count)
                 {
                     for (int i = 0; i < kv.Value.Count; i++)
                     {
+                        //Plot the congfigured w/va powermeter values
                         chart1.Series[series].Points.AddXY(0, 0);
                         chart1.Series[series].Points.AddXY(values[i], 0);
-                        //chart1.Titles.Clear();
                         chart1.Series[series].Points.AddXY(values[i], 0);
                         chart1.Series[series].Points.AddXY(values[i], kv.Value[i]);
+                        //Plot the congfigured w/va configured values
+                        chart1.Series[confseries].Points.AddXY(0, 0);
+                        chart1.Series[confseries].Points.AddXY(waccnf[i], 0);
+                        chart1.Series[confseries].Points.AddXY(waccnf[i], 0);
+                        chart1.Series[confseries].Points.AddXY(waccnf[i], wacvarcnf[i]);
+
                         await Task.Delay(Convert.ToInt16(textBox2.Text));
                         //chart1.Series[series].Points.Clear();
                     }
-                    if(reverse)
+                    if (reverse)
+                    {
                         chart1.Series[series].Points.Clear();
+                        chart1.Series[confseries].Points.Clear();
+                    }
                 }
             }
         }

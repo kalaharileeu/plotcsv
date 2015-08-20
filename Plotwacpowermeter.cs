@@ -9,8 +9,6 @@ namespace PlotDVT
     class Plotwacpowermeter
     {
         private List<Baselist> columnobjects;
-        private float ave;
-        private float max;
         private Dictionary<float, List<float>> slices;
 
         public Plotwacpowermeter(List<Baselist> list)
@@ -24,9 +22,7 @@ namespace PlotDVT
         {
             foreach (Baselist bl in columnobjects)
             {
-                //string value = ((V.GetType()).ToString()).Replace("PlotDVT.", "");
-                //string value = ((bl.GetType()).ToString());
-                if (bl is Wacpowermeter)
+                if (bl is Wacconfigured)
                 {
                     slices = bl.GetSlices();
                     try
@@ -50,7 +46,7 @@ namespace PlotDVT
         {
             foreach (Baselist bl in columnobjects)
             {
-                if (bl is Wacpowermeter)
+                if (bl is Wacconfigured)
                 {
                     try
                     {
@@ -72,21 +68,6 @@ namespace PlotDVT
         public Dictionary<float, List<float>> GetSlices
         {
             get { return slices;}
-        }
-
-        public float GetMax
-        {
-            get { return max; }
-        }
-
-        //public float GetMin
-        //{
-        //    get { return min;}
-        //}
-
-        public float GetAverage
-        {
-            get { return ave;}
         }
     }
 }

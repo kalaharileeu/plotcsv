@@ -56,8 +56,10 @@
     <Compile Include="Baselist.cs" />
     <Compile Include="Ploracvapowermeter.cs" />
     <Compile Include="Plotacvarpowermeter.cs" />
+    <Compile Include="Plotwacconfigured.cs" />
     <Compile Include="Plotwacpowermeter.cs" />
     <Compile Include="PlotPhaseconfigured.cs" />
+    <Compile Include="Plotwacvarconfigured.cs" />
     <Compile Include="Plotwdcpcu.cs" />
     <Compile Include="Plotwdcpowermeter.cs" />
     <Compile Include="Slices.cs" />
@@ -89,7 +91,9 @@
     <Compile Include="Valuelist.cs" />
     <Compile Include="Vdcpcu.cs" />
     <Compile Include="Vdcpowermeter.cs" />
+    <Compile Include="Wacconfigured.cs" />
     <Compile Include="Wacpowermeter.cs" />
+    <Compile Include="Wacvarconfigured.cs" />
     <Compile Include="Wdcconfigured.cs" />
     <Compile Include="Wdcpcu.cs" />
     <Compile Include="Wdcpowermeter.cs" />

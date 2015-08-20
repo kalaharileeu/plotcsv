@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DataCol>
+  <Column>
+    <columnname>cfg_ac_reactive_power</columnname>
+    <alias>Wacvarconfigured</alias>
+    <from>config</from>
+  </Column>
+  <Column>
+    <columnname>cfg_ac_real_power</columnname>
+    <alias>Wacconfigured</alias>
+    <from>config</from>
+  </Column>
     <Column>
       <columnname>cfg_dc_power</columnname>
       <alias>Wdcconfigured</alias>
