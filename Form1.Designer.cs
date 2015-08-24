@@ -114,7 +114,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
-            this.button1.Text = "Clear";
+            this.button1.Text = "Efficiency";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -351,7 +351,7 @@
             this.groupBox2.Size = new System.Drawing.Size(124, 81);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Efficiency";
+            this.groupBox2.Text = "Compare Efficiency";
             // 
             // groupBox3
             // 
@@ -377,12 +377,13 @@
             // 
             // button18
             // 
-            this.button18.Location = new System.Drawing.Point(490, 974);
+            this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button18.Location = new System.Drawing.Point(469, 959);
             this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(75, 23);
+            this.button18.Size = new System.Drawing.Size(116, 23);
             this.button18.TabIndex = 25;
-            this.button18.Text = "AC var vs va";
-            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Text = "Power Triangle";
+            this.button18.UseVisualStyleBackColor = false;
             this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // textBox2

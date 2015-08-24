@@ -928,7 +928,7 @@ namespace PlotDVT
                 {
                     for (int i = 0; i < kv.Value.Count; i++)
                     {
-                        float accuracy = ((kv.Value[i] - values[i])/kv.Value[i])*100;
+                        float accuracy = kv.Value[i] - values[i];
                         float accuracy2 = (float) (Math.Round((double) accuracy, 2));
                         this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
                     }
@@ -959,14 +959,14 @@ namespace PlotDVT
                 {
                     for (int i = 0; i < kv.Value.Count; i++)
                     {
-                        float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
+                        float accuracy = kv.Value[i] - values[i];
                         float accuracy2 = (float)(Math.Round((double)accuracy, 2));
                         this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
                     }
                 }
             }
         }
-
+        //plot the accuracy of idc
         public void Accuracyicv()
         {
             chartdefaults();
@@ -1001,53 +1001,43 @@ namespace PlotDVT
                 {
                     for (int i = 0; i < kv.Value.Count; i++)
                     {
-                        //check for devide by sero issues
-                        if(kv.Value[i] > 0)
-                        { 
-                            float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
-                            float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                            chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                        }
-                        else
-                        {
-                            chart2.Series[chartseries].Points.AddXY(kv.Key, 0.0f);
-                        }
+                        float accuracy = kv.Value[i] - values[i];
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
                     }
-                    //chart2.Invalidate();
                 }
             }
 
-            //dictidcpm = new Dictionary<float, List<float>>(plotidcpowermeter.GetSlices);
-            //values = new List<float>();
-            //// plot the DIFF V powermeter on chart 2
-            //foreach (var kv in plotidcpcu.GetSlices)
-            //{
-            //    //Name the series
-            //    string chartseries = (Convert.ToString(kv.Key));
-            //    if (chartseries.Length > 4)
-            //        chartseries = chartseries.Substring(0, 4);
-            //    chartseries += "accuracy";
-            //    //Add a series
-            //    this.chart2.Series.Add(chartseries);
-            //    this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-            //    this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-            //    this.chart2.Series[chartseries].MarkerSize = 7;
-            //    this.chart2.Series[chartseries].Color = Color.DarkOrange;
+            dictidcpm = new Dictionary<float, List<float>>(plotidcpowermeter.GetSlices);
+            values = new List<float>();
+            // plot the DIFF V powermeter on chart 2
+            foreach (var kv in plotidcpcu.GetSlices)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "accuracy";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                this.chart2.Series[chartseries].MarkerSize = 7;
+                this.chart2.Series[chartseries].Color = Color.DarkOrange;
 
-            //    if (dictidcpm.ContainsKey(kv.Key))
-            //        values = dictidcpm[kv.Key];
+                if (dictidcpm.ContainsKey(kv.Key))
+                    values = dictidcpm[kv.Key];
 
-            //    if (values.Count == kv.Value.Count)
-            //    {
-            //        for (int i = 0; i < kv.Value.Count; i++)
-            //        {
-            //            float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
-            //            float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-            //            this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-            //        }
-            //        //chart2.Invalidate();
-            //    }
-            //}
+                if (values.Count == kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = kv.Value[i] - values[i];
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
         }
 
         public void Accuracywdc()
@@ -1084,7 +1074,7 @@ namespace PlotDVT
                 {
                     for (int i = 0; i < kv.Value.Count; i++)
                     {
-                        float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
+                        float accuracy = kv.Value[i] - values[i];
                         float accuracy2 = (float)(Math.Round((double)accuracy, 2));
                         this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
                     }
@@ -1115,14 +1105,16 @@ namespace PlotDVT
                 {
                     for (int i = 0; i < kv.Value.Count; i++)
                     {
-                        float accuracy = ((kv.Value[i] - values[i]) / kv.Value[i]) * 100;
+                        float accuracy = kv.Value[i] - values[i];
                         float accuracy2 = (float)(Math.Round((double)accuracy, 2));
                         chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
                     }
                 }
             }
         }
-
+        /// <summary>
+        /// Plots the Var vs real power triangle
+        /// </summary>
         public async void acvarvapower()
         {
             //List<YourType> newList = new List<YourType>(oldList);
@@ -1133,49 +1125,82 @@ namespace PlotDVT
             chart1.Titles.Add(title);
             title.DockedToChartArea = chart1.ChartAreas[0].Name;
 
+            //Below are the values for chart one
             Dictionary<float, List<float>> dictacwpm =
                 new Dictionary<float, List<float>>(plotwacpowermeter.GetSlices);
             List<float> values = new List<float>();
-
             Dictionary<float, List<float>> dictwaccnf =
                 new Dictionary<float, List<float>>(plotwacconfigured.GetSlices);
             List<float> waccnf = new List<float>();
-
             Dictionary<float, List<float>> dictwavarccnf =
                 new Dictionary<float, List<float>>(plotwacvarconfigured.GetSlices);
             List<float> wacvarcnf = new List<float>();
-
             Dictionary<float, List<float>> acvardict =
                 new Dictionary<float, List<float>>(plotacvarpowermeter.GetSlices);
 
+            //Chart2 this is for chart 2 the baseline vlues
+            Dictionary<float, List<float>> acvardictbl =
+                new Dictionary<float, List<float>>(plotacvarpowermeterbl.GetSlices);
+            List<float> values2 = new List<float>();
+            Dictionary<float, List<float>> dictacwpmbl =
+                new Dictionary<float, List<float>>(plotwacpowermeterbl.GetSlices);
+            List<float> values3 = new List<float>();
+            //congfigured values for chart 2 baseline unit
+            Dictionary<float, List<float>> dictwaccnfbl =
+                new Dictionary<float, List<float>>(plotwacconfiguredbl.GetSlices);
+            List<float> waccnfbl = new List<float>();
+            Dictionary<float, List<float>> dictwavarccnfbl =
+                new Dictionary<float, List<float>>(plotwacvarconfiguredbl.GetSlices);
+            List<float> wacvarcnfbl = new List<float>();
+ 
             foreach (var kv in acvardict)
             {
-                //List<YourType> newList = new List<YourType>(oldList);
+                //create the series name from the values 
                 string seriesac = (Convert.ToString(kv.Key));
-                string seriesvar = "conf";
+                string seriesvar = "cnf";
+                string serieschart2 = "cmp";
+                string serieschart2cnf = "cn";
                 if (seriesac.Length > 4)
                     seriesac = seriesac.Substring(0, 4);
+                //create another series name 
                 seriesvar += seriesac;
-                seriesac += "Vavar";
+                seriesac += "Wvar";
+                serieschart2 += seriesac;
+                serieschart2cnf += seriesac;
+                //chart1 stuff
                 chart1.Series.Add(seriesac);
-
                 chart1.Series[seriesac].ChartType = SeriesChartType.Line;
                 chart1.Series[seriesac].BorderWidth = 2;
-
                 chart1.Series.Add(seriesvar);
                 chart1.Series[seriesvar].ChartType = SeriesChartType.Point;
                 chart1.Series[seriesvar].MarkerStyle = MarkerStyle.Cross;
                 chart1.Series[seriesvar].MarkerSize = 10;
-                //chart1.Series[confseries].Color = Color.Chocolate;
-
                 if (dictacwpm.ContainsKey(kv.Key))
                     values = dictacwpm[kv.Key];
-
                 if (dictwaccnf.ContainsKey(kv.Key))
                     waccnf = dictwaccnf[kv.Key];
-
                 if (dictwavarccnf.ContainsKey(kv.Key))
                     wacvarcnf = dictwavarccnf[kv.Key];
+
+                //chart2: this is for the chart 2 comparison betwwen baseline and real unit
+                chart2.Series.Add(serieschart2);
+                chart2.Series[serieschart2].ChartType = SeriesChartType.Line;
+                chart2.Series[serieschart2].BorderWidth = 2;
+
+                chart2.Series.Add(serieschart2cnf);
+                chart2.Series[serieschart2cnf].ChartType = SeriesChartType.Point;
+                chart2.Series[serieschart2cnf].MarkerStyle = MarkerStyle.Cross;
+                chart2.Series[serieschart2cnf].MarkerSize = 10;
+
+                if (dictacwpmbl.ContainsKey(kv.Key))
+                    values2 = dictacwpmbl[kv.Key];
+                if (acvardictbl.ContainsKey(kv.Key))
+                    values3 = acvardictbl[kv.Key];
+                if (dictwaccnfbl.ContainsKey(kv.Key))
+                    waccnfbl = dictwaccnfbl[kv.Key];
+                if (dictwavarccnfbl.ContainsKey(kv.Key))
+                    wacvarcnfbl = dictwavarccnfbl[kv.Key];
+
 
                 if (values.Count <= kv.Value.Count)
                 {
@@ -1184,20 +1209,31 @@ namespace PlotDVT
                         //Plot the congfigured w/va powermeter values
                         chart1.Series[seriesac].Points.AddXY(0, 0);
                         chart1.Series[seriesac].Points.AddXY(values[i], 0);
-                        chart1.Series[seriesac].Points.AddXY(values[i], 0);
                         chart1.Series[seriesac].Points.AddXY(values[i], kv.Value[i]);
                         //Plot the congfigured w/va configured values
                         chart1.Series[seriesvar].Points.AddXY(0, 0);
                         chart1.Series[seriesvar].Points.AddXY(waccnf[i], 0);
-                        chart1.Series[seriesvar].Points.AddXY(waccnf[i], 0);
                         chart1.Series[seriesvar].Points.AddXY(waccnf[i], wacvarcnf[i]);
 
+                        if ((i < values2.Count) && (i < values3.Count))
+                        {
+                            chart2.Series[serieschart2].Points.AddXY(0, 0);
+                            chart2.Series[serieschart2].Points.AddXY(values2[i], 0);
+                            chart2.Series[serieschart2].Points.AddXY(values2[i], values3[i]);
+                            //Plot the congfigured w/va configured values
+                            chart2.Series[serieschart2cnf].Points.AddXY(0, 0);
+                            chart2.Series[serieschart2cnf].Points.AddXY(waccnfbl[i], 0);
+                            chart2.Series[serieschart2cnf].Points.AddXY(waccnfbl[i], wacvarcnfbl[i]);
+
+                        }
                         await Task.Delay(Convert.ToInt16(textBox2.Text));
                     }
-                    if (reverse)
+                    if (reverse)//not actually reverse, just delete previous plot
                     {
                         chart1.Series[seriesac].Points.Clear();
                         chart1.Series[seriesvar].Points.Clear();
+                        chart2.Series[serieschart2].Points.Clear();
+                        chart2.Series[serieschart2cnf].Points.Clear();
                     }
                 }
             }
