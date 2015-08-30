@@ -65,12 +65,17 @@
             this.button18 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button19 = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button20 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
@@ -195,7 +200,7 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button6.Location = new System.Drawing.Point(289, 25);
+            this.button6.Location = new System.Drawing.Point(12, 23);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(34, 23);
             this.button6.TabIndex = 10;
@@ -206,7 +211,7 @@
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button7.Location = new System.Drawing.Point(329, 25);
+            this.button7.Location = new System.Drawing.Point(52, 23);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(35, 23);
             this.button7.TabIndex = 11;
@@ -217,7 +222,7 @@
             // button8
             // 
             this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button8.Location = new System.Drawing.Point(370, 25);
+            this.button8.Location = new System.Drawing.Point(93, 23);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(36, 23);
             this.button8.TabIndex = 12;
@@ -227,7 +232,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(413, 25);
+            this.button9.Location = new System.Drawing.Point(135, 23);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(32, 23);
             this.button9.TabIndex = 13;
@@ -238,7 +243,7 @@
             // button10
             // 
             this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button10.Location = new System.Drawing.Point(451, 25);
+            this.button10.Location = new System.Drawing.Point(173, 23);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(33, 23);
             this.button10.TabIndex = 14;
@@ -249,7 +254,7 @@
             // button11
             // 
             this.button11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button11.Location = new System.Drawing.Point(490, 25);
+            this.button11.Location = new System.Drawing.Point(212, 23);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(33, 23);
             this.button11.TabIndex = 15;
@@ -260,7 +265,7 @@
             // button12
             // 
             this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button12.Location = new System.Drawing.Point(530, 24);
+            this.button12.Location = new System.Drawing.Point(251, 23);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(35, 23);
             this.button12.TabIndex = 16;
@@ -348,7 +353,7 @@
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Location = new System.Drawing.Point(469, 870);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(124, 81);
+            this.groupBox2.Size = new System.Drawing.Size(124, 61);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Compare Efficiency";
@@ -367,6 +372,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.button20);
             this.groupBox4.Controls.Add(this.button14);
             this.groupBox4.Location = new System.Drawing.Point(19, 940);
             this.groupBox4.Name = "groupBox4";
@@ -378,7 +384,7 @@
             // button18
             // 
             this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button18.Location = new System.Drawing.Point(469, 959);
+            this.button18.Location = new System.Drawing.Point(8, 31);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(116, 23);
             this.button18.TabIndex = 25;
@@ -396,13 +402,51 @@
             // button19
             // 
             this.button19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button19.Location = new System.Drawing.Point(601, 40);
+            this.button19.Location = new System.Drawing.Point(133, 31);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(75, 23);
             this.button19.TabIndex = 27;
-            this.button19.Text = "Reverse";
+            this.button19.Text = "Refresh";
             this.button19.UseVisualStyleBackColor = false;
             this.button19.Click += new System.EventHandler(this.button19_Click);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.button18);
+            this.groupBox5.Controls.Add(this.button19);
+            this.groupBox5.Location = new System.Drawing.Point(469, 937);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(216, 60);
+            this.groupBox5.TabIndex = 28;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Watt var plot";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.button6);
+            this.groupBox6.Controls.Add(this.button7);
+            this.groupBox6.Controls.Add(this.button8);
+            this.groupBox6.Controls.Add(this.button9);
+            this.groupBox6.Controls.Add(this.button10);
+            this.groupBox6.Controls.Add(this.button11);
+            this.groupBox6.Controls.Add(this.button12);
+            this.groupBox6.Location = new System.Drawing.Point(277, 5);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(297, 56);
+            this.groupBox6.TabIndex = 29;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Select phase angle";
+            // 
+            // button20
+            // 
+            this.button20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button20.Location = new System.Drawing.Point(94, 19);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(75, 23);
+            this.button20.TabIndex = 30;
+            this.button20.Text = "DC Cu";
+            this.button20.UseVisualStyleBackColor = false;
+            this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
             // Form1
             // 
@@ -410,21 +454,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(946, 1031);
-            this.Controls.Add(this.button19);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.button18);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button12);
-            this.Controls.Add(this.button11);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
@@ -441,6 +478,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -480,6 +519,9 @@
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button19;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button button20;
     }
 }
 

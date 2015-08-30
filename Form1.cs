@@ -286,20 +286,22 @@ namespace PlotDVT
         private void chartdefaults()
         {
             chart1.ChartAreas[0].BackColor = Color.White;
-            chart2.ChartAreas[0].BackColor = Color.White;
             chart1.Series.Clear();
-            chart2.Series.Clear();
-            chart2.Titles.Clear();
             chart1.Titles.Clear();
             chart1.ChartAreas[0].AxisX.Minimum = Double.NaN;
             chart1.ChartAreas[0].AxisY.Minimum = Double.NaN;
             chart1.ChartAreas[0].AxisX.Maximum = Double.NaN;
             chart1.ChartAreas[0].AxisY.Maximum = Double.NaN;
+            //chart1.ChartAreas.Clear();
 
+            chart2.ChartAreas[0].BackColor = Color.White;
+            chart2.Series.Clear();
+            chart2.Titles.Clear();
             chart2.ChartAreas[0].AxisX.Minimum = Double.NaN;
             chart2.ChartAreas[0].AxisY.Minimum = Double.NaN;
             chart2.ChartAreas[0].AxisX.Maximum = Double.NaN;
             chart2.ChartAreas[0].AxisY.Maximum = Double.NaN;
+            //chart2.ChartAreas.Clear();
         }
 //**********************************************Done populating data for unit undertest*********************
         //Efficiency button
@@ -780,46 +782,6 @@ namespace PlotDVT
             return false;
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            float deg = -45.0f;
-            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
-            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
-            textBox1.Text = button6.Text;
-            textBox1.Text = button6.Text;
-            changeplotdegrees(deg);
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            float deg = -30.0f;
-            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
-            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
-            textBox1.Clear();
-            textBox1.Text = button7.Text;
-            changeplotdegrees(deg);
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            float deg = -15.0f;
-            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
-            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
-            textBox1.Clear();
-            textBox1.Text = button8.Text;
-            changeplotdegrees(deg);
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            float deg = 0.0f;
-            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
-            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
-            textBox1.Clear();
-            textBox1.Text = button9.Text;
-            changeplotdegrees(deg);
-        }
-
         private void changeplotdegrees(float deg)
         {
             plotidcconfigure.CreatSlices(deg);
@@ -847,51 +809,6 @@ namespace PlotDVT
             plotacvarpowermeterbl.CreatSlices(deg);
             plotwacvarconfiguredbl.CreatSlices(deg);
             plotwacconfiguredbl.CreatSlices(deg);
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            float deg = 15.0f;
-            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
-            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
-            textBox1.Clear();
-            textBox1.Text = button10.Text;
-            changeplotdegrees(deg);
-        }
-
-        private void button11_Click(object sender, EventArgs e)
-        {
-            float deg = 30.0f;
-            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
-            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
-            textBox1.Clear();
-            textBox1.Text = button11.Text;
-            changeplotdegrees(deg);
-        }
-
-        private void button12_Click(object sender, EventArgs e)
-        {
-            float deg = 45.0f;
-            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
-            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
-            textBox1.Clear();
-            textBox1.Text = button12.Text;
-            changeplotdegrees(deg);
-        }
-
-        private void button13_Click(object sender, EventArgs e)
-        {
-            dcpowerdiff();
-        }
-
-        private void button14_Click(object sender, EventArgs e)
-        {
-            acpowerdiff();
-        }
-
-        private void button15_Click(object sender, EventArgs e)
-        {
-            Accuracydcv();
         }
 
         public void Accuracydcv()
@@ -1125,7 +1042,15 @@ namespace PlotDVT
             chart1.Titles.Add(title);
             title.DockedToChartArea = chart1.ChartAreas[0].Name;
 
-            //Below are the values for chart one
+            
+            //ChartArea ChartArea0 = new ChartArea("name");
+            //chart1.ChartAreas.Add(ChartArea0);
+            //Series Series0 = new Series();
+            //chart1.Series.Add(Series0);
+            //// link series to area here
+            //Series0.ChartArea = "name";
+
+                //Below are the values for chart one
             Dictionary<float, List<float>> dictacwpm =
                 new Dictionary<float, List<float>>(plotwacpowermeter.GetSlices);
             List<float> values = new List<float>();
@@ -1200,7 +1125,7 @@ namespace PlotDVT
                     waccnfbl = dictwaccnfbl[kv.Key];
                 if (dictwavarccnfbl.ContainsKey(kv.Key))
                     wacvarcnfbl = dictwavarccnfbl[kv.Key];
-
+                
 
                 if (values.Count <= kv.Value.Count)
                 {
@@ -1239,8 +1164,115 @@ namespace PlotDVT
             }
         }
 
-        //private async void writeto plot 
+        private void button20_Click(object sender, EventArgs e)
+        {
+            //Clear the charts
+            chartdefaults();
 
+            ChartArea accurrent = new ChartArea("ac");
+            Dcacplot plotdcac = new Dcacplot();
+            plotdcac.plotdcaccombo(chart1, accurrent);
+
+            ////create new chart area, give it a name ex. "ac"
+            //ChartArea accurrent = new ChartArea("ac");
+            //chart1.ChartAreas.Add(accurrent);
+            ////create a new series
+            //Series dcseries = new Series();
+            //chart1.Series.Add(dcseries);
+            ////link the series to the area
+            //dcseries.ChartArea = "ac";
+            //dcseries.ChartType = SeriesChartType.Point;
+            //dcseries.MarkerStyle = MarkerStyle.Cross;
+            //dcseries.MarkerSize = 13;
+            //dcseries.Points.AddXY(10, 0);
+
+            //chart1.ChartAreas.Remove(accurrent);
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            float deg = -45.0f;
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
+            textBox1.Text = button6.Text;
+            textBox1.Text = button6.Text;
+            changeplotdegrees(deg);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            float deg = -30.0f;
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
+            textBox1.Clear();
+            textBox1.Text = button7.Text;
+            changeplotdegrees(deg);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            float deg = -15.0f;
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
+            textBox1.Clear();
+            textBox1.Text = button8.Text;
+            changeplotdegrees(deg);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            float deg = 0.0f;
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
+            textBox1.Clear();
+            textBox1.Text = button9.Text;
+            changeplotdegrees(deg);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            float deg = 15.0f;
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
+            textBox1.Clear();
+            textBox1.Text = button10.Text;
+            changeplotdegrees(deg);
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            float deg = 30.0f;
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
+            textBox1.Clear();
+            textBox1.Text = button11.Text;
+            changeplotdegrees(deg);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            float deg = 45.0f;
+            chart1.ChartAreas[0].BackColor = Color.Gainsboro;
+            chart2.ChartAreas[0].BackColor = Color.Gainsboro;
+            textBox1.Clear();
+            textBox1.Text = button12.Text;
+            changeplotdegrees(deg);
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            dcpowerdiff();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            acpowerdiff();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Accuracydcv();
+        }
+        //private async void writeto plot 
         private void button16_Click(object sender, EventArgs e)
         {
             Accuracyicv();
