@@ -55,6 +55,7 @@
     <Compile Include="ACvarpowermeter.cs" />
     <Compile Include="Baselist.cs" />
     <Compile Include="Dcacplot.cs" />
+    <Compile Include="IBaselist.cs" />
     <Compile Include="Ploracvapowermeter.cs" />
     <Compile Include="Plotacvarpowermeter.cs" />
     <Compile Include="Plotwacconfigured.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="PlotVdcconfigured.cs" />
     <Compile Include="PlotVdcpcu.cs" />
     <Compile Include="PlotVdcpowermeter.cs" />
+    <Compile Include="ValuelistI.cs" />
     <Compile Include="Vdcconfigured.cs" />
     <Compile Include="DataColumns.cs" />
     <Compile Include="Form1.cs">

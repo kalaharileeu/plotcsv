@@ -8,7 +8,7 @@ namespace PlotDVT
 {
     class Plotwacconfigured
     {
-                private List<Baselist> columnobjects;
+        private List<Baselist> columnobjects;
         private float ave;
         private float max;
         private Dictionary<float, List<float>> slices;

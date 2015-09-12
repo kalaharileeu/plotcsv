@@ -178,6 +178,10 @@ namespace PlotDVT
             //columnobjectlistbl = new List<Baselist>();
             foreach (var VAR in realpowerdictbl)
             {
+                /// <summary>
+                /// Below the instance is created and!!! the parameter is passes to it. I like it. 
+                /// VAR.Value.Columnvalues is the value
+                /// </summary>
                 columnobjectlistbl.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
             }
             //Plot stuff baseline values
@@ -194,7 +198,6 @@ namespace PlotDVT
             plotacvarpowermeterbl = new Plotacvarpowermeter(columnobjectlistbl);
             plotwacvarconfiguredbl = new Plotwacvarconfigured(columnobjectlistbl);
             plotwacconfiguredbl = new Plotwacconfigured(columnobjectlistbl);
-
         }
         //************************************Done populating data for baseline*********************
         /// <summary>
@@ -262,8 +265,13 @@ namespace PlotDVT
             }
 
             //columnobjectlist = new List<Baselist>();
+            
             foreach (var VAR in realpowerdict)
             {
+                /// <summary>
+                /// Below the instance is created and!!! the parameter is passes to it. I like it. 
+                /// VAR.Value.Columnvalues is the value
+                /// </summary>
                 columnobjectlist.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
             }
             //Plot Data original
