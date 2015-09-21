@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace PlotDVT
 {
-    class Vdcconfigured : Valuelist
+    class VdcconfiguredI : ValuelistI
     {
-        private List<string> s;
+        private List<string> s; 
         private List<Slice> slicelist;
         //private Dictionary<float, List<int>> phaseslicedict;
         private Dictionary<float, List<int>> listslices;
         //private bool donewithlist;
         private int count;
 
-        public Vdcconfigured(List<string> stringvaluelist)
-            : base(stringvaluelist)
+        public VdcconfiguredI(List<string> stringvaluelist, string colname) : base(stringvaluelist, colname)
         {
             slicelist = new List<Slice>();
             listslices = new Dictionary<float, List<int>>();
@@ -27,36 +26,24 @@ namespace PlotDVT
             Distinct();
         }
 
-        override public void Populareslices(Dictionary<float, List<int>> slicedvalues)
-        {
-            //override the inherited function, do nothing
-        }
-
-        override public void Populareslices(List<Slice> slice)
-        {
-            //override the inherited function, do nothing
-        }
-
-        override public void Populareslices(List<Slice> slice, float deg)
-        {
-            //override the inherited function, do nothing
-        }
-
         public Dictionary<float, List<int>> Listslices
         {
-            get { return listslices; }
+            get { return listslices;}
         }
 
         public List<Slice> Slicelist
         {
-            get { return slicelist; }
+            get { return slicelist;}
         }
-
+        /// <summary>
+        /// The phaseconfigured has to call this and set it up
+        /// </summary>
+        /// <param name="phaseslicestuff"></param>
         public void Setphaseslice(Dictionary<float, List<int>> phaseslicestuff)
         {
             foreach (var kv in phaseslicestuff)
             {
-                for (int i = 0; i < slicelist.Count; i++)
+                for(int i = 0; i < slicelist.Count; i++)
                 {
                     if (slicelist[i].vlist[0] >= kv.Value[0] && slicelist[i].vlist[0] <= kv.Value[1])
                     {
@@ -66,10 +53,10 @@ namespace PlotDVT
                         }
                         else
                         {
-                            List<int> newparameters = new List<int>() { kv.Value[1] + 1, slicelist[i].vlist[1] };
+                            List<int> newparameters = new List<int>() {kv.Value[1] + 1, slicelist[i].vlist[1]};
                             slicelist[i].phaseangle = kv.Key;
                             slicelist[i].vlist[1] = kv.Value[1];
-                            //dodgy +15 very dodgy
+                            //TODO: dodgy +15 very dodgy fix it
                             slicelist.Insert(i + 1, new Slice(kv.Value[1] + 15, slicelist[i].vfloat, newparameters));
                         }
                     }
@@ -78,7 +65,7 @@ namespace PlotDVT
             }
         }
 
-        public void Distinct()
+        private void Distinct()
         {
             // Get distinct elements and convert into a list again.
             foreach (string value in s)
@@ -98,9 +85,8 @@ namespace PlotDVT
             }
         }
 
-
         //find the range of positions to the requested string
-        public List<int> GetUniqueSectionRange(string value)
+        private List<int> GetUniqueSectionRange(string value)
         {
             List<int> firstllast = new List<int>();
             //gets the List range for this value
@@ -137,7 +123,7 @@ namespace PlotDVT
             return firstllast;
         }
 
-        public void GetUniqueSectionRange2(string value)
+        private void GetUniqueSectionRange2(string value)
         {
             List<int> firstllast = new List<int>();
             //gets the List range for this value
@@ -171,6 +157,6 @@ namespace PlotDVT
                     }
                 }
             }
-        }
+        }   
     }
 }

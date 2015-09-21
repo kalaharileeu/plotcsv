@@ -27,11 +27,8 @@ namespace PlotDVT
             {
                 if (bl is Vdcpcu)
                 {
-                    //downcast as returns reference, is return bool
-                    ave = (bl as Vdcpcu).GetAverage;
-                    max = (bl as Vdcpcu).GetMax;
-                    min = (bl as Vdcpcu).GetMin;
-                    slices = (bl as Vdcpcu).Slices;
+
+                    slices = bl.GetSlices();
                     //Create sliced dictionary for Idc
                     try
                     {

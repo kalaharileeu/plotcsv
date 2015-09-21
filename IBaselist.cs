@@ -15,5 +15,6 @@ namespace PlotDVT
         Dictionary<float, List<float>> GetSlices();
         void ConvertToFloat();
         List<float> GetFloats();
+        string GetName();
     }
 }

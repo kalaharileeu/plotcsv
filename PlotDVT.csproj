@@ -56,6 +56,7 @@
     <Compile Include="Baselist.cs" />
     <Compile Include="Dcacplot.cs" />
     <Compile Include="IBaselist.cs" />
+    <Compile Include="PhaseConfiguredI.cs" />
     <Compile Include="Ploracvapowermeter.cs" />
     <Compile Include="Plotacvarpowermeter.cs" />
     <Compile Include="Plotwacconfigured.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadWriteCsv.cs" />
     <Compile Include="Valuelist.cs" />
+    <Compile Include="VdcconfiguredI.cs" />
     <Compile Include="Vdcpcu.cs" />
     <Compile Include="Vdcpowermeter.cs" />
     <Compile Include="Wacconfigured.cs" />

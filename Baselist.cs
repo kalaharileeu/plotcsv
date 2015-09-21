@@ -24,5 +24,6 @@ namespace PlotDVT
         abstract public void Populareslices(List<Slice> slice, float deg);
 
         abstract public Dictionary<float, List<float>> GetSlices();
+
     }
 }

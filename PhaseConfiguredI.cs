@@ -6,36 +6,21 @@ using System.Threading.Tasks;
 
 namespace PlotDVT
 {
-    class Phaseconfigured  : Valuelist
+    class PhaseconfiguredI : ValuelistI
     {
         //List<float> distinctlist;
         Dictionary<float, List<int>> listslices;
 
-        public Phaseconfigured(List<string> stringvaluelist) : base(stringvaluelist)
+        public PhaseconfiguredI(List<string> stringvaluelist, string colname) : base(stringvaluelist, colname)
         {
             //valuesstring = stringvaluelist;
             listslices = new Dictionary<float, List<int>>();
             Distinct();
         }
 
-        override public void Populareslices(Dictionary<float, List<int>> slicedvalues)
-        {
-            //override the inherited function, do nothing
-        }
-
-        override public void Populareslices(List<Slice> slice)
-        {
-            //override the inherited function, do nothing
-        }
-
-        override public void Populareslices(List<Slice> slice, float deg)
-        {
-            //override the inherited function, do nothing
-        }
-
         public Dictionary<float, List<int>> Listslices
         {
-            get { return listslices;}
+            get { return listslices; }
         }
 
         private void Distinct()
@@ -56,12 +41,12 @@ namespace PlotDVT
                     f = -2.0f;
                 }
                 //takes each unique vaule and gets the range
-                listslices.Add(f,GetUniqueSectionRange(value));
+                listslices.Add(f, GetUniqueSectionRange(value));
             }
         }
 
         //find the range of positions to the requested string
-        private List<int> GetUniqueSectionRange(string value)
+        public List<int> GetUniqueSectionRange(string value)
         {
             List<int> firstllast = new List<int>();
             //gets the List range for this value
@@ -92,6 +77,6 @@ namespace PlotDVT
                 }
             }
             return firstllast;
-        }   
+        }
     }
 }

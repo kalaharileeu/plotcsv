@@ -25,8 +25,6 @@ namespace PlotDVT
         {
             foreach (Baselist bl in columnobjects)
             {
-                //string value = ((V.GetType()).ToString()).Replace("PlotDVT.", "");
-                //string value = ((bl.GetType()).ToString());
                 if (bl is Wdcpcu)
                 {
                     slices = bl.GetSlices();

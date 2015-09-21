@@ -8,23 +8,21 @@ namespace PlotDVT
 {
     public class ValuelistI : IBaselist
     {
-        protected string columnname;
-        protected string alias;
-        protected string from;
-        protected int columnnumber;
         protected List<float> valuesfloat;
         protected List<string> valuesstring;
         protected Dictionary<float, List<float>> slices;
+        protected string name;
 
-        ValuelistI(List<string> stringvaluelist)
+        public ValuelistI(List<string> stringvaluelist, string columnname)
         {
+            name = columnname;
             slices = new Dictionary<float, List<float>>();
             valuesfloat = new List<float>();
             valuesstring = stringvaluelist;
             ConvertToFloat();
         }
 
-        public void IBaselist.Populareslices(Dictionary<float, List<int>> slicedvalues)
+        public void Populareslices(Dictionary<float, List<int>> slicedvalues)
         {
             foreach (KeyValuePair<float, List<int>> kv in slicedvalues)
             {
@@ -32,7 +30,7 @@ namespace PlotDVT
             }
         }
 
-        public void IBaselist.Populareslices(List<Slice> slice)
+        public void Populareslices(List<Slice> slice)
         {
             foreach (Slice s in slice)
             {
@@ -57,7 +55,6 @@ namespace PlotDVT
             return slices;
         }
 
-
         public void ConvertToFloat()
         {
             //floatcolvalues = new List<float>();
@@ -80,6 +77,11 @@ namespace PlotDVT
         public List<float> GetFloats()
         {
             return valuesfloat;
+        }
+
+        public string GetName()
+        {
+            return name;
         }
     }
 }
