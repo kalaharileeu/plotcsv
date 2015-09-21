@@ -24,6 +24,7 @@ namespace PlotDVT
         //RealPowerAnswer realpoweranswers;
         private List<Baselist> columnobjectlist;
         private List<IBaselist> colobjinterflist;//This is new...Interface implementation
+        private List<IBaselist> colobjinterflistbl;//This is new...Interface implementation
         private PlotIdcpowermeter plotidcpowermeter;
         private PlotIdcpcu plotidcpcu;
         private PlotIdcconfigured plotidcconfigure;
@@ -76,6 +77,7 @@ namespace PlotDVT
             datacolumns = columnloader.Load("Content/XMLFile1.xml");
             realpowerdict = new Dictionary<string, Column>();
             columnobjectlist = new List<Baselist>();
+            colobjinterflistbl = new List<IBaselist>();//!!!!!!!!!!!
             colobjinterflist = new List<IBaselist>();//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             //diff variable here baseline values and loaders
             XmlManager<DataCol> columnloaderbl = new XmlManager<DataCol>();
@@ -176,7 +178,6 @@ namespace PlotDVT
                 realpowerdictbl.Add(c.alias, c);
             }
 
-            //columnobjectlistbl = new List<Baselist>();
             foreach (var VAR in realpowerdictbl)
             {
                 /// <summary>
@@ -184,7 +185,81 @@ namespace PlotDVT
                 /// VAR.Value.Columnvalues is the value
                 /// </summary>
                 columnobjectlistbl.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
+                if (VAR.Key == "Vdcconfigured")
+                {
+                    ///if it is Vdcconfigured add it as VdcConfigured, some extra functionaly in Vdcconfigure
+                    colobjinterflistbl.Add((IBaselist)Activator.CreateInstance
+                        (Type.GetType("PlotDVT.VdcconfiguredI"), VAR.Value.Columnvalues, VAR.Key));
+
+                }
+                else if (VAR.Key == "Phaseconfigured")
+                {
+                    ///if it is Phaseconfigured add it as PhaseCongfigured, some extra functionaly in PhaseCongfigured
+                    colobjinterflistbl.Add((IBaselist)Activator.CreateInstance
+                        (Type.GetType("PlotDVT.PhaseconfiguredI"), VAR.Value.Columnvalues, VAR.Key));
+                }
+                else
+                {
+                    //Add the rest just as ValuelistI
+                    colobjinterflistbl.Add((IBaselist)Activator.CreateInstance(Type.GetType("PlotDVT.ValuelistI"), VAR.Value.Columnvalues, VAR.Key));
+                }
+
             }
+
+            foreach (IBaselist Ibl in colobjinterflistbl)
+            {
+                if (Ibl.GetName() == "Phaseconfigured")
+                {
+                    //Find Vdcconfigure to get slice parameters
+                    foreach (IBaselist Ibltwo in colobjinterflistbl)
+                    {
+                        if (Ibltwo.GetName() == "Vdcconfigured")
+                            (Ibltwo as VdcconfiguredI).Setphaseslice((Ibl as PhaseconfiguredI).Listslices);
+                    }
+                    break;
+                }
+            }
+
+            //private void CreatSlices()
+            ///<summary>
+            ///Below loop creates the slices of the column set up by Vdcconfigured.
+            ///New with interface implementation
+            ///</summary>
+            //slices = Ibl.GetSlices();
+            try
+            {
+                //Find Vdcconfigure to get slice parameters
+                foreach (IBaselist Ibltwo in colobjinterflistbl)
+                {
+                    if (Ibltwo.GetName() == "Vdcconfigured")
+                    {
+                        // (Ibltwo as VdcconfiguredI)
+                        foreach (IBaselist Ibl in colobjinterflistbl)
+                        {
+                            if (!(Ibl.GetName() == "Vdcconfigured"))
+                            {
+                                Ibl.Populareslices((Ibltwo as VdcconfiguredI).Slicelist);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+            catch (InvalidCastException)
+            {
+
+            }
+
+            ////columnobjectlistbl = new List<Baselist>();
+            //foreach (var VAR in realpowerdictbl)
+            //{
+            //    /// <summary>
+            //    /// Below the instance is created and!!! the parameter is passes to it. I like it. 
+            //    /// VAR.Value.Columnvalues is the value
+            //    /// </summary>
+            //    columnobjectlistbl.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
+            //}
             //Plot stuff baseline values
             plotphaseconfiguredbl = new PlotPhaseconfigured(columnobjectlistbl);
             plotidcpowermeterbl = new PlotIdcpowermeter(columnobjectlistbl);
@@ -438,7 +513,7 @@ namespace PlotDVT
                     this.chart1.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
-            //plot the pcu on chart 1
+            //plot the pcu current on chart 1
             ibl = colobjinterflist.First(item => item.GetName() == "Idcpcu");
             //plot the power meter on chart1
             valuestoplot = ibl.GetSlices();
@@ -472,67 +547,45 @@ namespace PlotDVT
                     this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
-            //// plot the DIFF V pcu on chart 2
-            //foreach (var kv in plotidcpcubl.GetSlices)
-            //{
-            //    //Name the series
-            //    string chartseries = (Convert.ToString(kv.Key));
-            //    if (chartseries.Length > 4)
-            //        chartseries = chartseries.Substring(0, 4);
-            //    chartseries += "_baseline";
-            //    //Add a series
-            //    this.chart2.Series.Add(chartseries);
-            //    this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-            //    //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
-            //    this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-            //    this.chart2.Series[chartseries].MarkerSize = 9;
-            //    this.chart2.Series[chartseries].Color = Color.Black;
-            ////    this.chart2.ChartAreas[0].AxisX.Minimum = 13;
-            //    foreach (var v in kv.Value)
-            //    {
-            //        this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
-            //    }
-            //}
-            ////plot the pcu on chart 1
-            //foreach (var kv in plotidcpcu.GetSlices)
-            //{
-            //    //Name the series
-            //    string chartseries = (Convert.ToString(kv.Key));
-            //    if (chartseries.Length > 4)
-            //        chartseries = chartseries.Substring(0, 4);
-            //    chartseries += "_pcu";
-            //    //Add a series
-            //    this.chart1.Series.Add(chartseries);
-            //    //set the chart type
-            //    this.chart1.Series[chartseries].ChartType = SeriesChartType.Point;
-            //    this.chart1.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-            //    this.chart1.Series[chartseries].MarkerSize = 8;
-            //    this.chart1.Series[chartseries].Color = Color.DarkOrange;
-            //    // plot the pcu on chart 2
-            //    //Add a series
-            //    this.chart2.Series.Add(chartseries);
-            //    //set the chart type
-            //    this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-            //    this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-            //    this.chart2.Series[chartseries].MarkerSize = 8;
-            //    this.chart2.Series[chartseries].Color = Color.DarkOrange;
-            //    //Scale the x axis
-
-            //    foreach (var v in kv.Value)
-            //    {
-            //        this.chart1.Series[chartseries].Points.AddXY(kv.Key, v);
-            //        this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
-            //    }
-            //}
+            // plot the DIFF V pcu on chart 2
+            //plot the pcu on chart 1
+            ibl = colobjinterflistbl.First(item => item.GetName() == "Idcpcu");
+            //plot the power meter on chart1
+            valuestoplot = ibl.GetSlices();
+            foreach (var kv in valuestoplot)
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "_baseline";
+                //Add a series
+                this.chart2.Series.Add(chartseries);
+                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
+                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                this.chart2.Series[chartseries].MarkerSize = 9;
+                this.chart2.Series[chartseries].Color = Color.Black;
+                //    this.chart2.ChartAreas[0].AxisX.Minimum = 13;
+                foreach (var v in kv.Value)
+                {
+                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                }
+            }
+ 
         }
         /// <summary>
         /// Diff plotting starts
         /// </summary>
         private void ploteff()
         {
+            //Clear and reset charts
             chartdefaults();
-
-            foreach (var kv in plotefficiencybl.GetSlices)
+            //ibl is a IBaselist object
+            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Efficiency");
+            //plot the bl(baseline unit) efficiency meter on chart2
+            //valuestoplot = ibl.GetSlices();
+            foreach (var kv in ibl.GetSlices())
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -554,7 +607,8 @@ namespace PlotDVT
                 }
             }
 
-            foreach (var kv in plotefficiency.GetSlices)
+            ibl = colobjinterflist.First(item => item.GetName() == "Efficiency");
+            foreach (var kv in ibl.GetSlices())
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -579,7 +633,9 @@ namespace PlotDVT
         private void dcpowerdiff()
         {
             chartdefaults();
-            foreach (var kv in plotwdcpowermeterbl.GetSlices)
+
+            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Wdcpowermeter");
+            foreach (var kv in ibl.GetSlices())
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -601,7 +657,8 @@ namespace PlotDVT
                 }
             }
 
-            foreach (var kv in plotwdcpowermeter.GetSlices)
+            ibl = colobjinterflist.First(item => item.GetName() == "Wdcpowermeter");
+            foreach (var kv in ibl.GetSlices())
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -625,7 +682,9 @@ namespace PlotDVT
         private void acpowerdiff()
         {
             chartdefaults();
-            foreach (var kv in plotwacpowermeterbl.GetSlices)
+
+            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Wacpowermeter");
+            foreach (var kv in ibl.GetSlices())
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -647,7 +706,8 @@ namespace PlotDVT
                 }
             }
 
-            foreach (var kv in plotwacpowermeter.GetSlices)
+            ibl = colobjinterflist.First(item => item.GetName() == "Wacpowermeter");
+            foreach (var kv in ibl.GetSlices())
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -676,9 +736,6 @@ namespace PlotDVT
         public void PlotVdccompare()
         {
             chartdefaults();
-
-    //        chart1.ChartAreas[0].AxisX.Minimum = 13;
-     //       chart1.ChartAreas[0].AxisY.Minimum = 13;
 
             Title title = new Title("Vdc compare: Vdc configured, powermeter and PCU", 
                 Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
@@ -1158,14 +1215,6 @@ namespace PlotDVT
             chart1.Titles.Add(title);
             title.DockedToChartArea = chart1.ChartAreas[0].Name;
 
-            
-            //ChartArea ChartArea0 = new ChartArea("name");
-            //chart1.ChartAreas.Add(ChartArea0);
-            //Series Series0 = new Series();
-            //chart1.Series.Add(Series0);
-            //// link series to area here
-            //Series0.ChartArea = "name";
-
                 //Below are the values for chart one
             Dictionary<float, List<float>> dictacwpm =
                 new Dictionary<float, List<float>>(plotwacpowermeter.GetSlices);
@@ -1288,22 +1337,8 @@ namespace PlotDVT
             ChartArea accurrent = new ChartArea("ac");
             Dcacplot plotdcac = new Dcacplot();
             plotdcac.plotdcaccombo(chart1, accurrent);
-
-            ////create new chart area, give it a name ex. "ac"
-            //ChartArea accurrent = new ChartArea("ac");
-            //chart1.ChartAreas.Add(accurrent);
-            ////create a new series
-            //Series dcseries = new Series();
-            //chart1.Series.Add(dcseries);
-            ////link the series to the area
-            //dcseries.ChartArea = "ac";
-            //dcseries.ChartType = SeriesChartType.Point;
-            //dcseries.MarkerStyle = MarkerStyle.Cross;
-            //dcseries.MarkerSize = 13;
-            //dcseries.Points.AddXY(10, 0);
-
-            //chart1.ChartAreas.Remove(accurrent);
         }
+
         private void button6_Click(object sender, EventArgs e)
         {
             float deg = -45.0f;
