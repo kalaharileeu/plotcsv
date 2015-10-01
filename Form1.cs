@@ -1290,12 +1290,13 @@ namespace PlotDVT
                 chart1.Series[seriesvar].ChartType = SeriesChartType.Point;
                 chart1.Series[seriesvar].MarkerStyle = MarkerStyle.Cross;
                 chart1.Series[seriesvar].MarkerSize = 10;
-                if (dictacwpm.ContainsKey(kv.Key))
-                    values = dictacwpm[kv.Key];
-                if (dictwaccnf.ContainsKey(kv.Key))
-                    waccnf = dictwaccnf[kv.Key];
-                if (dictwavarccnf.ContainsKey(kv.Key))
-                    wacvarcnf = dictwavarccnf[kv.Key];
+
+                if (ibl5.GetSlices().ContainsKey(kv.Key))
+                    values = ibl5.GetSlices()[kv.Key];
+                if (ibl6.GetSlices().ContainsKey(kv.Key))
+                    waccnf = ibl6.GetSlices()[kv.Key];
+                if (ibl7.GetSlices().ContainsKey(kv.Key))
+                    wacvarcnf = ibl7.GetSlices()[kv.Key];
 
                 //chart2: this is for the chart 2 comparison betwwen baseline and real unit
                 chart2.Series.Add(serieschart2);
@@ -1307,14 +1308,14 @@ namespace PlotDVT
                 chart2.Series[serieschart2cnf].MarkerStyle = MarkerStyle.Cross;
                 chart2.Series[serieschart2cnf].MarkerSize = 10;
 
-                if (dictacwpmbl.ContainsKey(kv.Key))
-                    values2 = dictacwpmbl[kv.Key];
-                if (acvardictbl.ContainsKey(kv.Key))
-                    values3 = acvardictbl[kv.Key];
-                if (dictwaccnfbl.ContainsKey(kv.Key))
-                    waccnfbl = dictwaccnfbl[kv.Key];
-                if (dictwavarccnfbl.ContainsKey(kv.Key))
-                    wacvarcnfbl = dictwavarccnfbl[kv.Key];
+                if (ibl.GetSlices().ContainsKey(kv.Key))
+                    values2 = ibl.GetSlices()[kv.Key];
+                if (ibl4.GetSlices().ContainsKey(kv.Key))
+                    values3 = ibl4.GetSlices()[kv.Key];
+                if (ibl2.GetSlices().ContainsKey(kv.Key))
+                    waccnfbl = ibl2.GetSlices()[kv.Key];
+                if (ibl3.GetSlices().ContainsKey(kv.Key))
+                    wacvarcnfbl = ibl3.GetSlices()[kv.Key];
                 
 
                 if (values.Count <= kv.Value.Count)
