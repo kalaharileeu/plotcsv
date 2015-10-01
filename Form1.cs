@@ -22,48 +22,18 @@ namespace PlotDVT
         DataCol datacolumns;
         Dictionary<string, Column> realpowerdict;
         //RealPowerAnswer realpoweranswers;
-        private List<Baselist> columnobjectlist;
         private List<IBaselist> colobjinterflist;//This is new...Interface implementation
         private List<IBaselist> colobjinterflistbl;//This is new...Interface implementation
-        private PlotIdcpowermeter plotidcpowermeter;
-        private PlotIdcpcu plotidcpcu;
-        private PlotIdcconfigured plotidcconfigure;
-        private PlotEfficiency plotefficiency;
-        private PlotVdcpowermeter plotvdcpowermeter;
-        private Plotwacpowermeter plotwacpowermeter;
-        private Plotwdcpowermeter plotwdcpowermeter;
-        private Plotwdcpcu plotwdcpcu;
-        private Plotacvarpowermeter plotacvarpowermeter;
-        private PlotPhaseconfigured plotphaseconfigured;
-        private Plotwacvarconfigured plotwacvarconfigured;
-        private Plotwacconfigured plotwacconfigured;
-        //private PlotVdcconfigured plotvdcconfigured;
-        private PlotVdcpcu plotvdcpcu;
         /// <summary>
         /// Baseline variables below to be used to create the diff
         /// </summary>
         private DataCol datacolumnsbl;
         Dictionary<string, Column> realpowerdictbl;
-        private List<Baselist> columnobjectlistbl;
-        private PlotIdcpowermeter plotidcpowermeterbl;
-        private PlotIdcpcu plotidcpcubl;
-        private PlotIdcconfigured plotidcconfigurebl;
-        private PlotEfficiency plotefficiencybl;
-        private PlotVdcpcu plotvdcpcubl;
-        private PlotPhaseconfigured plotphaseconfiguredbl;
-        private Plotwacpowermeter plotwacpowermeterbl;
-        private Plotwdcpowermeter plotwdcpowermeterbl;
         private List<Column> wantedcolumnsbl;
-        private PlotVdcpowermeter plotvdcpowermeterbl;
-        private Plotwdcpcu plotwdcpcubl;
-        private Plotacvarpowermeter plotacvarpowermeterbl;
-        private Plotwacvarconfigured plotwacvarconfiguredbl;
-        private Plotwacconfigured plotwacconfiguredbl;
-
         private string filenamebl;
         private string filenamedata;
-        private int numberofrows;
-        private int numberofrowsbl;
+        //private int numberofrows;
+        //private int numberofrowsbl;
 
         public Form1()
         {
@@ -76,14 +46,14 @@ namespace PlotDVT
             XmlManager<DataCol> columnloader = new XmlManager<DataCol>();
             datacolumns = columnloader.Load("Content/XMLFile1.xml");
             realpowerdict = new Dictionary<string, Column>();
-            columnobjectlist = new List<Baselist>();
+            //columnobjectlist = new List<Baselist>();
             colobjinterflistbl = new List<IBaselist>();//!!!!!!!!!!!
             colobjinterflist = new List<IBaselist>();//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             //diff variable here baseline values and loaders
             XmlManager<DataCol> columnloaderbl = new XmlManager<DataCol>();
             datacolumnsbl = columnloaderbl.Load("Content/XMLFile1.xml");
             realpowerdictbl = new Dictionary<string, Column>();
-            columnobjectlistbl = new List<Baselist>();
+            //columnobjectlistbl = new List<Baselist>();
             wantedcolumnsbl = new List<Column>();
 
             filenamedata = "C:/values/2015y06m19d_16h55m35s_SN121519038551_S230_60_LN_ReactivePwrMap.csv";
@@ -124,8 +94,6 @@ namespace PlotDVT
                 wantedcolumnsbl.Clear();
             if(realpowerdictbl.Count > 0)
                 realpowerdictbl.Clear();
-            if(columnobjectlistbl.Count > 0)
-                columnobjectlistbl.Clear();
             if (colobjinterflistbl.Count > 0)
                 colobjinterflistbl.Clear();
 
@@ -186,7 +154,7 @@ namespace PlotDVT
                 /// Below the instance is created and!!! the parameter is passes to it. I like it. 
                 /// VAR.Value.Columnvalues is the value
                 /// </summary>
-                columnobjectlistbl.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
+                //columnobjectlistbl.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
                 if (VAR.Key == "Vdcconfigured")
                 {
                     ///if it is Vdcconfigured add it as VdcConfigured, some extra functionaly in Vdcconfigure
@@ -261,19 +229,19 @@ namespace PlotDVT
             //    columnobjectlistbl.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
             //}
             //Plot stuff baseline values
-            plotphaseconfiguredbl = new PlotPhaseconfigured(columnobjectlistbl);
-            plotidcpowermeterbl = new PlotIdcpowermeter(columnobjectlistbl);
-            plotidcpcubl = new PlotIdcpcu(columnobjectlistbl);
-            plotidcconfigurebl = new PlotIdcconfigured(columnobjectlistbl);
-            plotefficiencybl = new PlotEfficiency(columnobjectlistbl);
-            plotvdcpcubl = new PlotVdcpcu(columnobjectlistbl);
-            plotwacpowermeterbl = new Plotwacpowermeter(columnobjectlistbl);
-            plotwdcpowermeterbl = new Plotwdcpowermeter(columnobjectlistbl);
-            plotvdcpowermeterbl = new PlotVdcpowermeter(columnobjectlistbl);
-            plotwdcpcubl = new Plotwdcpcu(columnobjectlistbl);
-            plotacvarpowermeterbl = new Plotacvarpowermeter(columnobjectlistbl);
-            plotwacvarconfiguredbl = new Plotwacvarconfigured(columnobjectlistbl);
-            plotwacconfiguredbl = new Plotwacconfigured(columnobjectlistbl);
+            //plotphaseconfiguredbl = new PlotPhaseconfigured(columnobjectlistbl);
+            //plotidcpowermeterbl = new PlotIdcpowermeter(columnobjectlistbl);
+            //plotidcpcubl = new PlotIdcpcu(columnobjectlistbl);
+            //plotidcconfigurebl = new PlotIdcconfigured(columnobjectlistbl);
+            //plotefficiencybl = new PlotEfficiency(columnobjectlistbl);
+            //plotvdcpcubl = new PlotVdcpcu(columnobjectlistbl);
+            //plotwacpowermeterbl = new Plotwacpowermeter(columnobjectlistbl);
+            //plotwdcpowermeterbl = new Plotwdcpowermeter(columnobjectlistbl);
+            //plotvdcpowermeterbl = new PlotVdcpowermeter(columnobjectlistbl);
+            //plotwdcpcubl = new Plotwdcpcu(columnobjectlistbl);
+            //plotacvarpowermeterbl = new Plotacvarpowermeter(columnobjectlistbl);
+            //plotwacvarconfiguredbl = new Plotwacvarconfigured(columnobjectlistbl);
+            //plotwacconfiguredbl = new Plotwacconfigured(columnobjectlistbl);
         }
         //************************************Done populating data for baseline*********************
         /// <summary>
@@ -286,8 +254,8 @@ namespace PlotDVT
                 wantedcolumns.Clear();
             if (realpowerdict.Count > 0)
                 realpowerdict.Clear();
-            if (columnobjectlist.Count > 0)
-                columnobjectlist.Clear();
+            //if (columnobjectlist.Count > 0)
+            //    columnobjectlist.Clear();
 
             if (File.Exists(filename))
             {
@@ -348,7 +316,7 @@ namespace PlotDVT
                 /// Below the instance is created and!!! the parameter is passes to it. I like it. 
                 /// VAR.Value.Columnvalues is the value
                 /// </summary>
-                columnobjectlist.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
+                //columnobjectlist.Add((Baselist)Activator.CreateInstance(Type.GetType("PlotDVT." + VAR.Key), VAR.Value.Columnvalues));
                 if(VAR.Key == "Vdcconfigured")
                 {
                     colobjinterflist.Add((IBaselist)Activator.CreateInstance
@@ -412,19 +380,19 @@ namespace PlotDVT
 
             }
             //Plot Data original
-            plotphaseconfigured = new PlotPhaseconfigured(columnobjectlist);
-            plotidcpowermeter = new PlotIdcpowermeter(columnobjectlist);
-            plotidcpcu = new PlotIdcpcu(columnobjectlist);
-            plotidcconfigure = new PlotIdcconfigured(columnobjectlist);
-            plotefficiency = new PlotEfficiency(columnobjectlist);
-            plotvdcpowermeter = new PlotVdcpowermeter(columnobjectlist);
-            plotvdcpcu = new PlotVdcpcu(columnobjectlist);
-            plotwacpowermeter = new Plotwacpowermeter(columnobjectlist);
-            plotwdcpcu = new Plotwdcpcu(columnobjectlist);
-            plotwdcpowermeter = new Plotwdcpowermeter(columnobjectlist);
-            plotacvarpowermeter = new Plotacvarpowermeter(columnobjectlist);
-            plotwacvarconfigured = new Plotwacvarconfigured(columnobjectlist);
-            plotwacconfigured = new Plotwacconfigured(columnobjectlist);
+            //plotphaseconfigured = new PlotPhaseconfigured(columnobjectlist);
+            //plotidcpowermeter = new PlotIdcpowermeter(columnobjectlist);
+            //plotidcpcu = new PlotIdcpcu(columnobjectlist);
+            //plotidcconfigure = new PlotIdcconfigured(columnobjectlist);
+            //plotefficiency = new PlotEfficiency(columnobjectlist);
+            //plotvdcpowermeter = new PlotVdcpowermeter(columnobjectlist);
+            //plotvdcpcu = new PlotVdcpcu(columnobjectlist);
+            //plotwacpowermeter = new Plotwacpowermeter(columnobjectlist);
+            //plotwdcpcu = new Plotwdcpcu(columnobjectlist);
+            //plotwdcpowermeter = new Plotwdcpowermeter(columnobjectlist);
+            //plotacvarpowermeter = new Plotacvarpowermeter(columnobjectlist);
+            //plotwacvarconfigured = new Plotwacvarconfigured(columnobjectlist);
+            //plotwacconfigured = new Plotwacconfigured(columnobjectlist);
 
         }
 
@@ -856,13 +824,13 @@ namespace PlotDVT
 //************************************DC VOLT plot STOPS HERE***********************************
         public void Richtextedit()
         {
-            float maxidc = plotidcpowermeter.GetMax;
-            string value = Convert.ToString(maxidc);
+           // float maxidc = plotidcpowermeter.GetMax;
+            //string value = Convert.ToString(maxidc);
             this.richTextBox1.AppendText("Idc max (powermeter): ");
-            this.richTextBox1.AppendText(value + "A\n");
-            value = Convert.ToString(plotidcpowermeter.GetMin);
+           // this.richTextBox1.AppendText(value + "A\n");
+           // value = Convert.ToString(plotidcpowermeter.GetMin);
             this.richTextBox1.AppendText("Idc min (powermeter): ");
-            this.richTextBox1.AppendText(value + "A\n");
+           // this.richTextBox1.AppendText(value + "A\n");
         }
 
         public void Richtextedit(string text)
@@ -961,31 +929,27 @@ namespace PlotDVT
 
         private void changeplotdegrees(float deg)
         {
-            plotidcconfigure.CreatSlices(deg);
-            plotidcpowermeter.CreatSlices(deg);
-            plotidcpcu.CreatSlices(deg);
-            plotvdcpcu.CreatSlices(deg);
-            plotvdcpowermeter.CreatSlices(deg);
-            plotefficiency.CreatSlices(deg);
-            plotwacpowermeter.CreatSlices(deg);
-            plotwdcpowermeter.CreatSlices(deg);
-            plotwdcpcu.CreatSlices(deg);
-            plotacvarpowermeter.CreatSlices(deg);
-            plotwacvarconfigured.CreatSlices(deg);
-            plotwacconfigured.CreatSlices(deg);
+        //            private List<IBaselist> colobjinterflist;//This is new...Interface implementation
+        //private List<IBaselist> colobjinterflistbl;//This is new...Interface implementation
+            foreach(IBaselist IBase in colobjinterflist)
+            {
+                if(IBase is VdcconfiguredI)
+                {
+                    foreach (IBaselist IBase2 in colobjinterflist)
+                        if (!(IBase2.GetName() == "Vdcconfigured") || !(IBase2.GetName() == "Phaseconfigured"))
+                            IBase2.Populareslices((IBase as VdcconfiguredI).Slicelist, deg);
+                }
+            }
 
-            plotidcconfigurebl.CreatSlices(deg);
-            plotidcpowermeterbl.CreatSlices(deg);
-            plotidcpcubl.CreatSlices(deg);
-            plotvdcpcubl.CreatSlices(deg);
-            plotefficiencybl.CreatSlices(deg);
-            plotwacpowermeterbl.CreatSlices(deg);
-            plotwdcpowermeterbl.CreatSlices(deg);
-            plotvdcpowermeterbl.CreatSlices(deg);
-            plotwdcpcubl.CreatSlices(deg);
-            plotacvarpowermeterbl.CreatSlices(deg);
-            plotwacvarconfiguredbl.CreatSlices(deg);
-            plotwacconfiguredbl.CreatSlices(deg);
+            foreach (IBaselist IBase3 in colobjinterflistbl)
+            {
+                if (IBase3 is VdcconfiguredI)
+                {
+                    foreach (IBaselist IBase4 in colobjinterflistbl)
+                        if (!(IBase4.GetName() == "Vdcconfigured") || !(IBase4.GetName() == "Phaseconfigured"))
+                            IBase4.Populareslices((IBase3 as VdcconfiguredI).Slicelist, deg);
+                }
+            }
         }
         /// <summary>
         /// Done the IBaselist implementation. Plot Dcv accuracy
@@ -1071,7 +1035,6 @@ namespace PlotDVT
                 Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
             chart2.Titles.Add(title);
             title.DockedToChartArea = chart2.ChartAreas[0].Name;
-
             List<float> values = new List<float>();
             // plot the DIFF V powermeter on chart 2
             ///get the columns to print for the baseline unit 
@@ -1147,7 +1110,6 @@ namespace PlotDVT
                 Docking.Top, new Font("Verdana", 12, FontStyle.Bold), Color.Black);
             chart2.Titles.Add(title);
             title.DockedToChartArea = chart2.ChartAreas[0].Name;
-
             //Dictionary<float, List<float>> dictwdcpm =
             //    new Dictionary<float, List<float>>(plotwdcpowermeterbl.GetSlices);
             List<float> values = new List<float>();
@@ -1233,42 +1195,23 @@ namespace PlotDVT
             IBaselist ibl2 = colobjinterflistbl.First(item => item.GetName() == "Wacconfigured");
             IBaselist ibl3 = colobjinterflistbl.First(item => item.GetName() == "Wacvarconfigured");
             IBaselist ibl4 = colobjinterflistbl.First(item => item.GetName() == "ACvarpowermeter");
-
             IBaselist ibl5 = colobjinterflist.First(item => item.GetName() == "Wacpowermeter");
             IBaselist ibl6 = colobjinterflist.First(item => item.GetName() == "Wacconfigured");
             IBaselist ibl7 = colobjinterflist.First(item => item.GetName() == "Wacvarconfigured");
             IBaselist ibl8 = colobjinterflist.First(item => item.GetName() == "ACvarpowermeter");
 
-
-                //Below are the values for chart one
-            Dictionary<float, List<float>> dictacwpm =
-                new Dictionary<float, List<float>>(plotwacpowermeter.GetSlices);//tick
+            //Below are the values for chart one
             List<float> values = new List<float>();
-            Dictionary<float, List<float>> dictwaccnf =
-                new Dictionary<float, List<float>>(plotwacconfigured.GetSlices);//tick
             List<float> waccnf = new List<float>();
-            Dictionary<float, List<float>> dictwavarccnf =
-                new Dictionary<float, List<float>>(plotwacvarconfigured.GetSlices);//tick
             List<float> wacvarcnf = new List<float>();
-            Dictionary<float, List<float>> acvardict =
-                new Dictionary<float, List<float>>(plotacvarpowermeter.GetSlices);//tick
-
             //Chart2 this is for chart 2 the baseline vlues
-            Dictionary<float, List<float>> acvardictbl =
-                new Dictionary<float, List<float>>(plotacvarpowermeterbl.GetSlices);
             List<float> values2 = new List<float>();
-            Dictionary<float, List<float>> dictacwpmbl =
-                new Dictionary<float, List<float>>(plotwacpowermeterbl.GetSlices);
             List<float> values3 = new List<float>();
             //congfigured values for chart 2 baseline unit
-            Dictionary<float, List<float>> dictwaccnfbl =
-                new Dictionary<float, List<float>>(plotwacconfiguredbl.GetSlices);
             List<float> waccnfbl = new List<float>();
-            Dictionary<float, List<float>> dictwavarccnfbl =
-                new Dictionary<float, List<float>>(plotwacvarconfiguredbl.GetSlices);
             List<float> wacvarcnfbl = new List<float>();
  
-            foreach (var kv in acvardict)
+            foreach (var kv in ibl8.GetSlices())
             {
                 //create the series name from the values 
                 string seriesac = (Convert.ToString(kv.Key));

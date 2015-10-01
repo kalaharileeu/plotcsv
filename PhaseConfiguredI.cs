@@ -36,7 +36,7 @@ namespace PlotDVT
                 {
                     f = float.Parse(value);
                 }
-                catch (FormatException e)
+                catch (FormatException )
                 {
                     f = -2.0f;
                 }

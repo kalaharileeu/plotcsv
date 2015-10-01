@@ -78,7 +78,7 @@ namespace PlotDVT
                     listslices.Add(f, GetUniqueSectionRange(value));
                     GetUniqueSectionRange2(value);
                 }
-                catch (FormatException e)
+                catch (FormatException)
                 {
                     f = -1.0f;
                 }
