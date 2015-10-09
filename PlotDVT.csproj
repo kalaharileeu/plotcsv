@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocX, Version=1.0.0.18, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocX.1.0.0.18\lib\net40\DocX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FileHelpers">
       <HintPath>..\packages\FileHelpers.3.1.0-rc2\lib\net45\FileHelpers.dll</HintPath>
     </Reference>
@@ -52,8 +56,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dcacplot.cs" />
+    <Compile Include="Form1.autoplot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Buttons.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="IBaselist.cs" />
     <Compile Include="PhaseConfiguredI.cs" />
+    <Compile Include="Reportsandbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Slices.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="ValuelistI.cs" />
@@ -100,6 +113,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
