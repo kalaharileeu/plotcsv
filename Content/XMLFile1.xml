@@ -36,6 +36,16 @@
     <from>pcu</from>
   </Column>
   <Column>
+    <columnname>pcu_qP_ACW</columnname>
+    <alias>Wacpcu</alias>
+    <from>pcu</from>
+  </Column>
+  <Column>
+    <columnname>pcu_qP_ACWIMAG</columnname>
+    <alias>Wacimagpcu</alias>
+    <from>pcu</from>
+  </Column>
+  <Column>
   <columnname>pcu_qP_IDC</columnname>
   <alias>Idcpcu</alias>
   <from>pcu</from>

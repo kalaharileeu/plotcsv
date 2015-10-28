@@ -8,7 +8,9 @@ namespace PlotDVT
         public void CreateSampleDocument()
         {
             // Modify to suit your machine:
-            string fileName = @"C:\temp\DocXExample4.docx";
+            //string fileName = @"C:\temp\DocXExample4.docx";
+            string fileName = difftooldir + "\\" + 
+                System.DateTime.Now.ToString("yyMMddHHmmss") + "diffreport" + ".docx";
             // Create a document in memory:
             var doc = DocX.Create(fileName);
        
@@ -48,31 +50,33 @@ namespace PlotDVT
             doc.InsertSectionPageBreak(false);
 //new page
             //Efficiency compare Images of
-            Novacode.Image img = doc.AddImage(@"C:\temp\Efficiency.jpg");
+            Novacode.Image img = doc.AddImage(difftooldir + "\\" + "Efficiency.jpg");
             // Insert a paragrpah:
             Paragraph p0 = doc.InsertParagraph
                 ("1.3 The sum of the difference in efficiency of the two unit under test.", false, heading2);
 //Efficiency compare Images of
             Paragraph p = doc.InsertParagraph(" ", false);
-            p.AppendLine("The Orange marker are the sum of the defference between the baseline unit and the UUT.");
-            p.Append("Every orange marker indicates a differet phase angle. ");
-            p.Append("If there is a red cross the it means the total sum was higher than ");
-//#region
-#region pic1
+            p.AppendLine("The Orange marker is the sum of the difference between the baseline unit and the UUT. ");
+            p.Append("Every orange marker indicates a different phase angle. ");
+            p.Append("If there is a red cross it means the total sum was higher than 15 and that ");
+            p.Append("there is some measured points that need closer inspecting. ");
+            //#region
+            #region pic1
             Picture pic1 = img.CreatePicture();
             int w = 0;
             p.InsertPicture(pic1, w);
-#endregion
-//This is the Idc comapre region
-            Novacode.Image imgIdc0 = doc.AddImage(@"C:\temp\DC current0°.jpg");
-            Novacode.Image imgIdcn45 = doc.AddImage(@"C:\temp\DC current-45°.jpg");
-            Novacode.Image imgIdcn30 = doc.AddImage(@"C:\temp\DC current-30°.jpg");
-            Novacode.Image imgIdcn15 = doc.AddImage(@"C:\temp\DC current-15°.jpg");
-            Novacode.Image imgIdc15 = doc.AddImage(@"C:\temp\DC current15°.jpg");
-            Novacode.Image imgIdc30= doc.AddImage(@"C:\temp\DC current30°.jpg");
-            Novacode.Image imgIdc45 = doc.AddImage(@"C:\temp\DC current45°.jpg");
-            // Insert a paragrpah:
-            doc.InsertParagraph("");
+            #endregion
+            //This is the Idc comapre region
+            //Novacode.Image imgIdc0 = doc.AddImage(@"C:\temp\DC current0°.jpg");
+            Novacode.Image imgIdc0 = doc.AddImage(difftooldir + "\\" + "DC current0°.jpg");
+            Novacode.Image imgIdcn45 = doc.AddImage(difftooldir + "\\" + "DC current-45°.jpg");
+            Novacode.Image imgIdcn30 = doc.AddImage(difftooldir + "\\" + "DC current-30°.jpg");
+            Novacode.Image imgIdcn15 = doc.AddImage(difftooldir + "\\" + "DC current-15°.jpg");
+            Novacode.Image imgIdc15 = doc.AddImage(difftooldir + "\\" + "DC current15°.jpg");
+            Novacode.Image imgIdc30= doc.AddImage(difftooldir + "\\" + "DC current30°.jpg");
+            Novacode.Image imgIdc45 = doc.AddImage(difftooldir + "\\" + "DC current45°.jpg");
+            // Insert a pagebreak:
+            doc.InsertSectionPageBreak(false);
             doc.InsertParagraph("1.4 Comparative plots of the DC current at every phase angle.", false, heading2);
             doc.InsertParagraph("");
             Paragraph p3 = doc.InsertParagraph("The baseline values are in black and the orange crosses are the UUT.");
@@ -102,15 +106,15 @@ namespace PlotDVT
             p2.InsertPicture(picIdc45, 0);
 #endregion
 //Vdc accuracy
-            Novacode.Image imgvdcrep0 = doc.AddImage(@"C:\temp\Vdc input0°.jpg");
-            Novacode.Image imgvdcrep45 = doc.AddImage(@"C:\temp\Vdc input45°.jpg");
-            Novacode.Image imgvdcrep30 = doc.AddImage(@"C:\temp\Vdc input30°.jpg");
-            Novacode.Image imgvdcrep15 = doc.AddImage(@"C:\temp\Vdc input15°.jpg");
-            Novacode.Image imgvdcrepn15 = doc.AddImage(@"C:\temp\Vdc input-15°.jpg");
-            Novacode.Image imgvdcrepn30 = doc.AddImage(@"C:\temp\Vdc input-30°.jpg");
-            Novacode.Image imgvdcrepn45 = doc.AddImage(@"C:\temp\Vdc input-45°.jpg");
-            // Insert a paragrpah:
-            doc.InsertParagraph("");
+            Novacode.Image imgvdcrep0 = doc.AddImage(difftooldir + "\\" + "Vdc0°.jpg");
+            Novacode.Image imgvdcrep45 = doc.AddImage(difftooldir + "\\" + "Vdc45°.jpg");
+            Novacode.Image imgvdcrep30 = doc.AddImage(difftooldir + "\\" + "Vdc30°.jpg");
+            Novacode.Image imgvdcrep15 = doc.AddImage(difftooldir + "\\" + "Vdc15°.jpg");
+            Novacode.Image imgvdcrepn15 = doc.AddImage(difftooldir + "\\" + "Vdc-15°.jpg");
+            Novacode.Image imgvdcrepn30 = doc.AddImage(difftooldir + "\\" + "Vdc-30°.jpg");
+            Novacode.Image imgvdcrepn45 = doc.AddImage(difftooldir + "\\" + "Vdc-45°.jpg");
+            // Insert a pagebreak:
+            doc.InsertSectionPageBreak(false);
             doc.InsertParagraph("1.5 DC voltage accuracy at every phase angle.", false, heading2);
             doc.InsertParagraph("");
             Paragraph p4 = doc.InsertParagraph("The baseline values are in black and the orange crosses are the UUT.");
@@ -130,16 +134,16 @@ namespace PlotDVT
             p5.InsertPicture(imgvdcrepn45.CreatePicture());
 #endregion
  //Idc accuracy
-            Novacode.Image imgidcrep0 = doc.AddImage(@"C:\temp\Idc input0°.jpg");
-            Novacode.Image imgidcrep45 = doc.AddImage(@"C:\temp\Idc input45°.jpg");
-            Novacode.Image imgidcrep30 = doc.AddImage(@"C:\temp\Idc input30°.jpg");
-            Novacode.Image imgidcrep15 = doc.AddImage(@"C:\temp\Idc input15°.jpg");
-            Novacode.Image imgidcrepn15 = doc.AddImage(@"C:\temp\Idc input-15°.jpg");
-            Novacode.Image imgidcrepn30 = doc.AddImage(@"C:\temp\Idc input-30°.jpg");
-            Novacode.Image imgidcrepn45 = doc.AddImage(@"C:\temp\Idc input-45°.jpg");
-            // Insert a paragrpah:
-            doc.InsertParagraph("");
-            doc.InsertParagraph("DC current accuracy at every phase angle.", false, heading2);
+            Novacode.Image imgidcrep0 = doc.AddImage(difftooldir + "\\" + "Idc0°.jpg");
+            Novacode.Image imgidcrep45 = doc.AddImage(difftooldir + "\\" + "Idc45°.jpg");
+            Novacode.Image imgidcrep30 = doc.AddImage(difftooldir + "\\" + "Idc30°.jpg");
+            Novacode.Image imgidcrep15 = doc.AddImage(difftooldir + "\\" + "Idc15°.jpg");
+            Novacode.Image imgidcrepn15 = doc.AddImage(difftooldir + "\\" + "Idc-15°.jpg");
+            Novacode.Image imgidcrepn30 = doc.AddImage(difftooldir + "\\" + "Idc-30°.jpg");
+            Novacode.Image imgidcrepn45 = doc.AddImage(difftooldir + "\\" + "Idc-45°.jpg");
+            // Insert a pagebreak:
+            doc.InsertSectionPageBreak(false);
+            doc.InsertParagraph("1.6 DC current accuracy at every phase angle.", false, heading2);
             doc.InsertParagraph("");
             doc.InsertParagraph("The baseline values are in black and the orange crosses are the UUT.");
             doc.InsertParagraph("");
@@ -158,8 +162,64 @@ namespace PlotDVT
             p7.InsertPicture(imgidcrepn45.CreatePicture());
 #endregion
 
-
+ //Wac accuracy
+            Novacode.Image Wac0 = doc.AddImage(difftooldir + "\\" + "Wac0°.jpg");
+            Novacode.Image Wac45 = doc.AddImage(difftooldir + "\\" + "Wac45°.jpg");
+            Novacode.Image Wac30 = doc.AddImage(difftooldir + "\\" + "Wac30°.jpg");
+            Novacode.Image Wac15 = doc.AddImage(difftooldir + "\\" + "Wac15°.jpg");
+            Novacode.Image Wacn15 = doc.AddImage(difftooldir + "\\" + "Wac-15°.jpg");
+            Novacode.Image Wacn30 = doc.AddImage(difftooldir + "\\" + "Wac-30°.jpg");
+            Novacode.Image Wacn45 = doc.AddImage(difftooldir + "\\" + "Wac-45°.jpg");
+            // Insert a pagebreak:
+            doc.InsertSectionPageBreak(false);
+            doc.InsertParagraph("1.7 AC watts comparison at every phase angle.", false, heading2);
+            doc.InsertParagraph("");
+            doc.InsertParagraph("The baseline values are in black and the orange crosses are the UUT.");
+            doc.InsertParagraph("");
+            doc.InsertParagraph("");
+            //Efficiency compare Images of
+            doc.InsertParagraph("", false);
+            Paragraph p8 = doc.InsertParagraph(" ", false);
+//# region vdc accuracy region
+#region Wac
+            p8.InsertPicture(Wac0.CreatePicture());
+            p8.InsertPicture(Wac45.CreatePicture());
+            p8.InsertPicture(Wac30.CreatePicture());
+            p8.InsertPicture(Wac15.CreatePicture());
+            p8.InsertPicture(Wacn15.CreatePicture());
+            p8.InsertPicture(Wacn30.CreatePicture());
+            p8.InsertPicture(Wacn45.CreatePicture());
+#endregion
             
+
+ //Idc accuracy
+            Novacode.Image VAR0 = doc.AddImage(difftooldir + "\\" + "VAR0°.jpg");
+            Novacode.Image VAR45 = doc.AddImage(difftooldir + "\\" + "VAR45°.jpg");
+            Novacode.Image VAR30 = doc.AddImage(difftooldir + "\\" + "VAR30°.jpg");
+            Novacode.Image VAR15 = doc.AddImage(difftooldir + "\\" + "VAR15°.jpg");
+            Novacode.Image VARn15 = doc.AddImage(difftooldir + "\\" + "VAR-15°.jpg");
+            Novacode.Image VARn30 = doc.AddImage(difftooldir + "\\" + "VAR-30°.jpg");
+            Novacode.Image VARn45 = doc.AddImage(difftooldir + "\\" + "VAR-45°.jpg");
+            // Insert a pagebreak:
+            doc.InsertSectionPageBreak(false);
+            doc.InsertParagraph("1.8 AC VAR comparison at every phase angle.", false, heading2);
+            doc.InsertParagraph("");
+            doc.InsertParagraph("The baseline values are in black and the orange crosses are the UUT.");
+            doc.InsertParagraph("");
+            //Efficiency compare Images of
+            doc.InsertParagraph("", false);
+            Paragraph p9 = doc.InsertParagraph(" ", false);
+//# region vdc accuracy region
+#region VAR
+            p9.InsertPicture(VAR0.CreatePicture());
+            p9.InsertPicture(VAR45.CreatePicture());
+            p9.InsertPicture(VAR30.CreatePicture());
+            p9.InsertPicture(VAR15.CreatePicture());
+            p9.InsertPicture(VARn15.CreatePicture());
+            p9.InsertPicture(VARn30.CreatePicture());
+            p9.InsertPicture(VARn45.CreatePicture());
+#endregion
+
             // Save to the output directory:
             doc.Save();
 

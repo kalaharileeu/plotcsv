@@ -77,15 +77,20 @@ namespace PlotDVT
         //Read the auxilliary information from the test folder text file
         private void uutreadauxinfo(string fn)
         {
+            textBox3.Clear();//clear the textbox for new results
             uutdetail = "";//use this for document generation, clear it
-            string thepath = Path.GetDirectoryName(fn);
-            string txtpath = Path.Combine();
+            string thepath = Path.GetDirectoryName(fn);//use reslult directory to create folder
+            difftooldir = thepath + "\\Difftool";
+            //string txtpath = Path.Combine();
             string resultString = Regex.Match(thepath, @"\d{12}").Value;//find the serial number in the path
             textBox3.AppendText("Baseline serial number is: " + resultString + "\n");
-            DirectoryInfo resultsdirectory = new DirectoryInfo(thepath);
+            DirectoryInfo resultsdirectory = new DirectoryInfo(thepath);//convert to dir info to use getfiles
             FileInfo[] filesindir = resultsdirectory.GetFiles("*" + resultString + "*" + ".txt");
-            if (filesindir.Length != 0)
+
+            if (filesindir.Length != 0)//error: if there is not in relultstring then it will also find the text dile
             {
+
+                Directory.CreateDirectory(difftooldir);//no need to check it exists
                 foreach (var lin in File.ReadLines(filesindir[0].FullName).SkipWhile
                     (line => !line.Contains("Debugger")).TakeWhile(line => !line.Contains("d>")))
                 {
@@ -107,9 +112,10 @@ namespace PlotDVT
         //Read the auxilliary information from the test folder text file
         private void baselinereadauxinfo(string fn)
         {
+            textBox4.Clear();//clear the textbox for new results
             baselinedetail = "";//use this for document deneration, clear it
             string thepath = Path.GetDirectoryName(fn);
-            string txtpath = Path.Combine();
+            //string txtpath = Path.Combine();
             string resultString = Regex.Match(thepath, @"\d{12}").Value;//find the serial number in the path
             textBox4.AppendText("Baseline serial number is: " + resultString + "\n");
             DirectoryInfo resultsdirectory = new DirectoryInfo(thepath);
@@ -248,6 +254,16 @@ namespace PlotDVT
                 reverse = false;
                 button19.BackColor = Color.LightYellow;
             }
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            Accuracyacwatt();//va reporting accuracy
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            Accuracyvar();//Var reporting accurace
         }
     }
 }
