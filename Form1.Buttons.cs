@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -264,6 +263,11 @@ namespace PlotDVT
         private void button22_Click(object sender, EventArgs e)
         {
             Accuracyvar();//Var reporting accurace
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            Accuracyvac();
         }
     }
 }

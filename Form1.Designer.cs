@@ -72,6 +72,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button21 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -293,7 +294,7 @@
             this.button14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.button14.Location = new System.Drawing.Point(6, 26);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(75, 23);
+            this.button14.Size = new System.Drawing.Size(58, 23);
             this.button14.TabIndex = 18;
             this.button14.Text = "Wac pm";
             this.button14.UseVisualStyleBackColor = false;
@@ -320,12 +321,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button23);
             this.groupBox1.Controls.Add(this.button17);
             this.groupBox1.Controls.Add(this.button16);
             this.groupBox1.Controls.Add(this.button15);
             this.groupBox1.Location = new System.Drawing.Point(295, 870);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(116, 127);
+            this.groupBox1.Size = new System.Drawing.Size(116, 149);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Reporting accuracy";
@@ -377,9 +379,9 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.button14);
-            this.groupBox4.Location = new System.Drawing.Point(113, 937);
+            this.groupBox4.Location = new System.Drawing.Point(194, 937);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(87, 57);
+            this.groupBox4.Size = new System.Drawing.Size(75, 57);
             this.groupBox4.TabIndex = 24;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "AC";
@@ -491,6 +493,17 @@
             this.button22.UseVisualStyleBackColor = false;
             this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
+            // button23
+            // 
+            this.button23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button23.Location = new System.Drawing.Point(29, 118);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(44, 23);
+            this.button23.TabIndex = 19;
+            this.button23.Text = "Vac";
+            this.button23.UseVisualStyleBackColor = false;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -574,6 +587,7 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Button button23;
     }
 }
 

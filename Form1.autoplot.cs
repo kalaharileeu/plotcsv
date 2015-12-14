@@ -18,6 +18,7 @@ namespace PlotDVT
             thebuttons.Add(button16);//Idc reporting accuracy go!
             thebuttons.Add(button21);//Wac reporting accuracy go!
             thebuttons.Add(button22);//VAR reporting accuracy go!
+            thebuttons.Add(button23);//VAR reporting accuracy go!
             int delay = 80;
 
             button1.PerformClick();

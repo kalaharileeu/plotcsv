@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlotDVT
 {
@@ -23,6 +21,7 @@ namespace PlotDVT
             s = new List<string>(valuesstring.Distinct().ToList());
             //donewithlist = false;
             count = 0;
+            //Distnct the polupate listslices
             Distinct();
         }
 
@@ -37,8 +36,9 @@ namespace PlotDVT
         }
         /// <summary>
         /// The phaseconfigured has to call this and set it up
+        /// This is called from Form1.cs
         /// </summary>
-        /// <param name="phaseslicestuff"></param>
+        /// <param name="create phaseslices"></param>
         public void Setphaseslice(Dictionary<float, List<int>> phaseslicestuff)
         {
             foreach (var kv in phaseslicestuff)
@@ -49,6 +49,7 @@ namespace PlotDVT
                     {
                         if (slicelist[i].vlist[1] <= kv.Value[1])
                         {
+                            //populate the phase angle of <Slices> instance
                             slicelist[i].phaseangle = kv.Key;
                         }
                         else
@@ -60,11 +61,10 @@ namespace PlotDVT
                             slicelist.Insert(i + 1, new Slice(kv.Value[1] + 15, slicelist[i].vfloat, newparameters));
                         }
                     }
-
                 }
             }
         }
-
+        //gets the distincr values in the column
         private void Distinct()
         {
             // Get distinct elements and convert into a list again.

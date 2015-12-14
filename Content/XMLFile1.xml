@@ -90,4 +90,15 @@
     <alias>ACvarpowermeter</alias>
     <from>powermeter</from>
   </Column>
+  <Column>
+    <columnname>pcu_qP_VL1</columnname>
+    <alias>Vacpcu</alias>
+    <from>pcu</from>
+  </Column>
+  <Column>
+    <columnname>pm_ac_volts</columnname>
+    <alias>Vacpowermeter</alias>
+    <from>powermeter</from>
+  </Column>
 </DataCol>
+

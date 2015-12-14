@@ -152,6 +152,7 @@ namespace PlotDVT
             doc.InsertParagraph("", false);
             Paragraph p7 = doc.InsertParagraph(" ", false);
 //# region vdc accuracy region
+
 #region picidcacc
             p7.InsertPicture(imgidcrep0.CreatePicture());
             p7.InsertPicture(imgidcrep45.CreatePicture());
@@ -218,7 +219,40 @@ namespace PlotDVT
             p9.InsertPicture(VARn15.CreatePicture());
             p9.InsertPicture(VARn30.CreatePicture());
             p9.InsertPicture(VARn45.CreatePicture());
-#endregion
+            #endregion
+
+
+            //Wac accuracy
+            Novacode.Image Vac0 = doc.AddImage(difftooldir + "\\" + "Vac0°.jpg");
+            Novacode.Image Vac45 = doc.AddImage(difftooldir + "\\" + "Vac45°.jpg");
+            Novacode.Image Vac30 = doc.AddImage(difftooldir + "\\" + "Vac30°.jpg");
+            Novacode.Image Vac15 = doc.AddImage(difftooldir + "\\" + "Vac15°.jpg");
+            Novacode.Image Vacn15 = doc.AddImage(difftooldir + "\\" + "Vac-15°.jpg");
+            Novacode.Image Vacn30 = doc.AddImage(difftooldir + "\\" + "Vac-30°.jpg");
+            Novacode.Image Vacn45 = doc.AddImage(difftooldir + "\\" + "Vac-45°.jpg");
+            // Insert a pagebreak:
+            doc.InsertSectionPageBreak(false);
+            doc.InsertParagraph("1.9 AC volts comparison at every phase angle.", false, heading2);
+            doc.InsertParagraph("");
+            doc.InsertParagraph("The baseline values are in black and the orange crosses are the UUT.");
+            doc.InsertParagraph("");
+            doc.InsertParagraph("");
+            //Efficiency compare Images of
+            doc.InsertParagraph("", false);
+            Paragraph p10 = doc.InsertParagraph(" ", false);
+            //# region vdc accuracy region
+            #region Wac
+            p10.InsertPicture(Vac0.CreatePicture());
+            p10.InsertPicture(Vac45.CreatePicture());
+            p10.InsertPicture(Vac30.CreatePicture());
+            p10.InsertPicture(Vac15.CreatePicture());
+            p10.InsertPicture(Vacn15.CreatePicture());
+            p10.InsertPicture(Vacn30.CreatePicture());
+            p10.InsertPicture(Vacn45.CreatePicture());
+            #endregion
+
+
+
 
             // Save to the output directory:
             doc.Save();
