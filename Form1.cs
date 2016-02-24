@@ -188,10 +188,10 @@ namespace PlotDVT
                     //Find Vdcconfigure to get slice parameters
                     foreach (IBaselist Ibltwo in colobjinterflistbl)
                     {
-                        if (Ibltwo.GetName() == "Vdcconfigured")
+                        if (Ibltwo.GetName() == "Vdcconfigured")//if it is vdc configured
                         {
-                            (Ibltwo as VdcconfiguredI).Setphaseslice((Ibl as PhaseconfiguredI).Listslices);
-                            (Ibltwo as VdcconfiguredI).Setphaseslice((Ibl as PhaseconfiguredI).Listslices2);
+                            (Ibltwo as VdcconfiguredI).Setphaseslice((Ibl as PhaseconfiguredI).Listslices);//set first set
+                            (Ibltwo as VdcconfiguredI).Setphaseslice((Ibl as PhaseconfiguredI).Listslices2);//set second set
                         }
                     }
                     break;
@@ -212,7 +212,7 @@ namespace PlotDVT
                         // (Ibltwo as VdcconfiguredI)
                         foreach (IBaselist Ibl in colobjinterflistbl)
                         {
-                            if (!(Ibl.GetName() == "Vdcconfigured"))
+                            if (!(Ibl.GetName() == "Vdcconfigured"))//if it is not Vdcconfigured
                             {
                                 Ibl.Populareslices((Ibltwo as VdcconfiguredI).Slicelist);
                             }
@@ -357,8 +357,6 @@ namespace PlotDVT
                         }
                     }
                 }
-
- 
             }
             catch (InvalidCastException)
             {
@@ -582,7 +580,6 @@ namespace PlotDVT
                     j = i;
                     chart2.Series[chartseries].LegendText = textBox1.Text;//Legend text
                     chart2.Series[chartseries].MarkerStyle = phasemarkerlist[i];
-
 
                     if (ibl2.GetSlices().ContainsKey(kv.Key))
                         values = ibl2.GetSlices()[kv.Key];
@@ -927,66 +924,15 @@ namespace PlotDVT
             List<float> values = new List<float>();
             /// plot the DIFF V powermeter on chart 2
             ///get the columns to print for the baseline unit 
-            IBaselist ibl2 = colobjinterflistbl.First(item => item.GetName() == "Vdcpowermeter");
-            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Vdcpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "BL";
-                //Add a series
-                chart2.Series.Add(chartseries);
-                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                chart2.Series[chartseries].MarkerSize = 7;
-                chart2.Series[chartseries].Color = Color.Black;
+            IBaselist baselinepowermeter = colobjinterflistbl.First(item => item.GetName() == "Vdcpowermeter");
+            IBaselist baselinepcu = colobjinterflistbl.First(item => item.GetName() == "Vdcpcu");
 
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
+            IBaselist uutpowermeter = colobjinterflist.First(item => item.GetName() == "Vdcpowermeter");
+            IBaselist uutpcu = colobjinterflist.First(item => item.GetName() == "Vdcpcu");
 
-                if (values.Count <= kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];//Vdc pcu - Vdc powermeter
-                        float accuracy2 = (float) (Math.Round((double) accuracy, 2));
-                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
+            plotaccuracycomaprison(baselinepcu, baselinepowermeter, uutpcu, uutpowermeter);
 
-            //get the values to plot for the non basline unit 
-            ibl2 = colobjinterflist.First(item => item.GetName() == "Vdcpowermeter");
-            ibl = colobjinterflist.First(item => item.GetName() == "Vdcpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "UUT";
-                //Add a series
-                chart2.Series.Add(chartseries);
-                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                chart2.Series[chartseries].MarkerSize = 7;
-                chart2.Series[chartseries].Color = Color.DarkOrange;
-
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
-
-                if (values.Count == kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];//Vdc pcu - Vdc powermeter
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
+          
         }
         //plot the accuracy of idc
         public void Accuracyicv()
@@ -1001,74 +947,18 @@ namespace PlotDVT
             List<float> values = new List<float>();
             // plot the DIFF V powermeter on chart 2
             ///get the columns to print for the baseline unit 
-            IBaselist ibl2 = colobjinterflistbl.First(item => item.GetName() == "Idcpowermeter");
-            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Idcpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "accuracybl";
-                //Add a series
-                chart2.Series.Add(chartseries);
-                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                chart2.Series[chartseries].MarkerSize = 7;
-                chart2.Series[chartseries].Color = Color.Black;
-
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
-
-                if (values.Count <= kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
-
-            //dictidcpm = new Dictionary<float, List<float>>(plotidcpowermeter.GetSlices);
-            values = new List<float>();
+            IBaselist baselinepowermeter = colobjinterflistbl.First(item => item.GetName() == "Idcpowermeter");
+            IBaselist baselinepcu = colobjinterflistbl.First(item => item.GetName() == "Idcpcu");
             // plot the DIFF V powermeter on chart 2
-            ibl2 = colobjinterflist.First(item => item.GetName() == "Idcpowermeter");
-            ibl = colobjinterflist.First(item => item.GetName() == "Idcpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "accuracy";
-                //Add a series
-                this.chart2.Series.Add(chartseries);
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                this.chart2.Series[chartseries].MarkerSize = 7;
-                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+            IBaselist uutpowermeter = colobjinterflist.First(item => item.GetName() == "Idcpowermeter");
+            IBaselist uutpcu = colobjinterflist.First(item => item.GetName() == "Idcpcu");
 
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
-
-                if (values.Count == kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
+            plotaccuracycomaprison(baselinepcu, baselinepowermeter, uutpcu, uutpowermeter);
         }
 
         public void Accuracywdc()
         {
             chartdefaults();
-
             Title title = new Title("PCU Wdc reporting accurancy. Phase andgle: " + textBox1.Text,
                 Docking.Top, new Font("Verdana", 10, FontStyle.Regular), Color.Black);
             chart2.Titles.Add(title);
@@ -1079,68 +969,13 @@ namespace PlotDVT
             List<float> values = new List<float>();
             // plot the DIFF V powermeter on chart 2
             ///get the columns to print for the baseline unit 
-            IBaselist ibl2 = colobjinterflistbl.First(item => item.GetName() == "Wdcpowermeter");
-            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Wdcpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "BL";//Baseline
-                //Add a series
-                chart2.Series.Add(chartseries);
-                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                chart2.Series[chartseries].MarkerSize = 7;
-                chart2.Series[chartseries].Color = Color.Black;
-
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
-
-                if (values.Count <= kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
-
-            //Dictionary<float, List<float>> dictwdcpm2 = new Dictionary<float, List<float>>(plotwdcpowermeter.GetSlices);
-            values = new List<float>();
+            IBaselist baselinepowermeter = colobjinterflistbl.First(item => item.GetName() == "Wdcpowermeter");
+            IBaselist baselinepcu = colobjinterflistbl.First(item => item.GetName() == "Wdcpcu");
             // plot the DIFF V powermeter on chart 2
-            ibl2 = colobjinterflist.First(item => item.GetName() == "Wdcpowermeter");
-            ibl = colobjinterflist.First(item => item.GetName() == "Wdcpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "UUT";
-                //Add a series
-                this.chart2.Series.Add(chartseries);
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                this.chart2.Series[chartseries].MarkerSize = 7;
-                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+            IBaselist uutpowermeter = colobjinterflist.First(item => item.GetName() == "Wdcpowermeter");
+            IBaselist uutpcu = colobjinterflist.First(item => item.GetName() == "Wdcpcu");
 
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
-
-                if (values.Count <= kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
+            plotaccuracycomaprison(baselinepcu, baselinepowermeter, uutpcu, uutpowermeter);
         }
         /// <summary>
         /// Plots the Var vs real power triangle
@@ -1149,7 +984,6 @@ namespace PlotDVT
         {
             //List<YourType> newList = new List<YourType>(oldList);
             chartdefaults();
-
             Title title = new Title("Powermeter VA against VAR: " + textBox1.Text,
                 Docking.Top, new Font("Verdana", 10, FontStyle.Regular), Color.Black);
             chart1.Titles.Add(title);
@@ -1274,71 +1108,17 @@ namespace PlotDVT
             chart2.Titles.Add(title);
             title.IsDockedInsideChartArea = false;
             title.DockedToChartArea = chart2.ChartAreas[0].Name;
-            List<float> values = new List<float>();
+
             /// plot the DIFF V powermeter on chart 2
             ///get the columns to print for the baseline unit 
-            IBaselist ibl2 = colobjinterflistbl.First(item => item.GetName() == "Wacpowermeter");//done
-            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Wacpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "BL";
-                //Add a series
-                chart2.Series.Add(chartseries);
-                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                chart2.Series[chartseries].MarkerSize = 7;
-                chart2.Series[chartseries].Color = Color.Black;
-
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
-
-                if (values.Count <= kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];//Vdc pcu - Vdc powermeter
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
-
+            IBaselist baselinepowermeter = colobjinterflistbl.First(item => item.GetName() == "Wacpowermeter");//done
+            IBaselist baselinepcu = colobjinterflistbl.First(item => item.GetName() == "Wacpcu");
             //get the values to plot for the non basline unit 
-            ibl2 = colobjinterflist.First(item => item.GetName() == "Wacpowermeter");
-            ibl = colobjinterflist.First(item => item.GetName() == "Wacpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "UUT";
-                //Add a series
-                chart2.Series.Add(chartseries);
-                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                chart2.Series[chartseries].MarkerSize = 7;
-                chart2.Series[chartseries].Color = Color.DarkOrange;
+            IBaselist uutpowermeter = colobjinterflist.First(item => item.GetName() == "Wacpowermeter");
+            IBaselist uutpcu = colobjinterflist.First(item => item.GetName() == "Wacpcu");
 
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
-
-                if (values.Count == kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];//Vdc pcu - Vdc powermeter
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
+            plotaccuracycomaprison(baselinepcu, baselinepowermeter, uutpcu, uutpowermeter);
         }
-
         /// <summary>
         /// Done the IBaselist implementation. Plot ACvar accuracy
         /// </summary>
@@ -1351,71 +1131,21 @@ namespace PlotDVT
             chart2.Titles.Add(title);
             title.IsDockedInsideChartArea = false;
             title.DockedToChartArea = chart2.ChartAreas[0].Name;
-            List<float> values = new List<float>();
             /// plot the DIFF V powermeter on chart 2
             ///get the columns to print for the baseline unit 
-            IBaselist ibl2 = colobjinterflistbl.First(item => item.GetName() == "ACvarpowermeter");//done
-            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Wacimagpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "BL";
-                //Add a series
-                chart2.Series.Add(chartseries);
-                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                chart2.Series[chartseries].MarkerSize = 7;
-                chart2.Series[chartseries].Color = Color.Black;
+            IBaselist baselinepowermeter = colobjinterflistbl.First(item => item.GetName() == "ACvarpowermeter");//done
+            IBaselist baselinepcu = colobjinterflistbl.First(item => item.GetName() == "Wacimagpcu");
 
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
+            IBaselist uutpowermeter = colobjinterflist.First(item => item.GetName() == "ACvarpowermeter");
+            IBaselist uutpcu = colobjinterflist.First(item => item.GetName() == "Wacimagpcu");
 
-                if (values.Count <= kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];//Vdc pcu - Vdc powermeter
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
-
-            //get the values to plot for the non basline unit 
-            ibl2 = colobjinterflist.First(item => item.GetName() == "ACvarpowermeter");
-            ibl = colobjinterflist.First(item => item.GetName() == "Wacimagpcu");
-            foreach (var kv in ibl.GetSlices())
-            {
-                //Name the series
-                string chartseries = (Convert.ToString(kv.Key));
-                if (chartseries.Length > 4)
-                    chartseries = chartseries.Substring(0, 4);
-                chartseries += "UUT";
-                //Add a series
-                chart2.Series.Add(chartseries);
-                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                chart2.Series[chartseries].MarkerSize = 7;
-                chart2.Series[chartseries].Color = Color.DarkOrange;
-
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
-
-                if (values.Count == kv.Value.Count)
-                {
-                    for (int i = 0; i < kv.Value.Count; i++)
-                    {
-                        float accuracy = kv.Value[i] - values[i];//Vdc pcu - Vdc powermeter
-                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
-                    }
-                }
-            }
+            ///call the plot function to plot the data
+            plotaccuracycomaprison(baselinepcu, baselinepowermeter, uutpcu, uutpowermeter);
         }
-
+        /// <summary>
+        /// AC voltage accuracy
+        /// </summary>
+        //Plots the accuracy of the inverter AC voltage measurement vs the powermeter voltage measurement
         public void Accuracyvac()
         {
             chartdefaults();
@@ -1424,14 +1154,30 @@ namespace PlotDVT
             chart2.Titles.Add(title);
             title.IsDockedInsideChartArea = false;
             title.DockedToChartArea = chart2.ChartAreas[0].Name;
-            //Dictionary<float, List<float>> dictwdcpm =
-            //    new Dictionary<float, List<float>>(plotwdcpowermeterbl.GetSlices);
-            List<float> values = new List<float>();
             // plot the DIFF V powermeter on chart 2
             ///get the columns to print for the baseline unit 
-            IBaselist ibl2 = colobjinterflistbl.First(item => item.GetName() == "Vacpowermeter");
-            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Vacpcu");
-            foreach (var kv in ibl.GetSlices())
+            IBaselist baselinepowermeter = colobjinterflistbl.First(item => item.GetName() == "Vacpowermeter");//Find
+            IBaselist baselinepcu = colobjinterflistbl.First(item => item.GetName() == "Vacpcu");//Find
+            //UUT values
+            IBaselist uutpowermeter = colobjinterflist.First(item => item.GetName() == "Vacpowermeter");
+            IBaselist uutpcu = colobjinterflist.First(item => item.GetName() == "Vacpcu");
+            ///call the plot function to plot the data
+            plotaccuracycomaprison(baselinepcu, baselinepowermeter, uutpcu, uutpowermeter);
+        }
+        /// <summary>
+        /// These are the values for the baseline test unit and the uut (unit under test)
+        /// Takes two basleline unit vales and two unit undertest values, subtract the basline values
+        /// from each other. Subtract the unit under test values from each other. plot both sets to compare them
+        /// </summary>
+        /// <param name="baseline1"></param>
+        /// <param name="baseline2"></param>
+        /// <param name="uut1"></param>
+        /// <param name="uut2"></param>
+        private void plotaccuracycomaprison(IBaselist baseline1, IBaselist baseline2, IBaselist uut1, IBaselist uut2)
+        {
+            List<float> values = new List<float>();
+
+            foreach (var kv in baseline1.GetSlices())
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -1445,8 +1191,8 @@ namespace PlotDVT
                 chart2.Series[chartseries].MarkerSize = 7;
                 chart2.Series[chartseries].Color = Color.Black;
 
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
+                if (baseline2.GetSlices().ContainsKey(kv.Key))
+                    values = baseline2.GetSlices()[kv.Key];
 
                 if (values.Count <= kv.Value.Count)
                 {
@@ -1454,16 +1200,45 @@ namespace PlotDVT
                     {
                         float accuracy = kv.Value[i] - values[i];
                         float accuracy2 = (float)(Math.Round((double)accuracy, 2));
-                        this.chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
                     }
                 }
             }
-            //Dictionary<float, List<float>> dictwdcpm2 = new Dictionary<float, List<float>>(plotwdcpowermeter.GetSlices);
+            ///second half of plotting
+            ///create a new list
             values = new List<float>();
-            // plot the DIFF V powermeter on chart 2
-            ibl2 = colobjinterflist.First(item => item.GetName() == "Vacpowermeter");
-            ibl = colobjinterflist.First(item => item.GetName() == "Vacpcu");
-            foreach (var kv in ibl.GetSlices())
+            foreach (var kv in baseline1.GetSlices2())//kv is a dictionary
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "BL2";//Baseline second set
+                //Add a series
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                chart2.Series[chartseries].MarkerSize = 7;
+                chart2.Series[chartseries].Color = Color.Black;
+                chart2.Series[chartseries].IsVisibleInLegend = false;//Hide this series from legend
+
+                if (baseline2.GetSlices2().ContainsKey(kv.Key))
+                    values = baseline2.GetSlices2()[kv.Key];//values list now point to list contained in dictionary
+
+                if (values.Count <= kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = kv.Value[i] - values[i];
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
+            ///*****************************************************END BASE line LIST values*******************************
+            //**********************************************************UUT starts***********************
+            values = new List<float>();
+            foreach (var kv in uut1.GetSlices())
             {
                 //Name the series
                 string chartseries = (Convert.ToString(kv.Key));
@@ -1471,14 +1246,43 @@ namespace PlotDVT
                     chartseries = chartseries.Substring(0, 4);
                 chartseries += "UUT";
                 //Add a series
-                this.chart2.Series.Add(chartseries);
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                this.chart2.Series[chartseries].MarkerSize = 7;
-                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                chart2.Series[chartseries].MarkerSize = 7;
+                chart2.Series[chartseries].Color = Color.DarkOrange;
 
-                if (ibl2.GetSlices().ContainsKey(kv.Key))
-                    values = ibl2.GetSlices()[kv.Key];
+                if (uut2.GetSlices().ContainsKey(kv.Key))
+                    values = uut2.GetSlices()[kv.Key];
+
+                if (values.Count <= kv.Value.Count)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        float accuracy = kv.Value[i] - values[i];
+                        float accuracy2 = (float)(Math.Round((double)accuracy, 2));
+                        chart2.Series[chartseries].Points.AddXY(kv.Key, accuracy2);
+                    }
+                }
+            }
+            //values = new List<float>();
+            foreach (var kv in uut1.GetSlices2())
+            {
+                //Name the series
+                string chartseries = (Convert.ToString(kv.Key));
+                if (chartseries.Length > 4)
+                    chartseries = chartseries.Substring(0, 4);
+                chartseries += "UUT2";
+                //Add a series
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                chart2.Series[chartseries].MarkerSize = 7;
+                chart2.Series[chartseries].Color = Color.DarkOrange;
+                chart2.Series[chartseries].IsVisibleInLegend = false;
+
+                if (uut2.GetSlices().ContainsKey(kv.Key))
+                    values = uut2.GetSlices2()[kv.Key];
 
                 if (values.Count <= kv.Value.Count)
                 {
@@ -1491,7 +1295,5 @@ namespace PlotDVT
                 }
             }
         }
-
-
     }
 }

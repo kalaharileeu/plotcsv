@@ -8,18 +8,14 @@ namespace PlotDVT
     {
         private List<string> s; 
         private List<Slice> slicelist;
-        //private Dictionary<float, List<int>> phaseslicedict;
         private Dictionary<float, List<int>> listslices;
-        //private bool donewithlist;
         private int count;
 
         public VdcconfiguredI(List<string> stringvaluelist, string colname) : base(stringvaluelist, colname)
         {
             slicelist = new List<Slice>();
             listslices = new Dictionary<float, List<int>>();
-            //phaseslicedict = new Dictionary<float, List<int>>();
             s = new List<string>(valuesstring.Distinct().ToList());
-            //donewithlist = false;
             count = 0;
             //Distnct the polupate listslices
             Distinct();

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace PlotDVT
 {
+    /// <summary>
+/// Implements IBaselist
+/// </summary>
     public class ValuelistI : IBaselist
     {
         protected List<float> valuesfloat;
@@ -76,6 +79,11 @@ namespace PlotDVT
         public Dictionary<float, List<float>> GetSlices()
         {
             return slices;
+        }
+
+        public Dictionary<float, List<float>> GetSlices2()
+        {
+            return slices2;
         }
 
         public void ConvertToFloat()

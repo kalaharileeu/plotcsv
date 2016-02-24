@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PlotDVT
 {
@@ -13,6 +9,7 @@ namespace PlotDVT
         void Populareslices(List<Slice> slice);
         void Populareslices(List<Slice> slice, float deg);
         Dictionary<float, List<float>> GetSlices();
+        Dictionary<float, List<float>> GetSlices2();
         void ConvertToFloat();
         List<float> GetFloats();
         string GetName();
