@@ -249,7 +249,7 @@ namespace PlotDVT
                 c.clearvalues();
                 wantedcolumns.Add(c);
             }
-            // Read sample data from CSV file
+            // Read data from CSV file
             using (CsvFileReader reader = new CsvFileReader(filename))
             {
                 CsvRow row = new CsvRow();
@@ -354,7 +354,7 @@ namespace PlotDVT
 
             }
         }
-        //**************************************Doen UUT data populatin****************************
+        //**************************************Done UUT data populatin****************************
         private void chartdefaults()
         {
             chart1.ChartAreas[0].BackColor = Color.White;
@@ -380,8 +380,6 @@ namespace PlotDVT
             //chart2.ChartAreas.Clear();
         }
 //**********************************Done populating data for unit undertest*********************
-
-
         public void plotIdc()//Changing this plot to deal with interface data
         {
             ///<comments>
