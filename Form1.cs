@@ -9,6 +9,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace PlotDVT
 {
+	//This class is too big.
     public partial class Form1 : Form
     {
         List<Column> wantedcolumns;//stores a list of wanted data rows
@@ -90,7 +91,7 @@ namespace PlotDVT
             this.textBox1.Text = "0°";
         }
         /// <summary>
-        /// populating data for the baseline values
+        /// populating data for the baseline file values
         /// </summary>
         /// <param name="filename"></param>
         private void populatedatabaseline(string filename)
@@ -103,16 +104,12 @@ namespace PlotDVT
             if (colobjinterflistbl.Count > 0)
                 colobjinterflistbl.Clear();
 
-            if (File.Exists(filename))
-            {
-                
-            }
-            else
+            if (!(File.Exists(filename)))
             {
                 MessageBox.Show("The baseline file: !exist");
                 return;
             }
-            //datacolumnsbl come from xml so do not clear it
+            //datacolumnsbl comes from xml so do not clear it
             foreach (Column c in datacolumnsbl.namealiaslist)
             {
                 //Clear the values in the columns
@@ -198,10 +195,9 @@ namespace PlotDVT
                 }
             }
             ///<summary>
-            ///Below loop creates the slices of the column set up by Vdcconfigured.
+            ///Below loop creates the slices of the column in the CSV set up by Vdcconfigured.
             ///New with interface implementation
             ///</summary>
-            //slices = Ibl.GetSlices();
             try
             {
                 //Find Vdcconfigure to get slice parameters
@@ -226,6 +222,7 @@ namespace PlotDVT
             }
         }
         //************************************Done populating data for baseline*********************
+        //************************************Start populating UUT instances with data*************
         /// <summary>
         /// Populate data for the unit under test
         /// </summary>
@@ -240,11 +237,7 @@ namespace PlotDVT
             if (colobjinterflist.Count > 0)
                 colobjinterflist.Clear();
 
-            if (File.Exists(filename))
-            {
-
-            }
-            else
+            if (!(File.Exists(filename)))
             {
                 MessageBox.Show("The data file: !exist");
                 return;
@@ -333,8 +326,6 @@ namespace PlotDVT
                     break;    
                 }
             }
-
-            //private void CreatSlices()
             ///<summary>
             ///Below loop creates the slices of the column set up by Vdcconfigured.
             ///New with interface implementation
@@ -363,7 +354,7 @@ namespace PlotDVT
 
             }
         }
-
+        //**************************************Doen UUT data populatin****************************
         private void chartdefaults()
         {
             chart1.ChartAreas[0].BackColor = Color.White;
@@ -391,7 +382,7 @@ namespace PlotDVT
 //**********************************Done populating data for unit undertest*********************
 
 
-        public void plotIdc()//Changing this plot to deal with the new interface struff
+        public void plotIdc()//Changing this plot to deal with interface data
         {
             ///<comments>
             ///Reset the chart default values twith this call
@@ -413,7 +404,6 @@ namespace PlotDVT
                     break;
                 }
             }
-           /// IBaselist Ibl = new colobjinterflist.Find(ValuelistI.Name == "Idcpowermeter");
             foreach (var kv in valuestoplot)
             {
                 //Name the series

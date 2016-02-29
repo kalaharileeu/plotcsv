@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PlotDVT.ValuelistI" Collapsed="true">
+    <Position X="1.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAKAAAAAAAEAAAAAAAEAAAAAKAAAQAABEA=</HashCode>
+      <FileName>ValuelistI.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.71" />
+  </Class>
+  <Class Name="PlotDVT.Slice" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAUAAAAAAIABAAAAAAA=</HashCode>
+      <FileName>Slices.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.Dcacplot" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dcacplot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.VdcconfiguredI" Collapsed="true">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAgAAACAAABCAAIAAgAAAAAAAAAIAgAAAAAQA=</HashCode>
+      <FileName>VdcconfiguredI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.XmlManager&lt;T&gt;" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>XmlManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.PhaseconfiguredI" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAACAAACAAAACAAIAAgAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>PhaseConfiguredI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.Form1" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SjAERQCAjiOAQZgDBKDAYIFCZs07g0Zw0Xwf4iBRQAg=</HashCode>
+      <FileName>Form1.autoplot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.CsvRow" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>ReadWriteCsv.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.CsvFileWriter" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>ReadWriteCsv.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.CsvFileReader" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>ReadWriteCsv.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.DataCol" Collapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataColumns.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlotDVT.Column" Collapsed="true">
+    <Position X="10.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgIIAAAAAAAAAAAAAAAAgAAAAEAAAgAEAAAAAAA=</HashCode>
+      <FileName>Column.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

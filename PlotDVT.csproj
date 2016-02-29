@@ -67,6 +67,7 @@
     <Compile Include="Reportsandbox.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="SingleDataNode.cs" />
     <Compile Include="Slices.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="ValuelistI.cs" />
@@ -117,6 +118,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\csvserialied.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
