@@ -6,11 +6,12 @@ namespace PlotDVT
     {
         public CSVrowManager()
         {
+            rows = new List<CSVrow>();
         }
 
         public void Load(List<Column> selectedcolumns)
         {
-            this.selectedcolumns = selectedcolumns;
+            this.selectedcolumns = new List<Column>(selectedcolumns);
             if(checkcolumnlengths())
             {
                 populaterowdata();
@@ -30,9 +31,10 @@ namespace PlotDVT
 
         private void populaterowdata()
         {
-            rows.Add(new CSVrow());
+
             for(int i = 0; i < selectedcolumns[0].Columnvalues.Count; i++)
             {
+                rows.Add(new CSVrow());
                 //get reference to last inserted row
                 foreach (Column c in selectedcolumns)
                     rows[rows.Count - 1].Addvlaue(c.alias, c.Columnvalues[i]);
