@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSVrowManager.cs" />
     <Compile Include="Dcacplot.cs" />
     <Compile Include="Form1.autoplot.cs">
       <SubType>Form</SubType>

@@ -47,7 +47,7 @@ namespace PlotDVT
                 {
                     f = -2.0f;
                 }
-                //takes each unique vaule and gets the range
+                //takes each unique value and gets the range
                 listslices.Add(f, GetUniqueSectionRange(value));
             }
         }

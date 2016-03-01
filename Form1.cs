@@ -256,6 +256,7 @@ namespace PlotDVT
                 rowcount = 0;
                 while (reader.ReadRow(row))
                 {
+                    //if the row count is 0, then headers
                     if (rowcount == 0)
                     {
                         foreach (string s in row)
@@ -283,9 +284,10 @@ namespace PlotDVT
             {
                 realpowerdict.Add(c.alias, c);
             }
+            CSVrowManager CSVManager = new CSVrowManager();//new
+            CSVManager.Load(wantedcolumns);
 
             //columnobjectlist = new List<Baselist>();
-            
             foreach (var VAR in realpowerdict)
             {
                 /// <summary>
@@ -353,6 +355,7 @@ namespace PlotDVT
             {
 
             }
+
         }
         //**************************************Done UUT data populatin****************************
         private void chartdefaults()

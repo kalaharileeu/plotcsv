@@ -6,34 +6,41 @@ using System.Threading.Tasks;
 
 namespace PlotDVT
 {
-    public class SingleDataNode
+    public class CSVrow
     {
-        public float Wacvarconfigured { get; set; }
-        public float Wacconfigured { get; set; }
-        public float Wdcconfigured { get; set; }
-        public float Vdcconfigured { get; set; }
-        public float Phaseconfigured { get; set; }
-        public float Idcconfigured { get; set; }
-
-        public float Wdcpcu { get; set; }
-        public float Wacpcu { get; set; }
-        public float Wacimagpcu { get; set; }
-        public float Vacpcu { get; set; }
-        public float Idcpcu { get; set; }
-        public float Vdcpcu { get; set; }
-
-        public float Idcpowermeter { get; set; }
-        public float Vdcpowermeter { get; set; }
-        public float Wdcpowermeter { get; set; }
-        public float Wacpowermeter { get; set; }
-        public float Efficiency { get; set; }
-        public float ACvapowermeter { get; set; }
-        public float ACvarpowermeter { get; set; }
-        public float Vacpowermeter { get; set; }
-
-        public SingleDataNode()
+        public CSVrow()
         {
-
+            rowkeyvalue = new Dictionary<string, string>();
         }
+
+        public void Addvlaue(string key, string value)
+        {
+            rowkeyvalue.Add(key, value);
+        }
+
+        Dictionary<string, string> rowkeyvalue;
+
+        //float Wacvarconfigured { get; set; }
+        //float Wacconfigured { get; set; }
+        //float Wdcconfigured { get; set; }
+        //float Vdcconfigured { get; set; }
+        //float Phaseconfigured { get; set; }
+        //float Idcconfigured { get; set; }
+
+        //float Wdcpcu { get; set; }
+        //float Wacpcu { get; set; }
+        //float Wacimagpcu { get; set; }
+        //float Vacpcu { get; set; }
+        //float Idcpcu { get; set; }
+        //float Vdcpcu { get; set; }
+
+        //float Idcpowermeter { get; set; }
+        //float Vdcpowermeter { get; set; }
+        //float Wdcpowermeter { get; set; }
+        //float Wacpowermeter { get; set; }
+        //float Efficiency { get; set; }
+        //float ACvapowermeter { get; set; }
+        //float ACvarpowermeter { get; set; }
+        //float Vacpowermeter { get; set; }
     }
 }
