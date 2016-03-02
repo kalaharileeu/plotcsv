@@ -844,11 +844,7 @@ namespace PlotDVT
         {
             get { return realpowerdict; }
         }
-
         //Load DC voltage compare tables
- 
-
-
         //Check of the file is in use
         protected virtual bool IsFileLocked(FileInfo file)
         {
@@ -922,8 +918,6 @@ namespace PlotDVT
             IBaselist uutpcu = colobjinterflist.First(item => item.GetName() == "Vdcpcu");
 
             plotaccuracycomaprison(baselinepcu, baselinepowermeter, uutpcu, uutpowermeter);
-
-          
         }
         //plot the accuracy of idc
         public void Accuracyicv()
@@ -1087,6 +1081,7 @@ namespace PlotDVT
                 }
             }
         }
+//********************************************accuracy plots start here*****************************************
         /// <summary>
         /// Done the IBaselist implementation. Plot ACwatt accuracy
         /// </summary>

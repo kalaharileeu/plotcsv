@@ -17,16 +17,27 @@ namespace PlotDVT
         {
             //List<YourType> newList = new List<YourType>(oldList);
             chartdefaults();
+            //clear value everytime button calls this function
+            chart3.Series.Clear();
+            chart3.Titles.Clear();
+            string seriesac = "";
+            string seriesvar = "";
+
+            chart3.ChartAreas[0].AxisX.Minimum = 0;
+            chart3.ChartAreas[0].AxisX.Maximum = 300;
+            chart3.ChartAreas[0].AxisX.Interval = 20; // Whatever you like
+
+            chart3.ChartAreas[0].AxisY.Minimum = -300;
+            chart3.ChartAreas[0].AxisY.Maximum = 300;
+            chart3.ChartAreas[0].AxisY.Interval = 20; // Whatever you like
+
             Title title = new Title("Powermeter VA against VAR: " + textBox1.Text,
                 Docking.Top, new Font("Verdana", 10, FontStyle.Regular), Color.Black);
-            chart1.Titles.Add(title);
+            chart3.Titles.Add(title);
             title.IsDockedInsideChartArea = false;
-            title.DockedToChartArea = chart1.ChartAreas[0].Name;
+            title.DockedToChartArea = chart3.ChartAreas[0].Name;
+
             ///Get reference to all the column classes, to acces their data
-            IBaselist ibl = colobjinterflistbl.First(item => item.GetName() == "Wacpowermeter");
-            IBaselist ibl2 = colobjinterflistbl.First(item => item.GetName() == "Wacconfigured");
-            IBaselist ibl3 = colobjinterflistbl.First(item => item.GetName() == "Wacvarconfigured");
-            IBaselist ibl4 = colobjinterflistbl.First(item => item.GetName() == "ACvarpowermeter");
             IBaselist ibl5 = colobjinterflist.First(item => item.GetName() == "Wacpowermeter");
             IBaselist ibl6 = colobjinterflist.First(item => item.GetName() == "Wacconfigured");
             IBaselist ibl7 = colobjinterflist.First(item => item.GetName() == "Wacvarconfigured");
@@ -36,35 +47,34 @@ namespace PlotDVT
             List<float> values = new List<float>();
             List<float> waccnf = new List<float>();
             List<float> wacvarcnf = new List<float>();
-            //Chart2 this is for chart 2 the baseline vlues
-            List<float> values2 = new List<float>();
-            List<float> values3 = new List<float>();
-            //congfigured values for chart 2 baseline unit
-            List<float> waccnfbl = new List<float>();
-            List<float> wacvarcnfbl = new List<float>();
+            ////Chart2 this is for chart 2 the baseline vlues
+            //List<float> values2 = new List<float>();
+            //List<float> values3 = new List<float>();
+            ////congfigured values for chart 2 baseline unit
+            //List<float> waccnfbl = new List<float>();
+            //List<float> wacvarcnfbl = new List<float>();
 
             foreach (var kv in ibl8.GetSlices())
             {
                 //create the series name from the values 
-                string seriesac = (Convert.ToString(kv.Key));
-                string seriesvar = "cnf";
-                string serieschart2 = "cmp";
-                string serieschart2cnf = "cn";
+                seriesac = (Convert.ToString(kv.Key));
+                seriesvar = "cnf";
                 if (seriesac.Length > 4)
                     seriesac = seriesac.Substring(0, 4);
                 //create another series name 
                 seriesvar += seriesac;
                 seriesac += "Wvar";
-                serieschart2 += seriesac;
-                serieschart2cnf += seriesac;
                 //chart1 stuff
-                chart1.Series.Add(seriesac);
-                chart1.Series[seriesac].ChartType = SeriesChartType.Line;
-                chart1.Series[seriesac].BorderWidth = 2;
-                chart1.Series.Add(seriesvar);
-                chart1.Series[seriesvar].ChartType = SeriesChartType.Point;
-                chart1.Series[seriesvar].MarkerStyle = MarkerStyle.Cross;
-                chart1.Series[seriesvar].MarkerSize = 10;
+                chart3.Series.Add(seriesac);
+                //chart3.Series[seriesac].IsXValueIndexed = true;//to ignore x value for axes index
+                chart3.Series[seriesac].ChartType = SeriesChartType.Line;
+                chart3.Series[seriesac].BorderWidth = 2;
+                chart3.Series[seriesac].IsVisibleInLegend = false;
+                chart3.Series.Add(seriesvar);
+                chart3.Series[seriesvar].ChartType = SeriesChartType.Point;
+                chart3.Series[seriesvar].MarkerStyle = MarkerStyle.Cross;
+                chart3.Series[seriesvar].MarkerSize = 10;
+                chart3.Series[seriesvar].IsVisibleInLegend = false;
 
                 if (ibl5.GetSlices().ContainsKey(kv.Key))
                     values = ibl5.GetSlices()[kv.Key];
@@ -78,22 +88,20 @@ namespace PlotDVT
                     for (int i = 0; i < kv.Value.Count; i++)
                     {
                         //Plot the congfigured w/va powermeter values
-                        chart1.Series[seriesac].Points.AddXY(0, 0);
-                        chart1.Series[seriesac].Points.AddXY(values[i], 0);
-                        chart1.Series[seriesac].Points.AddXY(values[i], kv.Value[i]);
-                        //Plot the congfigured w/va configured values
-                        chart1.Series[seriesvar].Points.AddXY(0, 0);
-                        chart1.Series[seriesvar].Points.AddXY(waccnf[i], 0);
-                        chart1.Series[seriesvar].Points.AddXY(waccnf[i], wacvarcnf[i]);
+                        chart3.Series[seriesac].Points.AddXY(0, 0);
+                        chart3.Series[seriesac].Points.AddXY(values[i], 0);
+                        chart3.Series[seriesac].Points.AddXY(values[i], kv.Value[i]);
+                        ////Plot the congfigured w/va configured values
+                        //chart3.Series[seriesvar].Points.AddXY(0, 0);//17Wvar'
+                        //chart3.Series[seriesvar].Points.AddXY(waccnf[i], 0);
+                        //chart3.Series[seriesvar].Points.AddXY(waccnf[i], wacvarcnf[i]);
 
                         await Task.Delay(Convert.ToInt16(textBox2.Text));
                     }
                     if (reverse)//not actually reverse, just delete previous plot
                     {
-                        chart1.Series[seriesac].Points.Clear();
-                        chart1.Series[seriesvar].Points.Clear();
-                        chart2.Series[serieschart2].Points.Clear();
-                        chart2.Series[serieschart2cnf].Points.Clear();
+                        chart3.Series[seriesac].Points.Clear();
+                        chart3.Series[seriesvar].Points.Clear();
                     }
                 }
             }

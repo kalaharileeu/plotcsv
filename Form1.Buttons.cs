@@ -238,7 +238,7 @@ namespace PlotDVT
 
         private void button18_Click(object sender, EventArgs e)
         {
-            acvarvapower();
+            acvarvapowerasync();
         }
 
         private void button19_Click(object sender, EventArgs e)
