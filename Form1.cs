@@ -383,7 +383,7 @@ namespace PlotDVT
             //chart2.ChartAreas.Clear();
         }
 //**********************************Done populating data for unit undertest*********************
-        public void plotIdc()//Changing this plot to deal with interface data
+        private void plotIdc()//Changing this plot to deal with interface data
         {
             ///<comments>
             ///Reset the chart default values twith this call
@@ -702,7 +702,7 @@ namespace PlotDVT
         /// <summary>
         /// Plot the dc voltage power meter value on chart area
         /// </summary>
-        public void PlotVdccompare()
+        private void PlotVdccompare()
         {
             chartdefaults();
 
@@ -824,7 +824,7 @@ namespace PlotDVT
             }
         }
 //************************************DC VOLT plot STOPS HERE***********************************
-        public void Richtextedit()
+        private void Richtextedit()
         {
            // float maxidc = plotidcpowermeter.GetMax;
             //string value = Convert.ToString(maxidc);
@@ -835,12 +835,12 @@ namespace PlotDVT
            // this.richTextBox1.AppendText(value + "A\n");
         }
 
-        public void Richtextedit(string text)
+        private void Richtextedit(string text)
         {
             this.richTextBox1.AppendText(text + "\n");
         }
 
-        public Dictionary<string, Column> Realpowerdictionary
+        private Dictionary<string, Column> Realpowerdictionary
         {
             get { return realpowerdict; }
         }
@@ -971,7 +971,7 @@ namespace PlotDVT
         /// <summary>
         /// Plots the Var vs real power triangle
         /// </summary>
-        public async void acvarvapower()
+        private async void acvarvapower()
         {
             //List<YourType> newList = new List<YourType>(oldList);
             chartdefaults();

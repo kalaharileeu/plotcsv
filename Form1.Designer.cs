@@ -32,6 +32,9 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -57,6 +60,9 @@
             this.button15 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button22 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -70,9 +76,8 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button21 = new System.Windows.Forms.Button();
-            this.button22 = new System.Windows.Forms.Button();
-            this.button23 = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -81,6 +86,8 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             this.SuspendLayout();
             // 
             // chart1
@@ -90,7 +97,7 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(-8, 264);
+            this.chart1.Location = new System.Drawing.Point(12, 131);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(685, 235);
             this.chart1.TabIndex = 0;
@@ -98,7 +105,7 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(696, 12);
+            this.richTextBox1.Location = new System.Drawing.Point(6, 25);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(235, 59);
             this.richTextBox1.TabIndex = 1;
@@ -111,7 +118,7 @@
             this.chart2.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(12, 663);
+            this.chart2.Location = new System.Drawing.Point(18, 549);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(665, 201);
             this.chart2.TabIndex = 2;
@@ -120,9 +127,9 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button1.Location = new System.Drawing.Point(21, 29);
+            this.button1.Location = new System.Drawing.Point(21, 57);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(63, 23);
             this.button1.TabIndex = 3;
             this.button1.Text = "Efficiency";
             this.button1.UseVisualStyleBackColor = false;
@@ -133,7 +140,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 572);
+            this.label1.Location = new System.Drawing.Point(18, 457);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 20);
             this.label1.TabIndex = 4;
@@ -144,7 +151,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(-6, 165);
+            this.label2.Location = new System.Drawing.Point(14, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(129, 20);
             this.label2.TabIndex = 5;
@@ -155,7 +162,7 @@
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.button2.Location = new System.Drawing.Point(16, 19);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(58, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "DC volt";
             this.button2.UseVisualStyleBackColor = false;
@@ -168,7 +175,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button3.Location = new System.Drawing.Point(129, 569);
+            this.button3.Location = new System.Drawing.Point(135, 458);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(233, 20);
             this.button3.TabIndex = 7;
@@ -179,7 +186,7 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.button4.Location = new System.Drawing.Point(97, 19);
+            this.button4.Location = new System.Drawing.Point(80, 19);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 8;
@@ -190,7 +197,7 @@
             // button5
             // 
             this.button5.BackColor = System.Drawing.Color.SeaShell;
-            this.button5.Location = new System.Drawing.Point(129, 162);
+            this.button5.Location = new System.Drawing.Point(149, 29);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(233, 23);
             this.button5.TabIndex = 9;
@@ -205,7 +212,7 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button6.Location = new System.Drawing.Point(12, 23);
+            this.button6.Location = new System.Drawing.Point(20, 28);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(34, 23);
             this.button6.TabIndex = 10;
@@ -216,7 +223,7 @@
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button7.Location = new System.Drawing.Point(52, 23);
+            this.button7.Location = new System.Drawing.Point(60, 28);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(35, 23);
             this.button7.TabIndex = 11;
@@ -227,7 +234,7 @@
             // button8
             // 
             this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button8.Location = new System.Drawing.Point(93, 23);
+            this.button8.Location = new System.Drawing.Point(101, 28);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(36, 23);
             this.button8.TabIndex = 12;
@@ -237,7 +244,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(135, 23);
+            this.button9.Location = new System.Drawing.Point(143, 28);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(32, 23);
             this.button9.TabIndex = 13;
@@ -248,7 +255,7 @@
             // button10
             // 
             this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button10.Location = new System.Drawing.Point(173, 23);
+            this.button10.Location = new System.Drawing.Point(181, 28);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(33, 23);
             this.button10.TabIndex = 14;
@@ -259,7 +266,7 @@
             // button11
             // 
             this.button11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button11.Location = new System.Drawing.Point(212, 23);
+            this.button11.Location = new System.Drawing.Point(220, 28);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(33, 23);
             this.button11.TabIndex = 15;
@@ -270,7 +277,7 @@
             // button12
             // 
             this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button12.Location = new System.Drawing.Point(251, 23);
+            this.button12.Location = new System.Drawing.Point(259, 28);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(35, 23);
             this.button12.TabIndex = 16;
@@ -281,7 +288,7 @@
             // button13
             // 
             this.button13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.button13.Location = new System.Drawing.Point(178, 19);
+            this.button13.Location = new System.Drawing.Point(161, 19);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(75, 23);
             this.button13.TabIndex = 17;
@@ -303,9 +310,9 @@
             // button15
             // 
             this.button15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.button15.Location = new System.Drawing.Point(29, 29);
+            this.button15.Location = new System.Drawing.Point(13, 29);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(46, 23);
+            this.button15.Size = new System.Drawing.Size(38, 23);
             this.button15.TabIndex = 19;
             this.button15.Text = "Vdc";
             this.button15.UseVisualStyleBackColor = false;
@@ -314,30 +321,65 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(308, 511);
+            this.textBox1.Location = new System.Drawing.Point(310, 20);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(75, 38);
             this.textBox1.TabIndex = 20;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button22);
             this.groupBox1.Controls.Add(this.button23);
+            this.groupBox1.Controls.Add(this.button21);
             this.groupBox1.Controls.Add(this.button17);
             this.groupBox1.Controls.Add(this.button16);
             this.groupBox1.Controls.Add(this.button15);
-            this.groupBox1.Location = new System.Drawing.Point(295, 870);
+            this.groupBox1.Location = new System.Drawing.Point(301, 762);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(116, 149);
+            this.groupBox1.Size = new System.Drawing.Size(121, 124);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Reporting accuracy";
             // 
+            // button22
+            // 
+            this.button22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button22.Location = new System.Drawing.Point(57, 58);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(41, 23);
+            this.button22.TabIndex = 33;
+            this.button22.Text = "VAR";
+            this.button22.UseVisualStyleBackColor = false;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
+            // 
+            // button23
+            // 
+            this.button23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button23.Location = new System.Drawing.Point(57, 29);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(41, 23);
+            this.button23.TabIndex = 19;
+            this.button23.Text = "Vac";
+            this.button23.UseVisualStyleBackColor = false;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
+            // 
+            // button21
+            // 
+            this.button21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button21.Location = new System.Drawing.Point(57, 87);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(41, 23);
+            this.button21.TabIndex = 32;
+            this.button21.Text = "Wac";
+            this.button21.UseVisualStyleBackColor = false;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
+            // 
             // button17
             // 
             this.button17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.button17.Location = new System.Drawing.Point(29, 89);
+            this.button17.Location = new System.Drawing.Point(13, 87);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(44, 23);
+            this.button17.Size = new System.Drawing.Size(38, 23);
             this.button17.TabIndex = 21;
             this.button17.Text = "Wdc";
             this.button17.UseVisualStyleBackColor = false;
@@ -346,9 +388,9 @@
             // button16
             // 
             this.button16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.button16.Location = new System.Drawing.Point(29, 58);
+            this.button16.Location = new System.Drawing.Point(13, 58);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(46, 23);
+            this.button16.Size = new System.Drawing.Size(38, 23);
             this.button16.TabIndex = 20;
             this.button16.Text = "Idc";
             this.button16.UseVisualStyleBackColor = false;
@@ -357,9 +399,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Location = new System.Drawing.Point(417, 871);
+            this.groupBox2.Location = new System.Drawing.Point(428, 763);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(123, 60);
+            this.groupBox2.Size = new System.Drawing.Size(116, 123);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Compare Efficiency";
@@ -369,9 +411,9 @@
             this.groupBox3.Controls.Add(this.button2);
             this.groupBox3.Controls.Add(this.button4);
             this.groupBox3.Controls.Add(this.button13);
-            this.groupBox3.Location = new System.Drawing.Point(16, 870);
+            this.groupBox3.Location = new System.Drawing.Point(22, 762);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(273, 61);
+            this.groupBox3.Size = new System.Drawing.Size(250, 61);
             this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "DC";
@@ -379,7 +421,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.button14);
-            this.groupBox4.Location = new System.Drawing.Point(194, 937);
+            this.groupBox4.Location = new System.Drawing.Point(119, 829);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(75, 57);
             this.groupBox4.TabIndex = 24;
@@ -389,7 +431,7 @@
             // button20
             // 
             this.button20.BackColor = System.Drawing.Color.Cyan;
-            this.button20.Location = new System.Drawing.Point(32, 966);
+            this.button20.Location = new System.Drawing.Point(22, 849);
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(75, 23);
             this.button20.TabIndex = 30;
@@ -400,7 +442,7 @@
             // button18
             // 
             this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button18.Location = new System.Drawing.Point(7, 29);
+            this.button18.Location = new System.Drawing.Point(6, 46);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(89, 23);
             this.button18.TabIndex = 25;
@@ -410,7 +452,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(601, 13);
+            this.textBox2.Location = new System.Drawing.Point(79, 93);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(76, 20);
             this.textBox2.TabIndex = 26;
@@ -418,7 +460,7 @@
             // button19
             // 
             this.button19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button19.Location = new System.Drawing.Point(20, 58);
+            this.button19.Location = new System.Drawing.Point(22, 75);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(59, 23);
             this.button19.TabIndex = 27;
@@ -430,9 +472,9 @@
             // 
             this.groupBox5.Controls.Add(this.button18);
             this.groupBox5.Controls.Add(this.button19);
-            this.groupBox5.Location = new System.Drawing.Point(546, 871);
+            this.groupBox5.Location = new System.Drawing.Point(550, 763);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(106, 93);
+            this.groupBox5.Size = new System.Drawing.Size(106, 123);
             this.groupBox5.TabIndex = 28;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Watt var plot";
@@ -446,16 +488,17 @@
             this.groupBox6.Controls.Add(this.button10);
             this.groupBox6.Controls.Add(this.button11);
             this.groupBox6.Controls.Add(this.button12);
-            this.groupBox6.Location = new System.Drawing.Point(277, 5);
+            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Location = new System.Drawing.Point(135, 379);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(297, 56);
+            this.groupBox6.Size = new System.Drawing.Size(403, 72);
             this.groupBox6.TabIndex = 29;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Select phase angle";
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(-2, 188);
+            this.textBox3.Location = new System.Drawing.Point(18, 55);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -464,71 +507,62 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(12, 595);
+            this.textBox4.Location = new System.Drawing.Point(18, 483);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox4.Size = new System.Drawing.Size(665, 62);
             this.textBox4.TabIndex = 31;
             // 
-            // button21
+            // groupBox7
             // 
-            this.button21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button21.Location = new System.Drawing.Point(676, 899);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(41, 23);
-            this.button21.TabIndex = 32;
-            this.button21.Text = "Wac";
-            this.button21.UseVisualStyleBackColor = false;
-            this.button21.Click += new System.EventHandler(this.button21_Click);
+            this.groupBox7.Controls.Add(this.textBox2);
+            this.groupBox7.Controls.Add(this.richTextBox1);
+            this.groupBox7.Location = new System.Drawing.Point(666, 763);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(254, 119);
+            this.groupBox7.TabIndex = 32;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Message box";
             // 
-            // button22
+            // chart3
             // 
-            this.button22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button22.Location = new System.Drawing.Point(676, 928);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(41, 23);
-            this.button22.TabIndex = 33;
-            this.button22.Text = "VAR";
-            this.button22.UseVisualStyleBackColor = false;
-            this.button22.Click += new System.EventHandler(this.button22_Click);
-            // 
-            // button23
-            // 
-            this.button23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button23.Location = new System.Drawing.Point(29, 118);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(44, 23);
-            this.button23.TabIndex = 19;
-            this.button23.Text = "Vac";
-            this.button23.UseVisualStyleBackColor = false;
-            this.button23.Click += new System.EventHandler(this.button23_Click);
+            chartArea3.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart3.Legends.Add(legend3);
+            this.chart3.Location = new System.Drawing.Point(892, 66);
+            this.chart3.Name = "chart3";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart3.Series.Add(series1);
+            this.chart3.Size = new System.Drawing.Size(300, 300);
+            this.chart3.TabIndex = 33;
+            this.chart3.Text = "chart3";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(954, 1031);
-            this.Controls.Add(this.button22);
-            this.Controls.Add(this.button21);
+            this.ClientSize = new System.Drawing.Size(1362, 905);
+            this.Controls.Add(this.chart3);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.button20);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chart2);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.chart1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
@@ -541,6 +575,10 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -588,6 +626,8 @@
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button22;
         private System.Windows.Forms.Button button23;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
     }
 }
 

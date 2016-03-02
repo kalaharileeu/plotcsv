@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+//represent a single data row name value pair in dictionary
 namespace PlotDVT
 {
     public class CSVrow

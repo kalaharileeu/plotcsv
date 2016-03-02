@@ -11,7 +11,7 @@ namespace PlotDVT
 
         public void Load(List<Column> selectedcolumns)
         {
-            this.selectedcolumns = new List<Column>(selectedcolumns);
+            this.selectedcolumns = selectedcolumns;
             if(checkcolumnlengths())
             {
                 populaterowdata();
@@ -31,8 +31,8 @@ namespace PlotDVT
 
         private void populaterowdata()
         {
-
-            for(int i = 0; i < selectedcolumns[0].Columnvalues.Count; i++)
+            // int i = selectedcolumns[0].Columnvalues.Count;
+            for (int i = 0; i < selectedcolumns[0].Columnvalues.Count - 1; i++)
             {
                 rows.Add(new CSVrow());
                 //get reference to last inserted row
