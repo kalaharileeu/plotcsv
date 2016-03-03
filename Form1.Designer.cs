@@ -33,6 +33,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
@@ -78,6 +79,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -88,6 +90,7 @@
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
@@ -527,19 +530,46 @@
             // 
             // chart3
             // 
+            chartArea3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            chartArea3.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 80F;
+            chartArea4.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            chartArea4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea4.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea4.Name = "ChartArea2";
+            chartArea4.Position.Auto = false;
+            chartArea4.Position.Height = 50F;
+            chartArea4.Position.Width = 10F;
+            chartArea4.Position.X = 85F;
+            chartArea4.Position.Y = 3F;
             this.chart3.ChartAreas.Add(chartArea3);
+            this.chart3.ChartAreas.Add(chartArea4);
             legend3.Name = "Legend1";
             this.chart3.Legends.Add(legend3);
-            this.chart3.Location = new System.Drawing.Point(892, 66);
+            this.chart3.Location = new System.Drawing.Point(13, 38);
             this.chart3.Name = "chart3";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart3.Series.Add(series1);
-            this.chart3.Size = new System.Drawing.Size(300, 300);
+            this.chart3.Size = new System.Drawing.Size(407, 612);
             this.chart3.TabIndex = 33;
             this.chart3.Text = "chart3";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.chart3);
+            this.groupBox8.Location = new System.Drawing.Point(716, 32);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(627, 717);
+            this.groupBox8.TabIndex = 34;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Combo plot";
+            this.groupBox8.Enter += new System.EventHandler(this.groupBox8_Enter);
             // 
             // Form1
             // 
@@ -547,7 +577,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1362, 905);
-            this.Controls.Add(this.chart3);
+            this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.button20);
             this.Controls.Add(this.textBox4);
@@ -579,6 +609,7 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
+            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -628,6 +659,7 @@
         private System.Windows.Forms.Button button23;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.GroupBox groupBox8;
     }
 }
 

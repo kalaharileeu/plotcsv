@@ -55,14 +55,13 @@ namespace PlotDVT
             XmlManager<DataCol> columnloaderbl = new XmlManager<DataCol>();
             datacolumnsbl = columnloaderbl.Load("Content/XMLFile1.xml");
             realpowerdictbl = new Dictionary<string, Column>();
-            //columnobjectlistbl = new List<Baselist>();
             wantedcolumnsbl = new List<Column>();
             phasebuttonarray = new Button[] { button6, button7, button8, button9, button10, button11, button12 };
-            phasebuttonlist = new List<Button>(phasebuttonarray);//initialize list with the button attay
+            phasebuttonlist = new List<Button>(phasebuttonarray);
             phasemarkerstyles = new MarkerStyle[] { MarkerStyle.Circle, MarkerStyle.Cross, MarkerStyle.Diamond, 
                 MarkerStyle.Square, MarkerStyle.Triangle, MarkerStyle.Star4, MarkerStyle.Star10 };
             phasemarkerlist = new List<MarkerStyle>(phasemarkerstyles);
-            
+            //some files to play with should remove/make another plan later
             filenamedata = "C:/values/2015y09m24d_13h35m42s_SN121538001575_S230_60_LN_LoL_HiL_119.csv";//some test files
             populatedatatestunit(filenamedata);
             //****************************************populate the diff data******************************************************
@@ -71,6 +70,15 @@ namespace PlotDVT
             //************************************************
             //test for some answers
             Richtextedit();
+            setupploatarea();
+            //plotIdc();
+            this.textBox1.Text = "0°";
+        }
+        /// <summary>
+        /// Setup some default values for the plotting area
+        /// </summary>
+        private void setupploatarea()
+        {
             //Xrid lines
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
@@ -87,8 +95,6 @@ namespace PlotDVT
             chart2.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart2.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
             chart2.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
-            //plotIdc();
-            this.textBox1.Text = "0°";
         }
         /// <summary>
         /// populating data for the baseline file values
@@ -1280,6 +1286,11 @@ namespace PlotDVT
                     }
                 }
             }
+        }
+
+        private void groupBox8_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
