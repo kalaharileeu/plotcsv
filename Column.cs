@@ -8,6 +8,7 @@ namespace PlotDVT
         public string alias;
         public string from;
         public int columnnumber;
+
         public List<string> colvalues;
 
         public void clearvalues()
