@@ -35,7 +35,6 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -80,6 +79,14 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -110,7 +117,7 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(6, 25);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(235, 59);
+            this.richTextBox1.Size = new System.Drawing.Size(364, 59);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
@@ -257,7 +264,7 @@
             // 
             // button10
             // 
-            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.button10.Location = new System.Drawing.Point(181, 28);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(33, 23);
@@ -268,7 +275,7 @@
             // 
             // button11
             // 
-            this.button11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.button11.Location = new System.Drawing.Point(220, 28);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(33, 23);
@@ -279,7 +286,7 @@
             // 
             // button12
             // 
-            this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.button12.Location = new System.Drawing.Point(259, 28);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(35, 23);
@@ -301,7 +308,7 @@
             // 
             // button14
             // 
-            this.button14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.button14.Location = new System.Drawing.Point(6, 26);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(58, 23);
@@ -312,7 +319,7 @@
             // 
             // button15
             // 
-            this.button15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.button15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button15.Location = new System.Drawing.Point(13, 29);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(38, 23);
@@ -379,7 +386,7 @@
             // 
             // button17
             // 
-            this.button17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.button17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button17.Location = new System.Drawing.Point(13, 87);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(38, 23);
@@ -390,7 +397,7 @@
             // 
             // button16
             // 
-            this.button16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.button16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button16.Location = new System.Drawing.Point(13, 58);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(38, 23);
@@ -444,7 +451,7 @@
             // 
             // button18
             // 
-            this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button18.Location = new System.Drawing.Point(6, 46);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(89, 23);
@@ -462,7 +469,7 @@
             // 
             // button19
             // 
-            this.button19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button19.Location = new System.Drawing.Point(22, 75);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(59, 23);
@@ -475,12 +482,12 @@
             // 
             this.groupBox5.Controls.Add(this.button18);
             this.groupBox5.Controls.Add(this.button19);
-            this.groupBox5.Location = new System.Drawing.Point(550, 763);
+            this.groupBox5.Location = new System.Drawing.Point(996, 757);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(106, 123);
+            this.groupBox5.Size = new System.Drawing.Size(347, 123);
             this.groupBox5.TabIndex = 28;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Watt var plot";
+            this.groupBox5.Text = "Bug finder";
             // 
             // groupBox6
             // 
@@ -521,47 +528,44 @@
             // 
             this.groupBox7.Controls.Add(this.textBox2);
             this.groupBox7.Controls.Add(this.richTextBox1);
-            this.groupBox7.Location = new System.Drawing.Point(666, 763);
+            this.groupBox7.Location = new System.Drawing.Point(573, 767);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(254, 119);
+            this.groupBox7.Size = new System.Drawing.Size(384, 119);
             this.groupBox7.TabIndex = 32;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Message box";
             // 
             // chart3
             // 
-            chartArea3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            chartArea3.BackColor = System.Drawing.Color.White;
             chartArea3.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea3.Name = "ChartArea1";
             chartArea3.Position.Auto = false;
-            chartArea3.Position.Height = 100F;
-            chartArea3.Position.Width = 80F;
+            chartArea3.Position.Height = 60F;
+            chartArea3.Position.Width = 40F;
             chartArea4.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
-            chartArea4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            chartArea4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea4.AlignWithChartArea = "ChartArea1";
+            chartArea4.BackColor = System.Drawing.Color.White;
             chartArea4.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea4.Name = "ChartArea2";
             chartArea4.Position.Auto = false;
             chartArea4.Position.Height = 50F;
             chartArea4.Position.Width = 10F;
-            chartArea4.Position.X = 85F;
+            chartArea4.Position.X = 45F;
             chartArea4.Position.Y = 3F;
             this.chart3.ChartAreas.Add(chartArea3);
             this.chart3.ChartAreas.Add(chartArea4);
             legend3.Name = "Legend1";
             this.chart3.Legends.Add(legend3);
-            this.chart3.Location = new System.Drawing.Point(13, 38);
+            this.chart3.Location = new System.Drawing.Point(13, 23);
             this.chart3.Name = "chart3";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart3.Series.Add(series1);
-            this.chart3.Size = new System.Drawing.Size(407, 612);
+            this.chart3.Size = new System.Drawing.Size(593, 676);
             this.chart3.TabIndex = 33;
             this.chart3.Text = "chart3";
             // 
             // groupBox8
             // 
+            this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.groupBox8.Controls.Add(this.chart3);
             this.groupBox8.Location = new System.Drawing.Point(716, 32);
             this.groupBox8.Name = "groupBox8";
@@ -569,7 +573,74 @@
             this.groupBox8.TabIndex = 34;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Combo plot";
-            this.groupBox8.Enter += new System.EventHandler(this.groupBox8_Enter);
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(1241, 767);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(55, 20);
+            this.textBox5.TabIndex = 35;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(1241, 793);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(55, 20);
+            this.textBox6.TabIndex = 36;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(1241, 820);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(55, 20);
+            this.textBox7.TabIndex = 37;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1145, 770);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(87, 13);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "Fullscale Vdc ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(1145, 796);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(79, 13);
+            this.label4.TabIndex = 39;
+            this.label4.Text = "Fullscale Idc";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(1145, 825);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 13);
+            this.label5.TabIndex = 40;
+            this.label5.Text = "Vn (ac)";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(1145, 853);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 13);
+            this.label6.TabIndex = 41;
+            this.label6.Text = "Pn (Power ac)";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(1241, 850);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(55, 20);
+            this.textBox8.TabIndex = 42;
             // 
             // Form1
             // 
@@ -577,6 +648,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1362, 905);
+            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.button20);
@@ -660,6 +739,14 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
         private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox8;
     }
 }
 

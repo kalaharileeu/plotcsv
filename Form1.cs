@@ -26,12 +26,14 @@ namespace PlotDVT
         private DataCol datacolumnsbl;
         Dictionary<string, Column> realpowerdictbl;
         private List<Column> wantedcolumnsbl;
+        private CSVrowManager CSVrowManager;
         private string filenamebl;
         private string filenamedata;
-
-        private Button[] phasebuttonarray;//use this to initialize lists
+        //use this to initialize lists
+        private Button[] phasebuttonarray;
         private List<Button> phasebuttonlist;
-        private MarkerStyle[] phasemarkerstyles;//marker styles to match the phase button lists
+        //marker styles to match the phase button lists
+        private MarkerStyle[] phasemarkerstyles;
         private List<MarkerStyle> phasemarkerlist;
 
         private string uutdetail = "";
@@ -41,7 +43,6 @@ namespace PlotDVT
         public Form1()
         {
             InitializeComponent();
-            textBox2.Text = "0";
             //Initialize the list of wanted columns
             wantedcolumns = new List<Column>();
             //values for the last measured result
@@ -79,6 +80,11 @@ namespace PlotDVT
         /// </summary>
         private void setupploatarea()
         {
+            textBox2.Text = "20";//delay synchronous plotting
+            textBox5.Text = "60";//Fullscale Vdc: PCUIP_Vdc_OpratRngeMPPT or PCUIP_Vdc_OpratRngeStart
+            textBox6.Text = "12";//Fullscale Idc: PCUIP_IdcLimit_OpratRngeRated
+            textBox7.Text = "240";//Vn (ac) :PCUIP_Vac_OpratRngeRated
+            textBox8.Text = "280";//Pn PCUOP_Sac_OpratRngeRated
             //Xrid lines
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
@@ -290,8 +296,9 @@ namespace PlotDVT
             {
                 realpowerdict.Add(c.alias, c);
             }
-            CSVrowManager CSVManager = new CSVrowManager();//new
-            CSVManager.Load(wantedcolumns);
+            //Uses the CSVrowManager to load all the wanted data as they exist in rows
+            CSVrowManager = new CSVrowManager();
+            CSVrowManager.Load(wantedcolumns);
 
             //columnobjectlist = new List<Baselist>();
             foreach (var VAR in realpowerdict)
@@ -1286,11 +1293,6 @@ namespace PlotDVT
                     }
                 }
             }
-        }
-
-        private void groupBox8_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }

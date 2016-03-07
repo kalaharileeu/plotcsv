@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace PlotDVT
 {
-    partial class Form1
+    partial class Form1 : Form
     {
         //Efficiency button
         private void button1_Click(object sender, EventArgs e)
@@ -238,7 +238,7 @@ namespace PlotDVT
 
         private void button18_Click(object sender, EventArgs e)
         {
-            acvarvapowerasync();
+            async_col_sequenceplot();
         }
 
         private void button19_Click(object sender, EventArgs e)

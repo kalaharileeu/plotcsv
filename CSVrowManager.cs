@@ -2,6 +2,10 @@
 
 namespace PlotDVT
 {
+    /// <summary>
+    /// Takes the data from selected rows and creates rows
+    /// as that reflects the CSV data, without unawanted data
+    /// </summary>
     class CSVrowManager
     {
         public CSVrowManager()
@@ -16,6 +20,11 @@ namespace PlotDVT
             {
                 populaterowdata();
             }
+        }
+
+        public List<CSVrow> Rows
+        {
+            get { return rows; }
         }
         //all the data counts must be the same
         private bool checkcolumnlengths()

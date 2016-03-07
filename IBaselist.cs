@@ -4,7 +4,6 @@ namespace PlotDVT
 {
     interface IBaselist
     {
-        //Inteface cannot contain fields
         void Populareslices(Dictionary<float, List<int>> slicedvalues);
         void Populareslices(List<Slice> slice);
         void Populareslices(List<Slice> slice, float deg);

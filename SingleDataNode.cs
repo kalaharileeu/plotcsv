@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-//represent a single data row name value pair in dictionary
+﻿using System.Collections.Generic;
+
 namespace PlotDVT
 {
+    /// <summary>
+    /// Represent a single data row name value pair in dictionary
+    /// Dictionary with the wanted data and their alias/description
+    /// used by CSVrowManager
+    /// </summary>
     public class CSVrow
     {
         public CSVrow()
@@ -11,34 +14,16 @@ namespace PlotDVT
             rowkeyvalue = new Dictionary<string, string>();
         }
 
+        public Dictionary<string, string> Rowkeyvalue
+        {
+            get { return rowkeyvalue; }
+        }
+
         public void Addvlaue(string key, string value)
         {
             rowkeyvalue.Add(key, value);
         }
-
+        
         Dictionary<string, string> rowkeyvalue;
-
-        //float Wacvarconfigured { get; set; }
-        //float Wacconfigured { get; set; }
-        //float Wdcconfigured { get; set; }
-        //float Vdcconfigured { get; set; }
-        //float Phaseconfigured { get; set; }
-        //float Idcconfigured { get; set; }
-
-        //float Wdcpcu { get; set; }
-        //float Wacpcu { get; set; }
-        //float Wacimagpcu { get; set; }
-        //float Vacpcu { get; set; }
-        //float Idcpcu { get; set; }
-        //float Vdcpcu { get; set; }
-
-        //float Idcpowermeter { get; set; }
-        //float Vdcpowermeter { get; set; }
-        //float Wdcpowermeter { get; set; }
-        //float Wacpowermeter { get; set; }
-        //float Efficiency { get; set; }
-        //float ACvapowermeter { get; set; }
-        //float ACvarpowermeter { get; set; }
-        //float Vacpowermeter { get; set; }
     }
 }
