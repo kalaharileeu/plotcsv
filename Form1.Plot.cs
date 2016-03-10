@@ -60,12 +60,16 @@ namespace PlotDVT
             List<float> WACimagpcu = new List<float>(colobjinterflist.First(item => item.GetName() == "Wacimagpcu").GetFloats());
             //DC plots
             List<float> Dcvcnf = new List<float>(colobjinterflist.First(item => item.GetName() == "Vdcconfigured").GetFloats());
-            List<float> Dcvpm = new List<float>(colobjinterflist.First(item => item.GetName() == "Vdcpcu").GetFloats());
+            List<float> Dcvpm = new List<float>(colobjinterflist.First(item => item.GetName() == "Vdcpowermeter").GetFloats());
+            List<float> Dcvpcu = new List<float>(colobjinterflist.First(item => item.GetName() == "Vdcpcu").GetFloats());
+
             //Get a fail list to do selective plotting
             List<bool> accuracyfaillist = new List<bool>
                 (Calculate.Faillist(WACpcu, Wacpm, 1, float.Parse(textBox9.Text), 1));
             List<bool> accuracyfaillistvar = new List<bool>
                 (Calculate.Faillist(WACimagpcu, Wvarpm, 1, float.Parse(textBox9.Text), 1));
+            List<bool> accuracyfaillistdcv = new List<bool>
+                (Calculate.Faillist(Dcvpcu, Dcvpm, 1, float.Parse(textBox5.Text), 1));
             //List<bool> nopowerfaillistvar = new List<bool>(Calculate.Faillist(WACimagpcu, Wvarcnf, 1, float.Parse(textBox7.Text), 1));
             chart3.Series.Add("Wacpowermeter");
             chart3.Series.Add("Wacconfigured");
@@ -83,17 +87,19 @@ namespace PlotDVT
             Waccnfseries.MarkerStyle = MarkerStyle.Cross;
             Waccnfseries.MarkerSize = 6;
             Waccnfseries.IsVisibleInLegend = false;
-            chart3.Series["DCvpm"].ChartType = SeriesChartType.Line;
-            chart3.Series["DCvpm"].BorderWidth = 1;
+            chart3.Series["DCvpm"].ChartType = SeriesChartType.Point;
+            chart3.Series["DCvpm"].MarkerStyle = MarkerStyle.Circle;
+            chart3.Series["DCvpm"].BorderWidth = 6;
             chart3.Series["DCvpm"].IsVisibleInLegend = false;
             chart3.Series["Vdcconfigured"].ChartType = SeriesChartType.Point;
             chart3.Series["Vdcconfigured"].MarkerStyle = MarkerStyle.Cross;
             chart3.Series["Vdcconfigured"].MarkerSize = 6;
             chart3.Series["Vdcconfigured"].IsVisibleInLegend = false;
             Wacpowerbuglist = new Bugs();
+            Wdcvbuglist = new Bugs();
             for (int i = 0; i < Wacpm.Count; i++)
             {
-                if (accuracyfaillist[i] == false || accuracyfaillistvar[i] == false)
+                if(accuracyfaillist[i] == false || accuracyfaillistvar[i] == false)
                 {
                     Wacpowerbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
                     //Plot the congfigured w/va powermeter values
@@ -106,8 +112,8 @@ namespace PlotDVT
                     chart3.Series["Wacconfigured"].Points.AddXY(Waccnf[i], Wvarcnf[i]);
                     //Plot the congfigured Vdcpm/cnf powermeter values
                     //chart3.Series["DCvpm"].Points.AddXY(0, 0);
-                    chart3.Series["DCvpm"].Points.AddXY(Dcvpm[i], Waccnf[i]);
-                    chart3.Series["Vdcconfigured"].Points.AddXY(Dcvcnf[i], Waccnf[i]);
+                    //chart3.Series["DCvpm"].Points.AddXY(Dcvpm[i], Waccnf[i]);
+                    //chart3.Series["Vdcconfigured"].Points.AddXY(Dcvcnf[i], Waccnf[i]);
                     //await Task.Delay(Convert.ToInt16(textBox2.Text));
                     ////Clear all the data points
                     //if (chart3.Series != null)
@@ -117,6 +123,13 @@ namespace PlotDVT
                     //        clearseries(s);
                     //    }
                     //}
+                }
+
+                if(accuracyfaillistdcv[i] == false)
+                {
+                    Wdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
+                    chart3.Series["DCvpm"].Points.AddXY(Dcvpm[i], Waccnf[i]);
+                    chart3.Series["Vdcconfigured"].Points.AddXY(Dcvcnf[i], Waccnf[i]);
                 }
             }
         }

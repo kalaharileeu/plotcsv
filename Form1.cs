@@ -1297,5 +1297,6 @@ namespace PlotDVT
         private string difftooldir = "";
         //list of bugs detected in csv, goes into report
         private Bugs Wacpowerbuglist;
+        private Bugs Wdcvbuglist;
     }
 }
