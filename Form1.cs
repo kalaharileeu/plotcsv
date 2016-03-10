@@ -12,34 +12,6 @@ namespace PlotDVT
 	//This class is too big.
     public partial class Form1 : Form
     {
-        List<Column> wantedcolumns;//stores a list of wanted data rows
-        int rowcount;
-        bool reverse = false;
-        DataCol datacolumns;
-        Dictionary<string, Column> realpowerdict;
-        //RealPowerAnswer realpoweranswers;
-        private List<IBaselist> colobjinterflist;//Interface implementation
-        private List<IBaselist> colobjinterflistbl;//Interface implementation
-        /// <summary>
-        /// Baseline variables below to be used to create the diff
-        /// </summary>
-        private DataCol datacolumnsbl;
-        Dictionary<string, Column> realpowerdictbl;
-        private List<Column> wantedcolumnsbl;
-        private CSVrowManager CSVrowManager;
-        private string filenamebl;
-        private string filenamedata;
-        //use this to initialize lists
-        private Button[] phasebuttonarray;
-        private List<Button> phasebuttonlist;
-        //marker styles to match the phase button lists
-        private MarkerStyle[] phasemarkerstyles;
-        private List<MarkerStyle> phasemarkerlist;
-
-        private string uutdetail = "";
-        private string baselinedetail = "";
-        private string difftooldir = "";
-
         public Form1()
         {
             InitializeComponent();
@@ -74,6 +46,7 @@ namespace PlotDVT
             setupploatarea();
             //plotIdc();
             this.textBox1.Text = "0°";
+            
         }
         /// <summary>
         /// Setup some default values for the plotting area
@@ -83,8 +56,9 @@ namespace PlotDVT
             textBox2.Text = "20";//delay synchronous plotting
             textBox5.Text = "60";//Fullscale Vdc: PCUIP_Vdc_OpratRngeMPPT or PCUIP_Vdc_OpratRngeStart
             textBox6.Text = "12";//Fullscale Idc: PCUIP_IdcLimit_OpratRngeRated
-            textBox7.Text = "240";//Vn (ac) :PCUIP_Vac_OpratRngeRated
-            textBox8.Text = "280";//Pn PCUOP_Sac_OpratRngeRated
+            textBox7.Text = "230";//Vn (ac) :PCUIP_Vac_OpratRngeRated
+            textBox8.Text = "1.2";//Iac PCUOP_Sac_OpratRngeRated
+            textBox9.Text = "220";//Sac
             //Xrid lines
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
@@ -1294,5 +1268,34 @@ namespace PlotDVT
                 }
             }
         }
+        private List<Column> wantedcolumns;//stores a list of wanted data rows
+        private int rowcount;
+        private bool reverse = false;
+        private DataCol datacolumns;
+        private Dictionary<string, Column> realpowerdict;
+        //RealPowerAnswer realpoweranswers;
+        private List<IBaselist> colobjinterflist;//Interface implementation
+        private List<IBaselist> colobjinterflistbl;//Interface implementation
+        /// <summary>
+        /// Baseline variables below to be used to create the diff
+        /// </summary>
+        private DataCol datacolumnsbl;
+        private Dictionary<string, Column> realpowerdictbl;
+        private List<Column> wantedcolumnsbl;
+        private CSVrowManager CSVrowManager;
+        private string filenamebl;
+        private string filenamedata;
+        //use this to initialize lists
+        private Button[] phasebuttonarray;
+        private List<Button> phasebuttonlist;
+        //marker styles to match the phase button lists
+        private MarkerStyle[] phasemarkerstyles;
+        private List<MarkerStyle> phasemarkerlist;
+
+        private string uutdetail = "";
+        private string baselinedetail = "";
+        private string difftooldir = "";
+        //list of bugs detected in csv, goes into report
+        private Bugs Wacpowerbuglist;
     }
 }

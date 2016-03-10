@@ -55,10 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalculateI.cs" />
-    <Compile Include="Form1DataLimits.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Bug.cs" />
+    <Compile Include="Calculate.cs" />
     <Compile Include="CSVrowManager.cs" />
     <Compile Include="Dcacplot.cs" />
     <Compile Include="Form1.autoplot.cs">
@@ -71,7 +69,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IBaselist.cs" />
-    <Compile Include="ICalculate.cs" />
     <Compile Include="JsontoObject.cs" />
     <Compile Include="PhaseConfiguredI.cs" />
     <Compile Include="Reportsandbox.cs">

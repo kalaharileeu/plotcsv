@@ -10,6 +10,7 @@ namespace PlotDVT
     /// </summary>
     public class Calculate
     {
+
         public static List<float> Difflist(List<float> target, List<float> measument)
         {
             if (target.Count == measument.Count)
@@ -91,16 +92,5 @@ namespace PlotDVT
             List<int> v = new List<int>();
             return v;
         }
-        //DC
-        //private float fullscaleVdc;
-        //private float fullscaleIdc;
-        //private float fulscaleWdc;
-        ////AC
-        //private float fullscaleVac;
-        //private float fullscaleIac;
-        ////apparant power
-        //private float fullscaleSac;//VA
-        //private float Vnac;
-        //private float Pnac;
     }
 }

@@ -31,6 +31,11 @@
     <from>config</from>
   </Column>
   <Column>
+    <columnname>cfg_temperature</columnname>
+    <alias>Temperature</alias>
+    <from>config</from>
+  </Column>
+  <Column>
     <columnname>pcu_qP_DCW</columnname>
     <alias>Wdcpcu</alias>
     <from>pcu</from>

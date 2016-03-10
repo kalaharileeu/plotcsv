@@ -22,6 +22,16 @@ namespace PlotDVT
             }
         }
 
+        public CSVrow GetaCSVrow(int rownumber)
+        {
+            if(rownumber < rows.Count)
+            {
+                return rows[rownumber];
+            }
+            return null;
+        }
+
+        //Return all the rows
         public List<CSVrow> Rows
         {
             get { return rows; }

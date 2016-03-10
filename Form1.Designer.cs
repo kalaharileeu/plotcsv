@@ -73,6 +73,10 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button19 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -85,7 +89,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
@@ -451,26 +454,26 @@
             // 
             // button18
             // 
-            this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.button18.Location = new System.Drawing.Point(6, 46);
+            this.button18.BackColor = System.Drawing.Color.Silver;
+            this.button18.Location = new System.Drawing.Point(22, 32);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(89, 23);
             this.button18.TabIndex = 25;
-            this.button18.Text = "Power Triangle";
+            this.button18.Text = "Run Bugger";
             this.button18.UseVisualStyleBackColor = false;
             this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(79, 93);
+            this.textBox2.Location = new System.Drawing.Point(35, 104);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(76, 20);
+            this.textBox2.Size = new System.Drawing.Size(60, 20);
             this.textBox2.TabIndex = 26;
             // 
             // button19
             // 
-            this.button19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.button19.Location = new System.Drawing.Point(22, 75);
+            this.button19.BackColor = System.Drawing.Color.Silver;
+            this.button19.Location = new System.Drawing.Point(36, 71);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(59, 23);
             this.button19.TabIndex = 27;
@@ -480,14 +483,54 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.textBox2);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Controls.Add(this.label6);
+            this.groupBox5.Controls.Add(this.label7);
+            this.groupBox5.Controls.Add(this.textBox9);
             this.groupBox5.Controls.Add(this.button18);
             this.groupBox5.Controls.Add(this.button19);
             this.groupBox5.Location = new System.Drawing.Point(996, 757);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(347, 123);
+            this.groupBox5.Size = new System.Drawing.Size(347, 136);
             this.groupBox5.TabIndex = 28;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Bug finder";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(154, 87);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(79, 13);
+            this.label8.TabIndex = 30;
+            this.label8.Text = "Fullscale Iac";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(153, 111);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 13);
+            this.label6.TabIndex = 41;
+            this.label6.Text = "Fullscale Sac";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(156, 114);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(0, 13);
+            this.label7.TabIndex = 29;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(245, 108);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(55, 20);
+            this.textBox9.TabIndex = 28;
             // 
             // groupBox6
             // 
@@ -526,7 +569,6 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.textBox2);
             this.groupBox7.Controls.Add(this.richTextBox1);
             this.groupBox7.Location = new System.Drawing.Point(573, 767);
             this.groupBox7.Name = "groupBox7";
@@ -537,7 +579,8 @@
             // 
             // chart3
             // 
-            chartArea3.BackColor = System.Drawing.Color.White;
+            this.chart3.BackColor = System.Drawing.Color.WhiteSmoke;
+            chartArea3.BackColor = System.Drawing.Color.WhiteSmoke;
             chartArea3.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea3.Name = "ChartArea1";
             chartArea3.Position.Auto = false;
@@ -545,12 +588,12 @@
             chartArea3.Position.Width = 40F;
             chartArea4.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
             chartArea4.AlignWithChartArea = "ChartArea1";
-            chartArea4.BackColor = System.Drawing.Color.White;
+            chartArea4.BackColor = System.Drawing.Color.WhiteSmoke;
             chartArea4.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea4.Name = "ChartArea2";
             chartArea4.Position.Auto = false;
             chartArea4.Position.Height = 50F;
-            chartArea4.Position.Width = 10F;
+            chartArea4.Position.Width = 30F;
             chartArea4.Position.X = 45F;
             chartArea4.Position.Y = 3F;
             this.chart3.ChartAreas.Add(chartArea3);
@@ -565,14 +608,14 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.groupBox8.BackColor = System.Drawing.Color.PeachPuff;
             this.groupBox8.Controls.Add(this.chart3);
             this.groupBox8.Location = new System.Drawing.Point(716, 32);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(627, 717);
             this.groupBox8.TabIndex = 34;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Combo plot";
+            this.groupBox8.Text = "Bug plot";
             // 
             // textBox5
             // 
@@ -583,14 +626,14 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(1241, 793);
+            this.textBox6.Location = new System.Drawing.Point(1241, 791);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(55, 20);
             this.textBox6.TabIndex = 36;
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(1241, 820);
+            this.textBox7.Location = new System.Drawing.Point(1241, 815);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(55, 20);
             this.textBox7.TabIndex = 37;
@@ -599,7 +642,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1145, 770);
+            this.label3.Location = new System.Drawing.Point(1149, 770);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 13);
             this.label3.TabIndex = 38;
@@ -609,7 +652,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(1145, 796);
+            this.label4.Location = new System.Drawing.Point(1149, 795);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(79, 13);
             this.label4.TabIndex = 39;
@@ -619,25 +662,15 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1145, 825);
+            this.label5.Location = new System.Drawing.Point(1149, 819);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 13);
+            this.label5.Size = new System.Drawing.Size(87, 13);
             this.label5.TabIndex = 40;
-            this.label5.Text = "Vn (ac)";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(1145, 853);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(87, 13);
-            this.label6.TabIndex = 41;
-            this.label6.Text = "Pn (Power ac)";
+            this.label5.Text = "Fullscale Vac ";
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(1241, 850);
+            this.textBox8.Location = new System.Drawing.Point(1241, 840);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(55, 20);
             this.textBox8.TabIndex = 42;
@@ -646,10 +679,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.PapayaWhip;
             this.ClientSize = new System.Drawing.Size(1362, 905);
             this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -675,6 +707,8 @@
             this.Controls.Add(this.chart1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
+            this.Opacity = 0.99D;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "CSV results plotter McGouffery";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
@@ -683,10 +717,10 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -747,6 +781,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox9;
     }
 }
 
