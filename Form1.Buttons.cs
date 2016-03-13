@@ -238,7 +238,15 @@ namespace PlotDVT
 
         private void button18_Click(object sender, EventArgs e)
         {
+            //use await here
             async_col_sequenceplot();
+
+            //if(Wacpowerbuglist != null)
+            //{
+            //    foreach (CSVrow row in Wacpowerbuglist.Bugrows)
+            //        richTextBox1.AppendText(row.Humantext());
+            //}
+
         }
 
         private void button19_Click(object sender, EventArgs e)

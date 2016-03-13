@@ -71,26 +71,32 @@ namespace PlotDVT
             chart3.Series.Add("Vdcconfigured");
             chart3.Series["DCvpm"].ChartArea = "ChartArea2";
             chart3.Series["Vdcconfigured"].ChartArea = "ChartArea2";
-            ////configure series plots
+            ////configure series plots her
             Series Waccnfseries = chart3.Series["Wacconfigured"];
             Series DCvpm = chart3.Series["DCvpm"];
             Series Vdcconfigured = chart3.Series["Vdcconfigured"];
             Series Wacpowermeter = chart3.Series["Wacpowermeter"];
-            Wacpowermeter.ChartType = SeriesChartType.Line;
-            Wacpowermeter.BorderWidth = 1;
-            Wacpowermeter.IsVisibleInLegend = false;
-            Waccnfseries.ChartType = SeriesChartType.Point;
-            Waccnfseries.MarkerStyle = MarkerStyle.Cross;
-            Waccnfseries.MarkerSize = 6;
-            Waccnfseries.IsVisibleInLegend = false;
-            DCvpm.ChartType = SeriesChartType.Point;
-            DCvpm.MarkerStyle = MarkerStyle.Circle;
-            DCvpm.BorderWidth = 6;
-            DCvpm.IsVisibleInLegend = false;
-            Vdcconfigured.ChartType = SeriesChartType.Point;
-            Vdcconfigured.MarkerStyle = MarkerStyle.Cross;
-            Vdcconfigured.MarkerSize = 6;
-            Vdcconfigured.IsVisibleInLegend = false;
+            setupseriesline(Wacpowermeter);
+            setupseriescross(Waccnfseries);
+            setupseriescross(Vdcconfigured);
+            setupseriescircle(DCvpm);
+            //Wacpowermeter.ChartType = SeriesChartType.Line;
+            //Wacpowermeter.BorderWidth = 1;
+            //Wacpowermeter.IsVisibleInLegend = false;
+            //Waccnfseries.ChartType = SeriesChartType.Point;
+            //Waccnfseries.MarkerStyle = MarkerStyle.Cross;
+            //Waccnfseries.MarkerSize = 6;
+            //Waccnfseries.IsVisibleInLegend = false;
+            //DCvpm.ChartType = SeriesChartType.Point;
+            //DCvpm.MarkerStyle = MarkerStyle.Circle;
+            //DCvpm.BorderWidth = 6;
+            //DCvpm.IsVisibleInLegend = false;
+            //Vdcconfigured.ChartType = SeriesChartType.Point;
+            //Vdcconfigured.MarkerStyle = MarkerStyle.Cross;
+            //Vdcconfigured.MarkerSize = 6;
+            //Vdcconfigured.IsVisibleInLegend = false;
+            //**END configure series**
+            //Inititalise lists for different bugs 
             Wacpowerbuglist = new Bugs();
             Wdcvbuglist = new Bugs();
             for (int i = 0; i < Wacpm.Count; i++)
@@ -119,21 +125,39 @@ namespace PlotDVT
                     chart3.Series["Vdcconfigured"].Points.AddY(Dcvcnf[i]);
                 }
             }
-
+            // Create a list of values to extract
             List<string> valuesforreport = new List<string>()
             {
-            "Wacvarconfigured",
-            "Wacconfigured",
-            "Wdcconfigured",
-            "Vdcconfigured",
-            "Phaseconfigured",
-            "Temperature"
+            "Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured", "Phaseconfigured", "Temperature"
             };
             if (Wacpowerbuglist != null)
             {
                 foreach (CSVrow row in Wacpowerbuglist.Bugrows)
                     richTextBox1.AppendText(row.Humantext(valuesforreport) + "\r\n");
             }
+        }
+
+        private void setupseriescross(Series x)
+        {
+            x.ChartType = SeriesChartType.Point;
+            x.MarkerStyle = MarkerStyle.Cross;
+            x.MarkerSize = 7;
+            x.IsVisibleInLegend = false;
+        }
+
+        private void setupseriescircle(Series x)
+        {
+            x.ChartType = SeriesChartType.Point;
+            x.MarkerStyle = MarkerStyle.Circle;
+            x.MarkerSize = 7;
+            x.IsVisibleInLegend = false;
+        }
+
+        private void setupseriesline(Series x)
+        {
+            x.ChartType = SeriesChartType.Line;
+            x.BorderWidth = 2;
+            x.IsVisibleInLegend = false;
         }
 
         private void clearseries(Series x)

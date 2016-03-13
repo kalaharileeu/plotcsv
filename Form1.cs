@@ -46,7 +46,6 @@ namespace PlotDVT
             setupploatarea();
             //plotIdc();
             this.textBox1.Text = "0°";
-            
         }
         /// <summary>
         /// Setup some default values for the plotting area
@@ -59,6 +58,7 @@ namespace PlotDVT
             textBox7.Text = "230";//Vn (ac) :PCUIP_Vac_OpratRngeRated
             textBox8.Text = "1.2";//Iac PCUOP_Sac_OpratRngeRated
             textBox9.Text = "220";//Sac
+            textBox10.Text = "56.0";//minimum Sac to ignore
             //Xrid lines
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
@@ -1067,6 +1067,7 @@ namespace PlotDVT
                     }
                 }
             }
+            return;
         }
 //********************************************accuracy plots start here*****************************************
         /// <summary>
