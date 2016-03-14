@@ -2,6 +2,9 @@
 
 namespace PlotDVT
 {
+    /// <summary>
+    /// ValuelistI implement this
+    /// </summary>
     interface IBaselist
     {
         void Populareslices(Dictionary<float, List<int>> slicedvalues);

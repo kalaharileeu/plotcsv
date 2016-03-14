@@ -21,7 +21,7 @@ namespace PlotDVT
                 populaterowdata();
             }
         }
-
+        //Get value
         public CSVrow GetaCSVrow(int rownumber)
         {
             if(rownumber < rows.Count)

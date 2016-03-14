@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace PlotDVT
 {
     /// <summary>
@@ -35,8 +36,15 @@ namespace PlotDVT
                 {
                     if (i.Key.Contains(s))
                     {
-                        builder.Append(i.Key + " : " + 
-                            string.Format("{0:0.00}", Convert.ToDouble(i.Value)) + ", ");
+                        if ((i.Value is string) && (i.Value.Length > 1))//check if value is string
+                        {
+                            builder.Append(i.Key + " : " +
+                                string.Format("{0:0.00}", Convert.ToDouble(i.Value)) + ", ");
+                        }
+                        else
+                        {
+                            builder.Append(i.Key + " : " + "default" + ", ");
+                        }
                         break;
                     }
                 }

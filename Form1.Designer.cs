@@ -703,6 +703,7 @@
             this.chart3.Legends.Add(legend3);
             this.chart3.Location = new System.Drawing.Point(13, 23);
             this.chart3.Name = "chart3";
+            this.chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
             this.chart3.Size = new System.Drawing.Size(593, 676);
             this.chart3.TabIndex = 33;
             this.chart3.Text = "chart3";

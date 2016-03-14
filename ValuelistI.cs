@@ -93,13 +93,16 @@ namespace PlotDVT
             foreach (string value in valuesstring)
             {
                 f = 0.0f;
-                try
+                if ((value is string) && (value.Length > 0))
                 {
-                    f = float.Parse(value);
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine(e.Message);
+                    try
+                    {
+                        f = float.Parse(value);
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                 }
                 valuesfloat.Add(f);
             }
