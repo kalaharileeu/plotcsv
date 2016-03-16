@@ -30,7 +30,7 @@ namespace PlotDVT
             //AC plots Set up axis variables
             chart3.ChartAreas[0].AxisX.Minimum = 0;
             chart3.ChartAreas[0].AxisX.Maximum = 300;
-            chart3.ChartAreas[0].AxisX.Interval = 40; 
+            chart3.ChartAreas[0].AxisX.Interval = 50; 
             chart3.ChartAreas[0].AxisY.Minimum = -280;
             chart3.ChartAreas[0].AxisY.Maximum = 280;
             chart3.ChartAreas[0].AxisY.Interval = 40; 
