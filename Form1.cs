@@ -1300,5 +1300,6 @@ namespace PlotDVT
         private Bugs Wacpowerbuglist;
         private Bugs Vdcvbuglist;
         private Bugs Idcvbuglist;
+        private Bugs Vacbuglist;
     }
 }

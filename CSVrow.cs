@@ -51,7 +51,6 @@ namespace PlotDVT
             }
             return builder.ToString();
         }
-        
         Dictionary<string, string> rowkeyvalue;
     }
 }

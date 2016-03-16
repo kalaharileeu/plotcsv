@@ -35,7 +35,12 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -134,9 +139,9 @@
             this.chart2.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(9, 532);
+            this.chart2.Location = new System.Drawing.Point(9, 544);
             this.chart2.Name = "chart2";
-            this.chart2.Size = new System.Drawing.Size(665, 201);
+            this.chart2.Size = new System.Drawing.Size(679, 207);
             this.chart2.TabIndex = 2;
             this.chart2.Text = "chart2";
             // 
@@ -351,12 +356,12 @@
             this.groupBox1.Controls.Add(this.button17);
             this.groupBox1.Controls.Add(this.button16);
             this.groupBox1.Controls.Add(this.button15);
-            this.groupBox1.Location = new System.Drawing.Point(360, 746);
+            this.groupBox1.Location = new System.Drawing.Point(360, 758);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(121, 110);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Reporting accuracy";
+            this.groupBox1.Text = "Compare accuracy";
             // 
             // button22
             // 
@@ -417,7 +422,7 @@
             // 
             this.groupBox2.BackColor = System.Drawing.Color.DarkGray;
             this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Location = new System.Drawing.Point(481, 746);
+            this.groupBox2.Location = new System.Drawing.Point(481, 758);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(116, 110);
             this.groupBox2.TabIndex = 22;
@@ -430,23 +435,23 @@
             this.groupBox3.Controls.Add(this.button2);
             this.groupBox3.Controls.Add(this.button4);
             this.groupBox3.Controls.Add(this.button13);
-            this.groupBox3.Location = new System.Drawing.Point(13, 745);
+            this.groupBox3.Location = new System.Drawing.Point(13, 757);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(250, 55);
             this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "DC";
+            this.groupBox3.Text = "Compare DC conditions";
             // 
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.DarkGray;
             this.groupBox4.Controls.Add(this.button14);
-            this.groupBox4.Location = new System.Drawing.Point(263, 745);
+            this.groupBox4.Location = new System.Drawing.Point(263, 757);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(75, 55);
+            this.groupBox4.Size = new System.Drawing.Size(82, 55);
             this.groupBox4.TabIndex = 24;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "AC";
+            this.groupBox4.Text = "Compare AC";
             // 
             // button20
             // 
@@ -653,11 +658,11 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(9, 466);
+            this.textBox4.Location = new System.Drawing.Point(9, 478);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox4.Size = new System.Drawing.Size(665, 62);
+            this.textBox4.Size = new System.Drawing.Size(679, 62);
             this.textBox4.TabIndex = 31;
             // 
             // groupBox7
@@ -694,11 +699,22 @@
             chartArea5.Name = "ChartArea3";
             chartArea5.Position.Auto = false;
             chartArea5.Position.Height = 40F;
-            chartArea5.Position.Width = 40F;
+            chartArea5.Position.Width = 35F;
             chartArea5.Position.Y = 45F;
+            chartArea6.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea6.AlignWithChartArea = "ChartArea3";
+            chartArea6.Area3DStyle.LightStyle = System.Windows.Forms.DataVisualization.Charting.LightStyle.Realistic;
+            chartArea6.BackColor = System.Drawing.Color.LightGray;
+            chartArea6.Name = "ChartArea4";
+            chartArea6.Position.Auto = false;
+            chartArea6.Position.Height = 40F;
+            chartArea6.Position.Width = 40F;
+            chartArea6.Position.X = 45F;
+            chartArea6.Position.Y = 45F;
             this.chart3.ChartAreas.Add(chartArea3);
             this.chart3.ChartAreas.Add(chartArea4);
             this.chart3.ChartAreas.Add(chartArea5);
+            this.chart3.ChartAreas.Add(chartArea6);
             legend3.Name = "Legend1";
             this.chart3.Legends.Add(legend3);
             this.chart3.Location = new System.Drawing.Point(13, 23);
@@ -707,6 +723,39 @@
             this.chart3.Size = new System.Drawing.Size(593, 676);
             this.chart3.TabIndex = 33;
             this.chart3.Text = "chart3";
+            title1.BackColor = System.Drawing.Color.White;
+            title1.BorderColor = System.Drawing.Color.Black;
+            title1.DockedToChartArea = "ChartArea1";
+            title1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title1.Name = "Area1Title";
+            title1.Text = "AC Watt/Var accuray fail";
+            title2.BorderColor = System.Drawing.Color.Black;
+            title2.DockedToChartArea = "ChartArea2";
+            title2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title2.IsDockedInsideChartArea = false;
+            title2.Name = "Area2Title";
+            title2.Text = "Vdc accuracy fail";
+            title3.BorderColor = System.Drawing.Color.Black;
+            title3.DockedToChartArea = "ChartArea3";
+            title3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title3.IsDockedInsideChartArea = false;
+            title3.Name = "Area3Title";
+            title3.Text = "Idc accuracy fail";
+            title4.BackColor = System.Drawing.Color.White;
+            title4.BorderColor = System.Drawing.Color.Black;
+            title4.DockedToChartArea = "ChartArea4";
+            title4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title4.IsDockedInsideChartArea = false;
+            title4.Name = "Area4Title";
+            title4.Text = "Vac accuracy fail";
+            this.chart3.Titles.Add(title1);
+            this.chart3.Titles.Add(title2);
+            this.chart3.Titles.Add(title3);
+            this.chart3.Titles.Add(title4);
             // 
             // groupBox8
             // 
