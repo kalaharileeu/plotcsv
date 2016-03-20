@@ -87,7 +87,7 @@ namespace PlotDVT
             return passfaillist;
         }
 
-        public static List<int> Getparsentagelist()
+         public static List<int> Getparsentagelist()
         {
             List<int> v = new List<int>();
             return v;

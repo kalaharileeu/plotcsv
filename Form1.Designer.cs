@@ -36,6 +36,8 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
@@ -512,9 +514,9 @@
             this.groupBox5.Controls.Add(this.textBox9);
             this.groupBox5.Controls.Add(this.button18);
             this.groupBox5.Controls.Add(this.button19);
-            this.groupBox5.Location = new System.Drawing.Point(707, 735);
+            this.groupBox5.Location = new System.Drawing.Point(707, 757);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(627, 141);
+            this.groupBox5.Size = new System.Drawing.Size(627, 160);
             this.groupBox5.TabIndex = 28;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Bug finder";
@@ -540,14 +542,14 @@
             // 
             this.textBox8.Location = new System.Drawing.Point(259, 91);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(55, 20);
+            this.textBox8.Size = new System.Drawing.Size(41, 20);
             this.textBox8.TabIndex = 42;
             // 
             // textBox7
             // 
             this.textBox7.Location = new System.Drawing.Point(259, 65);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(55, 20);
+            this.textBox7.Size = new System.Drawing.Size(41, 20);
             this.textBox7.TabIndex = 37;
             // 
             // label5
@@ -564,7 +566,7 @@
             // 
             this.textBox6.Location = new System.Drawing.Point(259, 39);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(55, 20);
+            this.textBox6.Size = new System.Drawing.Size(41, 20);
             this.textBox6.TabIndex = 36;
             // 
             // label8
@@ -581,7 +583,7 @@
             // 
             this.textBox5.Location = new System.Drawing.Point(259, 13);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(55, 20);
+            this.textBox5.Size = new System.Drawing.Size(41, 20);
             this.textBox5.TabIndex = 35;
             // 
             // label4
@@ -626,7 +628,7 @@
             // 
             this.textBox9.Location = new System.Drawing.Point(259, 117);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(55, 20);
+            this.textBox9.Size = new System.Drawing.Size(41, 20);
             this.textBox9.TabIndex = 28;
             // 
             // groupBox6
@@ -668,9 +670,9 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.richTextBox1);
-            this.groupBox7.Location = new System.Drawing.Point(292, 883);
+            this.groupBox7.Location = new System.Drawing.Point(292, 899);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(1042, 94);
+            this.groupBox7.Size = new System.Drawing.Size(1042, 78);
             this.groupBox7.TabIndex = 32;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Message box";
@@ -685,21 +687,21 @@
             chartArea3.Name = "ChartArea1";
             chartArea3.Position.Auto = false;
             chartArea3.Position.Height = 35F;
-            chartArea3.Position.Width = 35F;
+            chartArea3.Position.Width = 33F;
             chartArea4.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
             chartArea4.BackColor = System.Drawing.Color.LightGray;
             chartArea4.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea4.Name = "ChartArea2";
             chartArea4.Position.Auto = false;
             chartArea4.Position.Height = 35F;
-            chartArea4.Position.Width = 35F;
-            chartArea4.Position.X = 35F;
+            chartArea4.Position.Width = 33F;
+            chartArea4.Position.X = 33F;
             chartArea5.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
             chartArea5.BackColor = System.Drawing.Color.LightGray;
             chartArea5.Name = "ChartArea3";
             chartArea5.Position.Auto = false;
             chartArea5.Position.Height = 35F;
-            chartArea5.Position.Width = 35F;
+            chartArea5.Position.Width = 33F;
             chartArea5.Position.Y = 35F;
             chartArea6.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
             chartArea6.Area3DStyle.LightStyle = System.Windows.Forms.DataVisualization.Charting.LightStyle.Realistic;
@@ -707,19 +709,36 @@
             chartArea6.Name = "ChartArea4";
             chartArea6.Position.Auto = false;
             chartArea6.Position.Height = 35F;
-            chartArea6.Position.Width = 35F;
-            chartArea6.Position.X = 35F;
+            chartArea6.Position.Width = 33F;
+            chartArea6.Position.X = 33F;
             chartArea6.Position.Y = 35F;
+            chartArea7.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
+            chartArea7.BackColor = System.Drawing.Color.Silver;
+            chartArea7.Name = "ChartArea5";
+            chartArea7.Position.Auto = false;
+            chartArea7.Position.Height = 35F;
+            chartArea7.Position.Width = 33F;
+            chartArea7.Position.X = 66F;
+            chartArea7.Position.Y = 35F;
+            chartArea8.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
+            chartArea8.BackColor = System.Drawing.Color.Silver;
+            chartArea8.Name = "ChartArea6";
+            chartArea8.Position.Auto = false;
+            chartArea8.Position.Height = 30F;
+            chartArea8.Position.Width = 33F;
+            chartArea8.Position.Y = 70F;
             this.chart3.ChartAreas.Add(chartArea3);
             this.chart3.ChartAreas.Add(chartArea4);
             this.chart3.ChartAreas.Add(chartArea5);
             this.chart3.ChartAreas.Add(chartArea6);
+            this.chart3.ChartAreas.Add(chartArea7);
+            this.chart3.ChartAreas.Add(chartArea8);
             legend3.Name = "Legend1";
             this.chart3.Legends.Add(legend3);
-            this.chart3.Location = new System.Drawing.Point(13, 23);
+            this.chart3.Location = new System.Drawing.Point(13, 19);
             this.chart3.Name = "chart3";
             this.chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            this.chart3.Size = new System.Drawing.Size(593, 676);
+            this.chart3.Size = new System.Drawing.Size(602, 722);
             this.chart3.TabIndex = 33;
             this.chart3.Text = "chart3";
             title1.BackColor = System.Drawing.Color.White;
@@ -759,9 +778,9 @@
             // 
             this.groupBox8.BackColor = System.Drawing.Color.DarkGray;
             this.groupBox8.Controls.Add(this.chart3);
-            this.groupBox8.Location = new System.Drawing.Point(707, 15);
+            this.groupBox8.Location = new System.Drawing.Point(707, 4);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(627, 719);
+            this.groupBox8.Size = new System.Drawing.Size(621, 747);
             this.groupBox8.TabIndex = 34;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Bug plot";

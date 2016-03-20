@@ -22,30 +22,13 @@ namespace PlotDVT
                     clearseries(s);
                 }
             }
+            //enter a dalay for user feedback to show chart is updated
             await Task.Delay(100);
-            //chartdefaults();
             //clear value everytime button calls this function
             chart3.Series.Clear();
             //chart3.Titles.Clear();
             //AC plots Set up axis variables
-            chart3.ChartAreas[0].AxisX.Minimum = 0;
-            chart3.ChartAreas[0].AxisX.Maximum = 300;
-            chart3.ChartAreas[0].AxisX.Interval = 50; 
-            chart3.ChartAreas[0].AxisY.Minimum = -280;
-            chart3.ChartAreas[0].AxisY.Maximum = 280;
-            chart3.ChartAreas[0].AxisY.Interval = 40; 
-            //DC volt plots chartarea2
-            chart3.ChartAreas[1].AxisY.Minimum = 0;
-            chart3.ChartAreas[1].AxisY.Maximum = 50;
-            chart3.ChartAreas[1].AxisY.Interval = 5;
-            //DC current plots chartarea3
-            chart3.ChartAreas[2].AxisY.Minimum = -3;
-            chart3.ChartAreas[2].AxisY.Maximum = 15;
-            chart3.ChartAreas[2].AxisY.Interval = 1;
-            //AC volts plots chartarea4
-            chart3.ChartAreas[3].AxisY.Minimum = -3;
-            chart3.ChartAreas[3].AxisY.Maximum = 302;
-            chart3.ChartAreas[3].AxisY.Interval = 40;
+            setup_chart3axes(chart3);
             //AC plots Below are the values for chart one
             List<float> Wacpm = getfloatlist("Wacpowermeter");
             //List<float> Wacpm = new List<float>(colobjinterflist.First(item => item.GetName() == "Wacpowermeter").GetFloats());
@@ -77,9 +60,14 @@ namespace PlotDVT
                 (Calculate.Faillist(Dcvpcu, Dcvpm, 1, float.Parse(textBox5.Text), 1));
             List<bool> accuracyfaillistdci = new List<bool>
                 (Calculate.Faillist(Dcipcu, Dcipm, 1, float.Parse(textBox6.Text), 1));
-            //Create all the list of series I want to plot
+            //Create all the list of series I want to plot, these are alias names from xml
             List<string> listofseries = new List<string>()
-            { "Wacpowermeter", "Wacconfigured", "DCvpm", "Vdcconfigured", "DCipm", "Idcconfigured", "Vacpcu", Vacpm.ToString() };
+            { "Wacpowermeter", "Wacconfigured", "DCvpm", "Vdcconfigured",
+                "DCipm", "Idcconfigured", "Vacpcu", Vacpm.ToString() };
+            // Create a list of values to extract, alias names from xml
+            List<string> valuesforreport = new List<string>()
+            {"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
+                "Phaseconfigured", "Temperature", "Vacpowermeter" };
             addlist_series_tochart(chart3, listofseries);
             //Vdcconnect to Chartarea
             chart3.Series["DCvpm"].ChartArea = "ChartArea2";
@@ -99,10 +87,10 @@ namespace PlotDVT
             Series DCipm = chart3.Series["DCipm"];
             Series Idcconfigured = chart3.Series["Idcconfigured"];
             //Vac
-            Series ACVpm = chart3.Series[Vacpm.ToString()];
+            //Series ACVpm = chart3.Series[Vacpm.ToString()];
             Series ACVpcu = chart3.Series["Vacpcu"];
             //Vac setup plot types and variables
-            setupseriescircle(ACVpm);
+            setupseriescircle(chart3.Series[Vacpm.ToString()]);
             setupseriescross(ACVpcu);
             //var and watt
             setupseriesline(Wacpowermeter);
@@ -120,8 +108,7 @@ namespace PlotDVT
             Idcvbuglist = new Bugs(2);
             Vacbuglist = new Bugs(3);
             List<Bugs> Bugslist = new List<Bugs>() { Wacpowerbuglist, Vdcvbuglist, Idcvbuglist, Vacbuglist };
-
-
+            //loop trough a series to cover every value
             for (int i = 0; i < Wacpm.Count; i++)
             {
                 if(accuracyfaillist[i] == false || accuracyfaillistvar[i] == false)
@@ -140,7 +127,6 @@ namespace PlotDVT
                         Waccnfseries.Points.AddXY(Waccnf[i], Wvarcnf[i]);
                     }
                  }
-
                 if(accuracyfaillistdcv[i] == false)
                 {
                     Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
@@ -158,17 +144,10 @@ namespace PlotDVT
                 if (accuracyfaillistvac[i] == false)
                 {
                     Vacbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                    ACVpm.Points.AddY(Vacpm[i]);
+                    chart3.Series[Vacpm.ToString()].Points.AddY(Vacpm[i]);
                     ACVpcu.Points.AddY(Vacpcu[i]);
                 }
             }
-            // Create a list of values to extract
-            List<string> valuesforreport = new List<string>()
-            {
-                "Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
-                "Phaseconfigured", "Temperature", "Vacpowermeter"
-            };
-
             foreach (Bugs B in Bugslist)
             {
                 if (B.Bugrows.Count != 0)
@@ -181,6 +160,39 @@ namespace PlotDVT
                     set_background_image(chart3, B.Getchartno());
             }
         }
+//independent plotting from main plotting area
+        private async void hunt()
+        {
+            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", float.Parse(textBox5.Text));
+        }
+
+        private void plot_general(string pcu, string powermeter, string cnf, string chartarea, float FS)
+        {
+            //clear series and add the series
+            chart3.Series.Clear();
+            List<string> series = new List<string> { pcu, powermeter, cnf };
+            addlist_series_tochart(chart3, series);
+            //Get the column float values: (cnf is configured values)
+            List<float> CNF = getfloatlist(cnf);
+            List<float> PM = getfloatlist(powermeter);
+            List<float> PCU = getfloatlist(pcu);
+            //Get the bool fail list for specific margins (The ones are percentage 1) 
+            List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(PCU, PM, 1, FS, 1));
+            chart3.Series[powermeter].ChartArea = chartarea;
+            chart3.Series[cnf].ChartArea = chartarea;
+            setupseriescross(chart3.Series[cnf]);
+            setupseriescircle(chart3.Series[powermeter]);
+            for (int i = 0; i < PM.Count; i++)
+            {
+                if (accuracyfaillist[i] == false)
+                {
+                    //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
+                    chart3.Series[powermeter].Points.AddY(PM[i]);
+                    chart3.Series[cnf].Points.AddY(CNF[i]);
+                }
+            }
+        }
+
         /// <summary>
         /// add a list of serise names to a chart
         /// </summary>
@@ -254,6 +266,29 @@ namespace PlotDVT
         private void clear_background_image(Chart x, int area_no)
         {
             x.ChartAreas[area_no].BackImage = "Content/cream.jpg";
+        }
+
+        private void setup_chart3axes(Chart x)
+        {
+            //AC plots Set up axis variables
+            x.ChartAreas[0].AxisX.Minimum = 0;
+            x.ChartAreas[0].AxisX.Maximum = 300;
+            x.ChartAreas[0].AxisX.Interval = 50;
+            x.ChartAreas[0].AxisY.Minimum = -280;
+            x.ChartAreas[0].AxisY.Maximum = 280;
+            x.ChartAreas[0].AxisY.Interval = 40;
+            //DC volt plots chartarea2
+            x.ChartAreas[1].AxisY.Minimum = 0;
+            x.ChartAreas[1].AxisY.Maximum = 50;
+            x.ChartAreas[1].AxisY.Interval = 5;
+            //DC current plots chartarea3
+            x.ChartAreas[2].AxisY.Minimum = -3;
+            x.ChartAreas[2].AxisY.Maximum = 15;
+            x.ChartAreas[2].AxisY.Interval = 1;
+            //AC volts plots chartarea4
+            x.ChartAreas[3].AxisY.Minimum = -3;
+            x.ChartAreas[3].AxisY.Maximum = 302;
+            x.ChartAreas[3].AxisY.Interval = 40;
         }
     }
 }
