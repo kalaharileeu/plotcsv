@@ -167,7 +167,9 @@ namespace PlotDVT
         /// </summary>
         private async void huntbugs()
         {
+            //Wdc can use the generic plot
             plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", float.Parse(textBox11.Text));
+            //special plot for apparant current pcu ac current rerting
             plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", float.Parse(textBox8.Text));
         }
 
@@ -215,7 +217,8 @@ namespace PlotDVT
             //get the powermeter float values
             List<float> PM = getfloatlist(powermeter);
             //Calculate tthe aparant ac current list from the pcu
-            List<float> appartcurrent = new List<float>(Calculate.Get_pcu_apparantcurrent(getfloatlist(reactive), getfloatlist(pcureal)));
+            List<float> appartcurrent = new List<float>
+                (Calculate.Get_pcu_apparantcurrent(getfloatlist(reactive), getfloatlist(pcureal)));
             //Get the bool fail list for specific margins (The ones are percentage 1) 
             List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(appartcurrent, PM, 1, FS, 1));
             chart3.Series[powermeter].ChartArea = chartarea;

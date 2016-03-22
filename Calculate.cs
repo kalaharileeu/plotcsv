@@ -10,7 +10,6 @@ namespace PlotDVT
     /// </summary>
     public class Calculate
     {
-
         public static List<float> Difflist(List<float> target, List<float> measument)
         {
             if (target.Count == measument.Count)
