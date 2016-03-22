@@ -61,6 +61,16 @@
     <from>pcu</from>
   </Column>
   <Column>
+    <columnname>pcu_qP_ACCIMAG</columnname>
+    <alias>Iacimagpcu</alias>
+    <from>pcu</from>
+  </Column>
+  <Column>
+    <columnname>pcu_qP_ACCREAL</columnname>
+    <alias>Iacpcu</alias>
+    <from>pcu</from>
+  </Column>
+  <Column>
     <columnname>pm_dc_amps_1</columnname>
     <alias>Idcpowermeter</alias>
     <from>powermeter</from>
@@ -103,6 +113,11 @@
   <Column>
     <columnname>pm_ac_volts</columnname>
     <alias>Vacpowermeter</alias>
+    <from>powermeter</from>
+  </Column>
+  <Column>
+    <columnname>pm_ac_amps_1</columnname>
+    <alias>Iacpowermeter</alias>
     <from>powermeter</from>
   </Column>
 </DataCol>

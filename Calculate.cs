@@ -66,7 +66,15 @@ namespace PlotDVT
             }
             return limitlist;
         }
-
+        /// <summary>
+        /// return a bool list of all the values that failed
+        /// </summary>
+        /// <param name="target">pcu values</param>
+        /// <param name="measurement">powermeter</param>
+        /// <param name="persentofmeasure">the margin available</param>
+        /// <param name="FS">FS value from GUI</param>
+        /// <param name="persentageofFS">persentage of FS</param>
+        /// <returns></returns>
         public static List<bool> Faillist(List<float> target, 
             List<float> measurement, int persentofmeasure, float FS, float persentageofFS)
         {
@@ -85,6 +93,27 @@ namespace PlotDVT
                     }
                 }
             return passfaillist;
+        }
+        /// <summary>
+        /// works out the apparant ac current the the pcu read and feed is ba
+        /// </summary>
+        /// <param name="pcuimag"></param>
+        /// <param name="pcureal"></param>
+        /// <returns>list of pcu apparant current</returns>
+        public static List<float> Get_pcu_apparantcurrent(List<float> pcuimag, List<float> pcureal)
+        {
+            List<float> pcu_apparant_i = new List<float>();
+            if (pcuimag.Count == pcureal.Count)
+            {
+                for (int i = 0; i < pcuimag.Count; i++)
+                {
+                    pcu_apparant_i.Add((float)(Math.Sqrt(
+                        Convert.ToDouble(pcuimag[i] * pcuimag[i] + pcureal[i] * pcureal[i]))));
+                }
+                return pcu_apparant_i;
+            }
+            //return null; the two list values not equal
+            return null;
         }
 
          public static List<int> Getparsentagelist()

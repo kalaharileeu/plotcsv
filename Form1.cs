@@ -55,10 +55,11 @@ namespace PlotDVT
             textBox2.Text = "20";//delay synchronous plotting
             textBox5.Text = "60";//Fullscale Vdc: PCUIP_Vdc_OpratRngeMPPT or PCUIP_Vdc_OpratRngeStart
             textBox6.Text = "12";//Fullscale Idc: PCUIP_IdcLimit_OpratRngeRated
-            textBox7.Text = "230";//Vn (ac) :PCUIP_Vac_OpratRngeRated
+            textBox7.Text = "290";//Vn (ac) :PCUIP_Vac_OpratRngeRated
             textBox8.Text = "1.2";//Iac PCUOP_Sac_OpratRngeRated
             textBox9.Text = "220";//Sac
             textBox10.Text = "56.0";//minimum Sac to ignore
+            textBox11.Text = "294.0";//minimum Sac to ignore
             //Xrid lines
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;

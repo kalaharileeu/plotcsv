@@ -43,6 +43,8 @@
             System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -100,6 +102,8 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -498,6 +502,8 @@
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.DarkGray;
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.textBox11);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.textBox10);
             this.groupBox5.Controls.Add(this.textBox8);
@@ -769,10 +775,26 @@
             title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title4.Name = "Area4Title";
             title4.Text = "Vac accuracy fail";
+            title5.BackColor = System.Drawing.Color.White;
+            title5.BorderColor = System.Drawing.Color.Black;
+            title5.DockedToChartArea = "ChartArea5";
+            title5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            title5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title5.Name = "Area5Title";
+            title5.Text = "Iac accuracy fail";
+            title6.BackColor = System.Drawing.Color.White;
+            title6.BorderColor = System.Drawing.Color.Black;
+            title6.DockedToChartArea = "ChartArea6";
+            title6.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            title6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title6.Name = "Area6Title";
+            title6.Text = "Wdc accuracy fail";
             this.chart3.Titles.Add(title1);
             this.chart3.Titles.Add(title2);
             this.chart3.Titles.Add(title3);
             this.chart3.Titles.Add(title4);
+            this.chart3.Titles.Add(title5);
+            this.chart3.Titles.Add(title6);
             // 
             // groupBox8
             // 
@@ -784,6 +806,23 @@
             this.groupBox8.TabIndex = 34;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Bug plot";
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(465, 13);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(34, 20);
+            this.textBox11.TabIndex = 46;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(372, 16);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(87, 13);
+            this.label9.TabIndex = 47;
+            this.label9.Text = "Fullscale Wdc";
             // 
             // Form1
             // 
@@ -890,6 +929,8 @@
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox11;
     }
 }
 

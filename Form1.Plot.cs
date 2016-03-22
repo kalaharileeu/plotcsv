@@ -111,6 +111,7 @@ namespace PlotDVT
             //loop trough a series to cover every value
             for (int i = 0; i < Wacpm.Count; i++)
             {
+                //This will have to stay a special plot
                 if(accuracyfaillist[i] == false || accuracyfaillistvar[i] == false)
                 {
                     //ignore the values that is below this value in textbox10
@@ -148,6 +149,7 @@ namespace PlotDVT
                     ACVpcu.Points.AddY(Vacpcu[i]);
                 }
             }
+            huntbugs();
             foreach (Bugs B in Bugslist)
             {
                 if (B.Bugrows.Count != 0)
@@ -160,16 +162,19 @@ namespace PlotDVT
                     set_background_image(chart3, B.Getchartno());
             }
         }
-//independent plotting from main plotting area
-        private async void hunt()
+        /// <summary>
+        /// This is a alternative plotting path for bugs and ultimately the path that should be used
+        /// </summary>
+        private async void huntbugs()
         {
-            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", float.Parse(textBox5.Text));
+            plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", float.Parse(textBox11.Text));
+            plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", float.Parse(textBox8.Text));
         }
 
         private void plot_general(string pcu, string powermeter, string cnf, string chartarea, float FS)
         {
             //clear series and add the series
-            chart3.Series.Clear();
+            //chart3.Series.Clear();
             List<string> series = new List<string> { pcu, powermeter, cnf };
             addlist_series_tochart(chart3, series);
             //Get the column float values: (cnf is configured values)
@@ -192,6 +197,41 @@ namespace PlotDVT
                 }
             }
         }
+        /// <summary>
+        /// calculate the aparant current, Iacs current measured by the pcu components 
+        /// </summary>
+        /// <param name="pcureal"></param>
+        /// <param name="powermeter"></param>
+        /// <param name="reactive"></param>
+        /// <param name="chartarea"></param>
+        /// <param name="FS"></param>
+        private void plot_apparant_current(string pcureal, string powermeter, string reactive, string chartarea, float FS)
+        {
+            //clear series and add the series
+            //chart3.Series.Clear();
+            //setup series names to be added to chart3
+            List<string> series = new List<string> { powermeter, "pcuIacs" };
+            addlist_series_tochart(chart3, series);
+            //get the powermeter float values
+            List<float> PM = getfloatlist(powermeter);
+            //Calculate tthe aparant ac current list from the pcu
+            List<float> appartcurrent = new List<float>(Calculate.Get_pcu_apparantcurrent(getfloatlist(reactive), getfloatlist(pcureal)));
+            //Get the bool fail list for specific margins (The ones are percentage 1) 
+            List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(appartcurrent, PM, 1, FS, 1));
+            chart3.Series[powermeter].ChartArea = chartarea;
+            chart3.Series["pcuIacs"].ChartArea = chartarea;
+            setupseriescross(chart3.Series["pcuIacs"]);
+            setupseriescircle(chart3.Series[powermeter]);
+            for (int i = 0; i < PM.Count; i++)
+            {
+                if (accuracyfaillist[i] == false)
+                {
+                    //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
+                    chart3.Series[powermeter].Points.AddY(PM[i]);
+                    chart3.Series["pcuIacs"].Points.AddY(appartcurrent[i]);
+                }
+            }
+        }
 
         /// <summary>
         /// add a list of serise names to a chart
@@ -202,7 +242,9 @@ namespace PlotDVT
         {
             foreach(string s in serieslist)
             {
-                x.Series.Add(s);
+                //check if the series name already exists
+                if(x.Series.IndexOf(s) == -1)
+                    x.Series.Add(s);
             }
         }
         /// <summary>
