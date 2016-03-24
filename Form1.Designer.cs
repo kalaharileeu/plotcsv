@@ -83,6 +83,8 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button19 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox11 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
@@ -102,8 +104,6 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -527,6 +527,23 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Bug finder";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(372, 16);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(87, 13);
+            this.label9.TabIndex = 47;
+            this.label9.Text = "Fullscale Wdc";
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(465, 13);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(34, 20);
+            this.textBox11.TabIndex = 46;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -719,7 +736,7 @@
             chartArea6.Position.X = 33F;
             chartArea6.Position.Y = 35F;
             chartArea7.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
-            chartArea7.BackColor = System.Drawing.Color.Silver;
+            chartArea7.BackColor = System.Drawing.Color.LightGray;
             chartArea7.Name = "ChartArea5";
             chartArea7.Position.Auto = false;
             chartArea7.Position.Height = 35F;
@@ -727,7 +744,7 @@
             chartArea7.Position.X = 66F;
             chartArea7.Position.Y = 35F;
             chartArea8.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
-            chartArea8.BackColor = System.Drawing.Color.Silver;
+            chartArea8.BackColor = System.Drawing.Color.LightGray;
             chartArea8.Name = "ChartArea6";
             chartArea8.Position.Auto = false;
             chartArea8.Position.Height = 30F;
@@ -806,23 +823,6 @@
             this.groupBox8.TabIndex = 34;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Bug plot";
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(465, 13);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(34, 20);
-            this.textBox11.TabIndex = 46;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(372, 16);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(87, 13);
-            this.label9.TabIndex = 47;
-            this.label9.Text = "Fullscale Wdc";
             // 
             // Form1
             // 

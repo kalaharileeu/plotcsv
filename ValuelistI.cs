@@ -6,7 +6,7 @@ namespace PlotDVT
     /// <summary>
 /// Implements IBaselist
 /// </summary>
-    public class ValuelistI : IBaselist
+    class ValuelistI : IBaselist
     {
         protected List<float> valuesfloat;
         protected List<string> valuesstring;

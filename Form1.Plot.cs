@@ -38,76 +38,31 @@ namespace PlotDVT
             //never plot these just use them to determine accuracy
             List<float> WACpcu = getfloatlist("Wacpcu");
             List<float> WACimagpcu = getfloatlist("Wacimagpcu");
-            //DC plots
-            List<float> Dcvcnf = getfloatlist("Vdcconfigured");
-            List<float> Dcvpm = getfloatlist("Vdcpowermeter");
-            List<float> Dcvpcu = getfloatlist("Vdcpcu");
-            //Idc plots
-            List<float> Dcicnf = getfloatlist("Idcconfigured");
-            List<float> Dcipm = getfloatlist("Idcpowermeter");
-            List<float> Dcipcu = getfloatlist("Idcpcu");
-            //AC volts
-            List<float> Vacpcu = getfloatlist("Vacpcu");
-            List<float> Vacpm = getfloatlist("Vacpowermeter");
-            List<bool> accuracyfaillistvac = new List<bool>
-                (Calculate.Faillist(Vacpcu, Vacpm, 1, float.Parse(textBox7.Text), 1));
             //Get a bool fail list to do selective plotting
             List<bool> accuracyfaillist = new List<bool>
                 (Calculate.Faillist(WACpcu, Wacpm, 1, float.Parse(textBox9.Text), 1));
             List<bool> accuracyfaillistvar = new List<bool>
                 (Calculate.Faillist(WACimagpcu, Wvarpm, 1, float.Parse(textBox9.Text), 1));
-            List<bool> accuracyfaillistdcv = new List<bool>
-                (Calculate.Faillist(Dcvpcu, Dcvpm, 1, float.Parse(textBox5.Text), 1));
-            List<bool> accuracyfaillistdci = new List<bool>
-                (Calculate.Faillist(Dcipcu, Dcipm, 1, float.Parse(textBox6.Text), 1));
-            //Create all the list of series I want to plot, these are alias names from xml
             List<string> listofseries = new List<string>()
-            { "Wacpowermeter", "Wacconfigured", "DCvpm", "Vdcconfigured",
-                "DCipm", "Idcconfigured", "Vacpcu", Vacpm.ToString() };
+            { "Wacpowermeter", "Wacconfigured" };
             // Create a list of values to extract, alias names from xml
+            //this is independent of plot
             List<string> valuesforreport = new List<string>()
             {"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
                 "Phaseconfigured", "Temperature", "Vacpowermeter" };
             addlist_series_tochart(chart3, listofseries);
-            //Vdcconnect to Chartarea
-            chart3.Series["DCvpm"].ChartArea = "ChartArea2";
-            chart3.Series["Vdcconfigured"].ChartArea = "ChartArea2";
-            //Idc
-            chart3.Series["DCipm"].ChartArea = "ChartArea3";
-            chart3.Series["Idcconfigured"].ChartArea = "ChartArea3";
-            //Vac add to chartarea
-            chart3.Series["Vacpcu"].ChartArea = "ChartArea4";
-            chart3.Series[Vacpm.ToString()].ChartArea = "ChartArea4";
-            ////configure series plots variables her3
             Series Waccnfseries = chart3.Series["Wacconfigured"];
-            Series DCvpm = chart3.Series["DCvpm"];
-            Series Vdcconfigured = chart3.Series["Vdcconfigured"];
             Series Wacpowermeter = chart3.Series["Wacpowermeter"];
-            //Idc
-            Series DCipm = chart3.Series["DCipm"];
-            Series Idcconfigured = chart3.Series["Idcconfigured"];
-            //Vac
-            //Series ACVpm = chart3.Series[Vacpm.ToString()];
-            Series ACVpcu = chart3.Series["Vacpcu"];
-            //Vac setup plot types and variables
-            setupseriescircle(chart3.Series[Vacpm.ToString()]);
-            setupseriescross(ACVpcu);
             //var and watt
             setupseriesline(Wacpowermeter);
             setupseriescross(Waccnfseries);
-            //Vdc
-            setupseriescross(Vdcconfigured);
-            setupseriescircle(DCvpm);
-            //Idc
-            setupseriescross(Idcconfigured);
-            setupseriescircle(DCipm);
             //**END configure series**
             //Inititalise lists for different bugs
             Wacpowerbuglist = new Bugs(0);
             Vdcvbuglist = new Bugs(1);
             Idcvbuglist = new Bugs(2);
             Vacbuglist = new Bugs(3);
-            List<Bugs> Bugslist = new List<Bugs>() { Wacpowerbuglist, Vdcvbuglist, Idcvbuglist, Vacbuglist };
+            List<Bugs> Bugslist = new List<Bugs>() { Wacpowerbuglist};
             //loop trough a series to cover every value
             for (int i = 0; i < Wacpm.Count; i++)
             {
@@ -128,26 +83,6 @@ namespace PlotDVT
                         Waccnfseries.Points.AddXY(Waccnf[i], Wvarcnf[i]);
                     }
                  }
-                if(accuracyfaillistdcv[i] == false)
-                {
-                    Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                    DCvpm.Points.AddY(Dcvpm[i]);
-                    Vdcconfigured.Points.AddY(Dcvcnf[i]);
-                }
-
-                if (accuracyfaillistdci[i] == false)
-                {
-                    Idcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                    DCipm.Points.AddY(Dcipm[i]);
-                    Idcconfigured.Points.AddY(Dcicnf[i]);
-                }
-
-                if (accuracyfaillistvac[i] == false)
-                {
-                    Vacbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                    chart3.Series[Vacpm.ToString()].Points.AddY(Vacpm[i]);
-                    ACVpcu.Points.AddY(Vacpcu[i]);
-                }
             }
             huntbugs();
             foreach (Bugs B in Bugslist)
@@ -167,8 +102,14 @@ namespace PlotDVT
         /// </summary>
         private async void huntbugs()
         {
+            //Vac
+            plot_general("Vacpcu", "Vacpowermeter", "Vacpcu", "ChartArea4", float.Parse(textBox7.Text));
+            //Idc
+            plot_general("Idcpcu", "Idcpowermeter", "Idcconfigured", "ChartArea3", float.Parse(textBox6.Text));
             //Wdc can use the generic plot
             plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", float.Parse(textBox11.Text));
+            //DC plots
+            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", float.Parse(textBox5.Text));
             //special plot for apparant current pcu ac current rerting
             plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", float.Parse(textBox8.Text));
         }
@@ -198,6 +139,7 @@ namespace PlotDVT
                     chart3.Series[cnf].Points.AddY(CNF[i]);
                 }
             }
+            setbackground(chart3.Series[powermeter], chartarea);
         }
         /// <summary>
         /// calculate the aparant current, Iacs current measured by the pcu components 
@@ -234,8 +176,8 @@ namespace PlotDVT
                     chart3.Series["pcuIacs"].Points.AddY(appartcurrent[i]);
                 }
             }
+            setbackground(chart3.Series[powermeter], chartarea);
         }
-
         /// <summary>
         /// add a list of serise names to a chart
         /// </summary>
@@ -294,10 +236,19 @@ namespace PlotDVT
             }
         }
         /// <summary>
+        /// check the chart series for points and set background accordingly
+        /// </summary>
+        private void setbackground(Series x_s, string chartarea_name)
+        {
+            int index = chart3.ChartAreas.IndexOf(chartarea_name);
+            if (x_s.Points.Count > 0)
+                clear_background_image(chart3, index);
+            else
+                set_background_image(chart3, index);
+        }
+        /// <summary>
         /// change the background image to a thumbs up all good, scled to chartimage size
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="area_no"></param>
         private void set_background_image(Chart x, int area_no)
         {
             x.ChartAreas[area_no].BackImage = "Content/thumbsup.jpg";
@@ -306,8 +257,6 @@ namespace PlotDVT
         /// <summary>
         /// Chagne the background image to neautral color
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="area_no"></param>
         private void clear_background_image(Chart x, int area_no)
         {
             x.ChartAreas[area_no].BackImage = "Content/cream.jpg";
