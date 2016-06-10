@@ -59,7 +59,8 @@ namespace PlotDVT
             textBox8.Text = "1.2";//Iac PCUOP_Sac_OpratRngeRated
             textBox9.Text = "220";//Sac
             textBox10.Text = "56.0";//minimum Sac to ignore
-            textBox11.Text = "294.0";//minimum Sac to ignore
+            textBox13.Text = "350";
+            textBox11.Text = "294.0";//Fulscale Wdc
             //Xrid lines
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
@@ -1302,5 +1303,15 @@ namespace PlotDVT
         private Bugs Vdcvbuglist;
         private Bugs Idcvbuglist;
         private Bugs Vacbuglist;
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox7_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -11,6 +12,8 @@ namespace PlotDVT
     {
         /// <summary>
         /// Plots the Var vs real power triangle
+        /// This plot is a special plot. It plot the ractive power
+        /// triangles and writest to the richtextbox.
         /// </summary>
         private async void async_col_sequenceplot()
         {
@@ -43,12 +46,10 @@ namespace PlotDVT
                 (Calculate.Faillist(WACpcu, Wacpm, 1, float.Parse(textBox9.Text), 1));
             List<bool> accuracyfaillistvar = new List<bool>
                 (Calculate.Faillist(WACimagpcu, Wvarpm, 1, float.Parse(textBox9.Text), 1));
-            List<string> listofseries = new List<string>()
-            { "Wacpowermeter", "Wacconfigured" };
+            List<string> listofseries = new List<string>(){ "Wacpowermeter", "Wacconfigured" };
             // Create a list of values to extract, alias names from xml
             //this is independent of plot
-            List<string> valuesforreport = new List<string>()
-            {"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
+            List<string> valuesforreport = new List<string>(){"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
                 "Phaseconfigured", "Temperature", "Vacpowermeter" };
             addlist_series_tochart(chart3, listofseries);
             Series Waccnfseries = chart3.Series["Wacconfigured"];
@@ -57,7 +58,8 @@ namespace PlotDVT
             setupseriesline(Wacpowermeter);
             setupseriescross(Waccnfseries);
             //**END configure series**
-            //Inititalise lists for different bugs
+            //Inititalise classes for different bugs, the int is the chartarea number
+            //Bugs class contains a list of bugrows
             Wacpowerbuglist = new Bugs(0);
             Vdcvbuglist = new Bugs(1);
             Idcvbuglist = new Bugs(2);
@@ -69,8 +71,8 @@ namespace PlotDVT
                 //This will have to stay a special plot
                 if(accuracyfaillist[i] == false || accuracyfaillistvar[i] == false)
                 {
-                    //ignore the values that is below this value in textbox10
-                    if (Wacpm[i] > float.Parse(textBox10.Text))
+                    //ignore the values that is below this value in textbox10 and above textBox13
+                    if (Wacpm[i] > float.Parse(textBox10.Text) && Wacpm[i] < float.Parse(textBox13.Text))
                     {
                         Wacpowerbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
                         //Plot the congfigured w/va powermeter values
@@ -84,7 +86,23 @@ namespace PlotDVT
                     }
                  }
             }
-            huntbugs();
+            //clear the richtext box
+            richTextBox1.Clear();
+            //hunt bugs kicks of a series of bug plots with Wacpm as the filter list
+            huntbugs(Wacpm);
+            //Writes to richtext box, this needs to be function
+            printbugs(Bugslist);
+        }
+        /// <summary>
+        /// print the bugs to the richtext box
+        /// the richtextbox also has to be cleared everytim after a
+        /// series of bug plots
+        /// </summary>
+        private void printbugs(List<Bugs> Bugslist)
+        {
+            richTextBox1.AppendText("*****************************" + "ACWreporting" + "**********************************" + "\r\n");
+            List<string> valuesforreport = new List<string>(){"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
+                "Phaseconfigured", "Temperature", "Vacpowermeter" };
             foreach (Bugs B in Bugslist)
             {
                 if (B.Bugrows.Count != 0)
@@ -97,25 +115,35 @@ namespace PlotDVT
                     set_background_image(chart3, B.Getchartno());
             }
         }
+
         /// <summary>
         /// This is a alternative plotting path for bugs and ultimately the path that should be used
+        /// takes the filter mask, this is the list of float values to filter by so if it is
+        /// bigger or small than this value it will not be plotted
+        /// the filter values is checked again values textbox values and if it is smaller or larger
+        /// then the other value is not plotted. to filter again say output power values
         /// </summary>
-        private async void huntbugs()
+        private async void huntbugs(List<float> the_filter_mask)
         {
+            //The filter mask in these are the List of parameter that will be searched in addition 
+            //to the plotted values, and it will not plot the values if it does not meet the 
+            //mask requirements
             //Vac
-            plot_general("Vacpcu", "Vacpowermeter", "Vacpcu", "ChartArea4", float.Parse(textBox7.Text));
+            plot_general("Vacpcu", "Vacpowermeter", "Vacpcu", "ChartArea4", float.Parse(textBox7.Text), the_filter_mask);
             //Idc
-            plot_general("Idcpcu", "Idcpowermeter", "Idcconfigured", "ChartArea3", float.Parse(textBox6.Text));
+            plot_general("Idcpcu", "Idcpowermeter", "Idcconfigured", "ChartArea3", float.Parse(textBox6.Text), the_filter_mask);
             //Wdc can use the generic plot
-            plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", float.Parse(textBox11.Text));
+            plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", float.Parse(textBox11.Text), the_filter_mask);
             //DC plots
-            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", float.Parse(textBox5.Text));
+            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", float.Parse(textBox5.Text), the_filter_mask);
             //special plot for apparant current pcu ac current rerting
-            plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", float.Parse(textBox8.Text));
+            plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", float.Parse(textBox8.Text), the_filter_mask);
         }
 
-        private void plot_general(string pcu, string powermeter, string cnf, string chartarea, float FS)
+        private void plot_general(string pcu, string powermeter, string cnf, string chartarea, float FS, List<float> filter_mask)
         {
+            List<string> valuesforreport = new List<string>(){"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
+                "Phaseconfigured", "Temperature", "Vacpowermeter" };
             //clear series and add the series
             //chart3.Series.Clear();
             List<string> series = new List<string> { pcu, powermeter, cnf };
@@ -130,13 +158,22 @@ namespace PlotDVT
             chart3.Series[cnf].ChartArea = chartarea;
             setupseriescross(chart3.Series[cnf]);
             setupseriescircle(chart3.Series[powermeter]);
+            //Add a litte heading to the richtextbob
+            richTextBox1.AppendText( "*****************************" + pcu + "**********************************" + "\r\n");
             for (int i = 0; i < PM.Count; i++)
             {
-                if (accuracyfaillist[i] == false)
+                //ignore the values that is below this value in textbox10 and above textBox13
+                if (filter_mask[i] > float.Parse(textBox10.Text) && filter_mask[i] < float.Parse(textBox13.Text))                                                                                                                             
                 {
-                    //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                    chart3.Series[powermeter].Points.AddY(PM[i]);
-                    chart3.Series[cnf].Points.AddY(CNF[i]);
+                    if (accuracyfaillist[i] == false)
+                    {
+                        //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
+                        //richTextBox1.AppendText(row.Humantext(valuesforreport) + "\r\n");
+                        //Append text to the richtext box
+                        richTextBox1.AppendText(CSVrowManager.GetaCSVrow(i).Humantext(valuesforreport) + "\r\n");
+                        chart3.Series[powermeter].Points.AddY(PM[i]);
+                        chart3.Series[cnf].Points.AddY(CNF[i]);
+                    }
                 }
             }
             setbackground(chart3.Series[powermeter], chartarea);
@@ -149,7 +186,7 @@ namespace PlotDVT
         /// <param name="reactive"></param>
         /// <param name="chartarea"></param>
         /// <param name="FS"></param>
-        private void plot_apparant_current(string pcureal, string powermeter, string reactive, string chartarea, float FS)
+        private void plot_apparant_current(string pcureal, string powermeter, string reactive, string chartarea, float FS, List<float> filter_mask)
         {
             //clear series and add the series
             //chart3.Series.Clear();
@@ -169,11 +206,15 @@ namespace PlotDVT
             setupseriescircle(chart3.Series[powermeter]);
             for (int i = 0; i < PM.Count; i++)
             {
-                if (accuracyfaillist[i] == false)
+                //ignore the values that is below this value in textbox10 and above textBox13
+                if (filter_mask[i] > float.Parse(textBox10.Text) && filter_mask[i] < float.Parse(textBox13.Text))
                 {
-                    //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                    chart3.Series[powermeter].Points.AddY(PM[i]);
-                    chart3.Series["pcuIacs"].Points.AddY(appartcurrent[i]);
+                    if (accuracyfaillist[i] == false)
+                    {
+                        //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
+                        chart3.Series[powermeter].Points.AddY(PM[i]);
+                        chart3.Series["pcuIacs"].Points.AddY(appartcurrent[i]);
+                    }
                 }
             }
             setbackground(chart3.Series[powermeter], chartarea);
