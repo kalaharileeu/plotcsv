@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -25,13 +24,22 @@ namespace PlotDVT
                     clearseries(s);
                 }
             }
+            //Clear all the data points
+            if (chart4.Series != null)
+            {
+                foreach (Series s in chart4.Series)
+                {
+                    clearseries(s);
+                }
+            }
+
             //enter a dalay for user feedback to show chart is updated
             await Task.Delay(100);
-            //clear value everytime button calls this function
-            chart3.Series.Clear();
+
+            chart4.Series.Clear();
             //chart3.Titles.Clear();
-            //AC plots Set up axis variables
-            setup_chart3axes(chart3);
+
+
             //AC plots Below are the values for chart one
             List<float> Wacpm = getfloatlist("Wacpowermeter");
             //List<float> Wacpm = new List<float>(colobjinterflist.First(item => item.GetName() == "Wacpowermeter").GetFloats());
@@ -46,14 +54,23 @@ namespace PlotDVT
                 (Calculate.Faillist(WACpcu, Wacpm, 1, float.Parse(textBox9.Text), 1));
             List<bool> accuracyfaillistvar = new List<bool>
                 (Calculate.Faillist(WACimagpcu, Wvarpm, 1, float.Parse(textBox9.Text), 1));
-            List<string> listofseries = new List<string>(){ "Wacpowermeter", "Wacconfigured" };
-            // Create a list of values to extract, alias names from xml
             //this is independent of plot
             List<string> valuesforreport = new List<string>(){"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
                 "Phaseconfigured", "Temperature", "Vacpowermeter" };
+            //clear value everytime button calls this function
+            List<string> listofseries = new List<string>() { "Wacpowermeter", "Wacconfigured" };
+            // Create a list of values to extract, alias names from xml
+            chart3.Series.Clear();
+            //AC plots Set up axis variables
+            setup_chart3axes(chart3);
             addlist_series_tochart(chart3, listofseries);
             Series Waccnfseries = chart3.Series["Wacconfigured"];
             Series Wacpowermeter = chart3.Series["Wacpowermeter"];
+            //**************************Setup chart4*************************************************** 
+            //Add a series to chart4
+            List<string> listofseries4 = new List<string>() { "Wacpowermeter" };
+            setup_chart4axes(chart4);
+            addlist_series_tochart(chart4, listofseries4);
             //var and watt
             setupseriesline(Wacpowermeter);
             setupseriescross(Waccnfseries);
@@ -129,18 +146,26 @@ namespace PlotDVT
             //to the plotted values, and it will not plot the values if it does not meet the 
             //mask requirements
             //Vac
-            plot_general("Vacpcu", "Vacpowermeter", "Vacpcu", "ChartArea4", float.Parse(textBox7.Text), the_filter_mask);
+            plot_general("Vacpcu", "Vacpowermeter", "Vacpcu", "ChartArea4", (float)numericUpDown5.Value, the_filter_mask);
             //Idc
-            plot_general("Idcpcu", "Idcpowermeter", "Idcconfigured", "ChartArea3", float.Parse(textBox6.Text), the_filter_mask);
+            plot_general("Idcpcu", "Idcpowermeter", "Idcconfigured", "ChartArea3", (float)numericUpDown3.Value, the_filter_mask);
             //Wdc can use the generic plot
-            plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", float.Parse(textBox11.Text), the_filter_mask);
+            plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", (float)numericUpDown4.Value, the_filter_mask);
             //DC plots
-            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", float.Parse(textBox5.Text), the_filter_mask);
+            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", (float)numericUpDown2.Value, the_filter_mask);
             //special plot for apparant current pcu ac current rerting
-            plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", float.Parse(textBox8.Text), the_filter_mask);
+            plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", (float)numericUpDown6.Value, the_filter_mask);
         }
-
-        private void plot_general(string pcu, string powermeter, string cnf, string chartarea, float FS, List<float> filter_mask)
+        /// <summary>
+        /// Atthis stage it plots and writes to richtext. Should change it.
+        /// </summary>
+        /// <param name="pcu">value from pcu</param>
+        /// <param name="powermeter">value from power meter</param>
+        /// <param name="cnf">configured value by the test</param>
+        /// <param name="chartarea">The chart area name where data should go</param>
+        /// <param name="FS">the fulscale value used for accuracy</param>
+        /// <param name="filter_mask">the mask to filter plotted values</param>
+        private void plot_general(string pcu, string powermeter, string cnf, string chartarea, float persent_fail_margin, List<float> filter_mask)
         {
             List<string> valuesforreport = new List<string>(){"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
                 "Phaseconfigured", "Temperature", "Vacpowermeter" };
@@ -152,8 +177,15 @@ namespace PlotDVT
             List<float> CNF = getfloatlist(cnf);
             List<float> PM = getfloatlist(powermeter);
             List<float> PCU = getfloatlist(pcu);
-            //Get the bool fail list for specific margins (The ones are percentage 1) 
-            List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(PCU, PM, 1, FS, 1));
+            //Get the bool fail list for specific margins (The ones are percentage 1)
+            //convert double from the numericUpDown to float
+            float failpersentage = persent_fail_margin;
+            //getfloatfromupdown();
+            //if the value from the numeric updown list is samller that zero the  return 
+            //if (failpersentage == -1) return;
+
+            List<bool> accuracyfaillist = new List<bool>(Calculate.Pesentage_faillist(PCU, PM, failpersentage));
+           // List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(PCU, PM, 1, FS, 1));
             chart3.Series[powermeter].ChartArea = chartarea;
             chart3.Series[cnf].ChartArea = chartarea;
             setupseriescross(chart3.Series[cnf]);
@@ -163,16 +195,18 @@ namespace PlotDVT
             for (int i = 0; i < PM.Count; i++)
             {
                 //ignore the values that is below this value in textbox10 and above textBox13
-                if (filter_mask[i] > float.Parse(textBox10.Text) && filter_mask[i] < float.Parse(textBox13.Text))                                                                                                                             
+                if (filter_mask[i] > float.Parse(textBox10.Text) && filter_mask[i] < float.Parse(textBox13.Text))
                 {
                     if (accuracyfaillist[i] == false)
                     {
-                        //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                        //richTextBox1.AppendText(row.Humantext(valuesforreport) + "\r\n");
-                        //Append text to the richtext box
-                        richTextBox1.AppendText(CSVrowManager.GetaCSVrow(i).Humantext(valuesforreport) + "\r\n");
-                        chart3.Series[powermeter].Points.AddY(PM[i]);
-                        chart3.Series[cnf].Points.AddY(CNF[i]);
+                        if (CSVrowManager.GetaCSVrow(i) != null)
+                        {
+                            //Append text to the richtext box
+                            richTextBox1.AppendText(CSVrowManager.GetaCSVrow(i).Humantext(valuesforreport) + "\r\n");
+                            //Add point to the chart
+                            chart3.Series[powermeter].Points.AddY(PM[i]);
+                            chart3.Series[cnf].Points.AddY(CNF[i]);
+                        }
                     }
                 }
             }
@@ -186,7 +220,7 @@ namespace PlotDVT
         /// <param name="reactive"></param>
         /// <param name="chartarea"></param>
         /// <param name="FS"></param>
-        private void plot_apparant_current(string pcureal, string powermeter, string reactive, string chartarea, float FS, List<float> filter_mask)
+        private void plot_apparant_current(string pcureal, string powermeter, string reactive, string chartarea, float persent_fail_margin, List<float> filter_mask)
         {
             //clear series and add the series
             //chart3.Series.Clear();
@@ -199,7 +233,8 @@ namespace PlotDVT
             List<float> appartcurrent = new List<float>
                 (Calculate.Get_pcu_apparantcurrent(getfloatlist(reactive), getfloatlist(pcureal)));
             //Get the bool fail list for specific margins (The ones are percentage 1) 
-            List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(appartcurrent, PM, 1, FS, 1));
+           // List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(appartcurrent, PM, 1, FS, 1));
+            List<bool> accuracyfaillist = new List<bool>(Calculate.Pesentage_faillist(appartcurrent, PM, persent_fail_margin));
             chart3.Series[powermeter].ChartArea = chartarea;
             chart3.Series["pcuIacs"].ChartArea = chartarea;
             setupseriescross(chart3.Series["pcuIacs"]);
@@ -324,6 +359,30 @@ namespace PlotDVT
             x.ChartAreas[3].AxisY.Minimum = -3;
             x.ChartAreas[3].AxisY.Maximum = 302;
             x.ChartAreas[3].AxisY.Interval = 40;
+        }
+
+        private void setup_chart4axes(Chart x)
+        {
+            x.ChartAreas[0].AxisX.Minimum = 0;
+            x.ChartAreas[0].AxisX.Maximum = 2000;
+            x.ChartAreas[0].AxisX.Interval = 1;
+            x.ChartAreas[0].AxisY.Minimum = 0;
+            x.ChartAreas[0].AxisY.Maximum = 10;
+            x.ChartAreas[0].AxisY.Interval = 1;
+        }
+
+        private float getfloatfromupdown()
+        {
+            float floatvalue = (float)(numericUpDown1.Value);
+            if (floatvalue <= 0)
+            {
+                MessageBox.Show("% of reading cannot be zero and smaller, check up down box");
+                return -1;
+            }
+            else
+            {
+                return floatvalue;
+            }
         }
     }
 }

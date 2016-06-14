@@ -10,6 +10,7 @@ namespace PlotDVT
     /// </summary>
     public class Calculate
     {
+        //retuns a list of values sutracted from each other
         public static List<float> Difflist(List<float> target, List<float> measument)
         {
             if (target.Count == measument.Count)
@@ -93,6 +94,34 @@ namespace PlotDVT
                 }
             return passfaillist;
         }
+
+        /// <summary>
+        /// Works out the failure just on persentag between power meter and the inverter does
+        /// not use the fullscale values
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="measurement"></param>
+        /// <param name="persentofmeasure"></param>
+        /// <returns></returns>
+        //public static List<bool> Pesentage_faillist(List<float> target, List<float> measurement, int persentofmeasure, float FS, float persentageofFS)
+        public static List<bool> Pesentage_faillist(List<float> target, List<float> measurement, float persentofmeasure)
+        {
+            List<bool> passfaillist = new List<bool>();
+                if (target.Count > 0 && target != null)
+                {
+                    //gets the difference pcu and powermeter measurment
+                    List<float> difflist = new List<float>(Difflist(target, measurement));
+                    List<float> thelimitlist = persentofmeasuement(measurement, persentofmeasure);
+                    for (int i = 0; i < difflist.Count; i++)
+                    {
+                        if (Math.Abs(difflist[i]) <= thelimitlist[i])
+                            passfaillist.Add(true);
+                        else
+                            passfaillist.Add(false);
+                    }
+                }
+                return passfaillist;
+        }
         /// <summary>
         /// works out the apparant ac current the the pcu read and feed is ba
         /// </summary>
@@ -115,10 +144,35 @@ namespace PlotDVT
             return null;
         }
 
-         public static List<int> Getparsentagelist()
-        {
-            List<int> v = new List<int>();
-            return v;
-        }
+
+
+
+        // public static List<int> Getparsentagelist()
+        //{
+        //    List<int> v = new List<int>();
+        //    return v;
+        //}
+        ////convert a value to float
+        //public void ConvertToFloat()
+        //{
+        //    //floatcolvalues = new List<float>();
+        //    float f;
+        //    foreach (string value in valuesstring)
+        //    {
+        //        f = 0.0f;
+        //        if ((value is string) && (value.Length > 0))
+        //        {
+        //            try
+        //            {
+        //                f = float.Parse(value);
+        //            }
+        //            catch (FormatException e)
+        //            {
+        //                Console.WriteLine(e.Message);
+        //            }
+        //        }
+        //        valuesfloat.Add(f);
+        //    }
+        //}
     }
 }

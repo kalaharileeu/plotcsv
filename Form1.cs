@@ -53,14 +53,15 @@ namespace PlotDVT
         private void setupploatarea()
         {
             textBox2.Text = "20";//delay synchronous plotting
-            textBox5.Text = "60";//Fullscale Vdc: PCUIP_Vdc_OpratRngeMPPT or PCUIP_Vdc_OpratRngeStart
-            textBox6.Text = "12";//Fullscale Idc: PCUIP_IdcLimit_OpratRngeRated
-            textBox7.Text = "290";//Vn (ac) :PCUIP_Vac_OpratRngeRated
-            textBox8.Text = "1.2";//Iac PCUOP_Sac_OpratRngeRated
+            numericUpDown6.Value = 1.0M;
+            numericUpDown5.Value = 1.0M;
+            numericUpDown4.Value = 1.0M;
+            numericUpDown3.Value = 1.0M;
             textBox9.Text = "220";//Sac
             textBox10.Text = "56.0";//minimum Sac to ignore
-            textBox13.Text = "350";
-            textBox11.Text = "294.0";//Fulscale Wdc
+            textBox13.Text = "350";//Maximum Sac
+            numericUpDown2.Value = 2.0M; ;//Fulscale Wdc
+            numericUpDown1.Value = 1.0M;
             //Xrid lines
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
@@ -369,6 +370,17 @@ namespace PlotDVT
             chart2.ChartAreas[0].AxisY.Minimum = Double.NaN;
             chart2.ChartAreas[0].AxisX.Maximum = Double.NaN;
             chart2.ChartAreas[0].AxisY.Maximum = Double.NaN;
+
+            chart4.ChartAreas[0].AxisX.Title = "";
+            chart4.ChartAreas[0].AxisY.Title = "";
+            chart4.ChartAreas[0].BackColor = Color.White;
+            chart4.Series.Clear();
+            chart4.Titles.Clear();
+            chart4.ChartAreas[0].AxisX.Minimum = Double.NaN;
+            chart4.ChartAreas[0].AxisY.Minimum = Double.NaN;
+            chart4.ChartAreas[0].AxisX.Maximum = Double.NaN;
+            chart4.ChartAreas[0].AxisY.Maximum = Double.NaN;
+
             //chart2.ChartAreas.Clear();
         }
 //**********************************Done populating data for unit undertest*********************
@@ -686,7 +698,6 @@ namespace PlotDVT
             }
         }
 //***************************************Diff plotting ends**********************************
-
 //***************************************DC vOLT plot start here*****************************
         /// <summary>
         /// Plot the dc voltage power meter value on chart area
@@ -1303,15 +1314,5 @@ namespace PlotDVT
         private Bugs Vdcvbuglist;
         private Bugs Idcvbuglist;
         private Bugs Vacbuglist;
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox7_Enter(object sender, EventArgs e)
-        {
-
-        }
     }
 }

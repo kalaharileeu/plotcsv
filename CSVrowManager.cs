@@ -4,7 +4,7 @@ namespace PlotDVT
 {
     /// <summary>
     /// Takes the data from selected rows and creates rows
-    /// as that reflects the CSV data, without unawanted data
+    /// as that reflects the CSV data, without unwanted data
     /// </summary>
     class CSVrowManager
     {
