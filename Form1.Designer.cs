@@ -45,8 +45,6 @@
             System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -99,11 +97,12 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox13 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -123,7 +122,6 @@
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart4)).BeginInit();
             this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
@@ -639,16 +637,25 @@
             // 
             // chart4
             // 
+            chartArea9.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea9.AxisX.LineColor = System.Drawing.Color.Transparent;
+            chartArea9.AxisX.MajorGrid.LineColor = System.Drawing.Color.Transparent;
+            chartArea9.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Transparent;
+            chartArea9.AxisX.Maximum = 100D;
+            chartArea9.AxisX.MaximumAutoSize = 100F;
+            chartArea9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            chartArea9.BorderColor = System.Drawing.Color.Transparent;
+            chartArea9.InnerPlotPosition.Auto = false;
+            chartArea9.InnerPlotPosition.Height = 100F;
+            chartArea9.InnerPlotPosition.Width = 100F;
             chartArea9.Name = "ChartArea1";
+            chartArea9.Position.Auto = false;
+            chartArea9.Position.Height = 94F;
+            chartArea9.Position.Width = 100F;
+            chartArea9.Position.Y = 3F;
             this.chart4.ChartAreas.Add(chartArea9);
-            legend3.Name = "Legend1";
-            this.chart4.Legends.Add(legend3);
             this.chart4.Location = new System.Drawing.Point(13, 581);
             this.chart4.Name = "chart4";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart4.Series.Add(series1);
             this.chart4.Size = new System.Drawing.Size(1051, 114);
             this.chart4.TabIndex = 34;
             this.chart4.Text = "chart4";
@@ -767,11 +774,12 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.numericUpDown1);
-            this.groupBox7.Controls.Add(this.label13);
-            this.groupBox7.Controls.Add(this.textBox13);
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Controls.Add(this.label11);
+            this.groupBox7.Controls.Add(this.textBox6);
+            this.groupBox7.Controls.Add(this.textBox5);
+            this.groupBox7.Controls.Add(this.label13);
+            this.groupBox7.Controls.Add(this.textBox13);
             this.groupBox7.Controls.Add(this.label10);
             this.groupBox7.Controls.Add(this.textBox10);
             this.groupBox7.Location = new System.Drawing.Point(570, 10);
@@ -781,24 +789,45 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Bug controls";
             // 
-            // numericUpDown1
+            // label12
             // 
-            this.numericUpDown1.DecimalPlaces = 1;
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericUpDown1.Location = new System.Drawing.Point(146, 19);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(48, 20);
-            this.numericUpDown1.TabIndex = 54;
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(156, 56);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(106, 13);
+            this.label12.TabIndex = 56;
+            this.label12.Text = "High Vdc (ignore)";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(156, 27);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(103, 13);
+            this.label11.TabIndex = 55;
+            this.label11.Text = "Low Vdc (ignore)";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(280, 53);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(28, 20);
+            this.textBox6.TabIndex = 54;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(280, 23);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(28, 20);
+            this.textBox5.TabIndex = 53;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(325, 49);
+            this.label13.Location = new System.Drawing.Point(326, 56);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(106, 13);
             this.label13.TabIndex = 52;
@@ -806,36 +835,16 @@
             // 
             // textBox13
             // 
-            this.textBox13.Location = new System.Drawing.Point(436, 44);
+            this.textBox13.Location = new System.Drawing.Point(449, 51);
             this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(47, 20);
+            this.textBox13.Size = new System.Drawing.Size(35, 20);
             this.textBox13.TabIndex = 51;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(9, 23);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(29, 13);
-            this.label12.TabIndex = 50;
-            this.label12.Text = "Plot";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(38, 23);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(102, 13);
-            this.label11.TabIndex = 49;
-            this.label11.Text = "% of reading, fail";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(327, 19);
+            this.label10.Location = new System.Drawing.Point(328, 26);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(103, 13);
             this.label10.TabIndex = 45;
@@ -843,9 +852,9 @@
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(435, 16);
+            this.textBox10.Location = new System.Drawing.Point(449, 23);
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(48, 20);
+            this.textBox10.Size = new System.Drawing.Size(35, 20);
             this.textBox10.TabIndex = 43;
             // 
             // groupBox5
@@ -1031,7 +1040,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart4)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
@@ -1087,8 +1095,6 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox7;
@@ -1103,13 +1109,16 @@
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.NumericUpDown numericUpDown4;
         private System.Windows.Forms.NumericUpDown numericUpDown5;
         private System.Windows.Forms.NumericUpDown numericUpDown6;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
 

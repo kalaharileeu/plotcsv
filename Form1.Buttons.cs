@@ -240,14 +240,6 @@ namespace PlotDVT
         {
             //use await here
             async_col_sequenceplot();
-            //hunt();
-
-            //if(Wacpowerbuglist != null)
-            //{
-            //    foreach (CSVrow row in Wacpowerbuglist.Bugrows)
-            //        richTextBox1.AppendText(row.Humantext());
-            //}
-
         }
 
         private void button19_Click(object sender, EventArgs e)

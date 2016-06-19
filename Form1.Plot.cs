@@ -10,6 +10,7 @@ namespace PlotDVT
     public partial class Form1 : Form
     {
         /// <summary>
+        /// This function gets called by button press
         /// Plots the Var vs real power triangle
         /// This plot is a special plot. It plot the ractive power
         /// triangles and writest to the richtextbox.
@@ -35,11 +36,7 @@ namespace PlotDVT
 
             //enter a dalay for user feedback to show chart is updated
             await Task.Delay(100);
-
-            chart4.Series.Clear();
             //chart3.Titles.Clear();
-
-
             //AC plots Below are the values for chart one
             List<float> Wacpm = getfloatlist("Wacpowermeter");
             //List<float> Wacpm = new List<float>(colobjinterflist.First(item => item.GetName() == "Wacpowermeter").GetFloats());
@@ -60,23 +57,26 @@ namespace PlotDVT
             //clear value everytime button calls this function
             List<string> listofseries = new List<string>() { "Wacpowermeter", "Wacconfigured" };
             // Create a list of values to extract, alias names from xml
-            chart3.Series.Clear();
+            //**************************Setup chart3***************************************************
+            //chart3.Series.Clear();
             //AC plots Set up axis variables
             setup_chart3axes(chart3);
             addlist_series_tochart(chart3, listofseries);
             Series Waccnfseries = chart3.Series["Wacconfigured"];
             Series Wacpowermeter = chart3.Series["Wacpowermeter"];
             //**************************Setup chart4*************************************************** 
-            //Add a series to chart4
-            List<string> listofseries4 = new List<string>() { "Wacpowermeter" };
-            setup_chart4axes(chart4);
-            addlist_series_tochart(chart4, listofseries4);
+            setup_chart4axes(chart4, Wvarpm.Count);
+            addlist_series_tochart(chart4, new List<string>() { "Wacpowermeter", "Accumulate" });
+            setupseriesline(chart4.Series["Wacpowermeter"]);//setup the color and the line type plot
+            setupseriescross(chart4.Series["Accumulate"]);//setup the color and the line type plot
+            chart4.Series["Wacpowermeter"].Points.AddXY(0, 0);//Add the first dot to the line
+            //******************************End chart 4 setup***********************************************
             //var and watt
             setupseriesline(Wacpowermeter);
             setupseriescross(Waccnfseries);
             //**END configure series**
             //Inititalise classes for different bugs, the int is the chartarea number
-            //Bugs class contains a list of bugrows
+            //Bugs class contains a list of text bugrows
             Wacpowerbuglist = new Bugs(0);
             Vdcvbuglist = new Bugs(1);
             Idcvbuglist = new Bugs(2);
@@ -100,6 +100,33 @@ namespace PlotDVT
                         ////Plot the congfigured w/va configured values
                         Waccnfseries.Points.AddXY(Waccnf[i], 0);
                         Waccnfseries.Points.AddXY(Waccnf[i], Wvarcnf[i]);
+                        //**************************CHART4*************************
+                        //Add bug plot to the line plot
+                        chart4.Series["Wacpowermeter"].Points.AddXY(i, 0);
+                        chart4.Series["Wacpowermeter"].Points.AddXY(i, 3);
+                        chart4.Series["Wacpowermeter"].Points.AddXY(i, 0);
+                        //**********************Accumulate bugs to Chart 4*********
+                        //if the series is empty then add something
+                        if (chart4.Series["Accumulate"].Points.Count == 0)
+                        {
+                            chart4.Series["Accumulate"].Points.AddXY(0, 0);
+                        }
+                        DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
+                        if (datapoint == null)
+                        {
+                            //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            chart4.Series["Accumulate"].Points.AddXY(i, 1);
+                            //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                        }
+                        else
+                        {
+                            datapoint.SetValueY(datapoint.YValues.Last() + 1);
+                            ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
+                            //last += 1;
+                            //chart4.Series["Accumulate"].Points.AddXY(i, last);
+                            ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                        }
                     }
                  }
             }
@@ -171,8 +198,6 @@ namespace PlotDVT
                 "Phaseconfigured", "Temperature", "Vacpowermeter" };
             //clear series and add the series
             //chart3.Series.Clear();
-            List<string> series = new List<string> { pcu, powermeter, cnf };
-            addlist_series_tochart(chart3, series);
             //Get the column float values: (cnf is configured values)
             List<float> CNF = getfloatlist(cnf);
             List<float> PM = getfloatlist(powermeter);
@@ -180,16 +205,21 @@ namespace PlotDVT
             //Get the bool fail list for specific margins (The ones are percentage 1)
             //convert double from the numericUpDown to float
             float failpersentage = persent_fail_margin;
-            //getfloatfromupdown();
-            //if the value from the numeric updown list is samller that zero the  return 
-            //if (failpersentage == -1) return;
-
             List<bool> accuracyfaillist = new List<bool>(Calculate.Pesentage_faillist(PCU, PM, failpersentage));
-           // List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(PCU, PM, 1, FS, 1));
+            //**************************Setup chart4********************************************************
+           // setup_chart4axes(chart4);
+            addlist_series_tochart(chart4, new List<string>() { pcu });
+            setupseriesline(chart4.Series[pcu]);//setup the color and the line type plot
+            chart4.Series[pcu].Points.AddXY(0, 0);//Add the first dot to the line
+            //******************************End chart 4 setup***********************************************
+            //*****************************Setup chart 3****************************************************
+            addlist_series_tochart(chart3, new List<string> { pcu, powermeter, cnf });
+            //List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(PCU, PM, 1, FS, 1));
             chart3.Series[powermeter].ChartArea = chartarea;
             chart3.Series[cnf].ChartArea = chartarea;
             setupseriescross(chart3.Series[cnf]);
             setupseriescircle(chart3.Series[powermeter]);
+            //****************************End setup chart 3*************************************************
             //Add a litte heading to the richtextbob
             richTextBox1.AppendText( "*****************************" + pcu + "**********************************" + "\r\n");
             for (int i = 0; i < PM.Count; i++)
@@ -206,6 +236,35 @@ namespace PlotDVT
                             //Add point to the chart
                             chart3.Series[powermeter].Points.AddY(PM[i]);
                             chart3.Series[cnf].Points.AddY(CNF[i]);
+                            //**************************CHART4*************************
+                            //Add bug plot to the line plot
+                            chart4.Series[pcu].Points.AddXY(i, 0);
+                            chart4.Series[pcu].Points.AddXY(i, 3);
+                            chart4.Series[pcu].Points.AddXY(i, 0);
+                            //**********************Accumulate bugs to Chart 4****************
+                            //if the series is empty then add something
+                            if (chart4.Series["Accumulate"].Points.Count == 0)
+                            {
+                                chart4.Series["Accumulate"].Points.AddXY(0, 0);
+                            }
+                            //If the series is empty then add something
+                            DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
+                            if (datapoint == null)
+                            {
+                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                chart4.Series["Accumulate"].Points.AddXY(i, 1);
+                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            }
+                            else
+                            {
+                                datapoint.SetValueY(datapoint.YValues.Last() + 1);
+                                //chart4.Series["Accumulate"].Points.AddXY(i, datapoint.YValues.Last() + 1);
+                                ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
+                                //last += 1;
+                                //chart4.Series["Accumulate"].Points.AddXY(i, last);
+                                ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            }
                         }
                     }
                 }
@@ -224,16 +283,24 @@ namespace PlotDVT
         {
             //clear series and add the series
             //chart3.Series.Clear();
-            //setup series names to be added to chart3
-            List<string> series = new List<string> { powermeter, "pcuIacs" };
-            addlist_series_tochart(chart3, series);
+
             //get the powermeter float values
             List<float> PM = getfloatlist(powermeter);
             //Calculate tthe aparant ac current list from the pcu
             List<float> appartcurrent = new List<float>
                 (Calculate.Get_pcu_apparantcurrent(getfloatlist(reactive), getfloatlist(pcureal)));
+            //**************************Setup chart4********************************************************
+          //  setup_chart4axes(chart4);
+            addlist_series_tochart(chart4, new List<string>() { pcureal, "Accumulate" });
+            setupseriesline(chart4.Series[pcureal]);//setup the color and the line type plot
+            chart4.Series[pcureal].Points.AddXY(0, 0);//Add the first dot to the line
+            //******************************End chart 4 setup***********************************************
+            //**************************Setup chart3********************************************************
+            //setup series names to be added to chart3
+            List<string> series = new List<string> { powermeter, "pcuIacs" };
+            addlist_series_tochart(chart3, new List<string> { powermeter, "pcuIacs" });
             //Get the bool fail list for specific margins (The ones are percentage 1) 
-           // List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(appartcurrent, PM, 1, FS, 1));
+            // List<bool> accuracyfaillist = new List<bool>(Calculate.Faillist(appartcurrent, PM, 1, FS, 1));
             List<bool> accuracyfaillist = new List<bool>(Calculate.Pesentage_faillist(appartcurrent, PM, persent_fail_margin));
             chart3.Series[powermeter].ChartArea = chartarea;
             chart3.Series["pcuIacs"].ChartArea = chartarea;
@@ -249,6 +316,34 @@ namespace PlotDVT
                         //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
                         chart3.Series[powermeter].Points.AddY(PM[i]);
                         chart3.Series["pcuIacs"].Points.AddY(appartcurrent[i]);
+                        //**************************CHART4 load point*************************
+                        //Add bug plot to the line plot
+                        chart4.Series[pcureal].Points.AddXY(i, 0);
+                        chart4.Series[pcureal].Points.AddXY(i, 3);
+                        chart4.Series[pcureal].Points.AddXY(i, 0);
+                        //**********************Accumulate bugs to Chart 4****************
+                        //if the series is empty then add something
+                        if (chart4.Series["Accumulate"].Points.Count == 0)
+                        {
+                            chart4.Series["Accumulate"].Points.AddXY(0, 0);
+                        }
+                        //If the series is empty then add something
+                        DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
+                        if (datapoint == null)
+                        {
+                            //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            chart4.Series["Accumulate"].Points.AddXY(i, 1);
+                            //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                        }
+                        else
+                        {
+                            datapoint.SetValueY(datapoint.YValues.Last() + 1);
+                            ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
+                            //last += 1;
+                            //chart4.Series["Accumulate"].Points.AddXY(i, last);
+                            ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                        }
                     }
                 }
             }
@@ -361,28 +456,16 @@ namespace PlotDVT
             x.ChartAreas[3].AxisY.Interval = 40;
         }
 
-        private void setup_chart4axes(Chart x)
+        private void setup_chart4axes(Chart x, int xaxeslegth)
         {
             x.ChartAreas[0].AxisX.Minimum = 0;
-            x.ChartAreas[0].AxisX.Maximum = 2000;
+            x.ChartAreas[0].AxisX.Maximum = xaxeslegth + 10;
             x.ChartAreas[0].AxisX.Interval = 1;
             x.ChartAreas[0].AxisY.Minimum = 0;
-            x.ChartAreas[0].AxisY.Maximum = 10;
+            x.ChartAreas[0].AxisY.Maximum = 8;
             x.ChartAreas[0].AxisY.Interval = 1;
-        }
-
-        private float getfloatfromupdown()
-        {
-            float floatvalue = (float)(numericUpDown1.Value);
-            if (floatvalue <= 0)
-            {
-                MessageBox.Show("% of reading cannot be zero and smaller, check up down box");
-                return -1;
-            }
-            else
-            {
-                return floatvalue;
-            }
+            x.ChartAreas[0].InnerPlotPosition.Height = 100;
+            x.ChartAreas[0].InnerPlotPosition.Width = 100;
         }
     }
 }

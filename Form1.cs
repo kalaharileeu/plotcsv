@@ -60,8 +60,10 @@ namespace PlotDVT
             textBox9.Text = "220";//Sac
             textBox10.Text = "56.0";//minimum Sac to ignore
             textBox13.Text = "350";//Maximum Sac
+            textBox5.Text = "15";//Minimum Vmp to ignore
+            textBox6.Text = "55";//Max vmp to ignore
             numericUpDown2.Value = 2.0M; ;//Fulscale Wdc
-            numericUpDown1.Value = 1.0M;
+
             //Xrid lines
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;

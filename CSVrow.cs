@@ -29,6 +29,7 @@ namespace PlotDVT
 
         public string Humantext(List<string> valueforreport)
         {
+            //{"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured", "Phaseconfigured", "Temperature", "Vacpowermeter" };
             StringBuilder builder = new StringBuilder();
             foreach (string s in valueforreport)
             {
@@ -51,6 +52,7 @@ namespace PlotDVT
             }
             return builder.ToString();
         }
+
         Dictionary<string, string> rowkeyvalue;
     }
 }
