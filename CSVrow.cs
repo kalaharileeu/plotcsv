@@ -39,7 +39,7 @@ namespace PlotDVT
                     {
                         if ((i.Value is string) && (i.Value.Length > 1))//check if value is string
                         {
-                            builder.Append(i.Key + " : " +
+                            builder.Append(gettextshortform(i.Key) + ":" +
                                 string.Format("{0:0.00}", Convert.ToDouble(i.Value)) + ", ");
                         }
                         else
@@ -51,6 +51,26 @@ namespace PlotDVT
                 }
             }
             return builder.ToString();
+        }
+        //Return a shorter form of the text so that it fits in the richtextbox1
+        private string gettextshortform(string longname)
+        {
+            if (longname == "Temperature")
+                return "Temp";
+            if (longname == "Wacvarconfigured")
+                return "VARcnf";
+            if (longname == "Wdcconfigured")
+                return "WDCcnf";
+            if (longname == "Vdcconfigured")
+                return "VDCcnf";
+            if (longname == "Vacpowermeter")
+                return "VACpm";
+            if (longname == "Phaseconfigured")
+                return "Phasecnf";
+            if (longname == "Wacconfigured")
+                return "WACcnf";
+            else
+                return longname;
         }
 
         Dictionary<string, string> rowkeyvalue;

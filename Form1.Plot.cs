@@ -37,8 +37,10 @@ namespace PlotDVT
             //enter a dalay for user feedback to show chart is updated
             await Task.Delay(100);
             //chart3.Titles.Clear();
-            //AC plots Below are the values for chart one
+            //AC plots Below are the values for chart one, Wacpm also used for filter
             List<float> Wacpm = getfloatlist("Wacpowermeter");
+            //Filter mask, Get a masked value, this will be mask2!!!!!!
+            List<float> maskVdccnf = getfloatlist("Vdcconfigured");
             //List<float> Wacpm = new List<float>(colobjinterflist.First(item => item.GetName() == "Wacpowermeter").GetFloats());
             List<float> Wvarpm = getfloatlist("ACvarpowermeter");
             List<float> Waccnf = getfloatlist("Wacconfigured");
@@ -91,41 +93,40 @@ namespace PlotDVT
                     //ignore the values that is below this value in textbox10 and above textBox13
                     if (Wacpm[i] > float.Parse(textBox10.Text) && Wacpm[i] < float.Parse(textBox13.Text))
                     {
-                        Wacpowerbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                        //Plot the congfigured w/va powermeter values
-                        Wacpowermeter.Points.AddXY(0, 0);
-                        Wacpowermeter.Points.AddXY(Wacpm[i], 0);
-                        Wacpowermeter.Points.AddXY(Wacpm[i], Wvarpm[i]);
-                        Wacpowermeter.Points.AddXY(0, 0);
-                        ////Plot the congfigured w/va configured values
-                        Waccnfseries.Points.AddXY(Waccnf[i], 0);
-                        Waccnfseries.Points.AddXY(Waccnf[i], Wvarcnf[i]);
-                        //**************************CHART4*************************
-                        //Add bug plot to the line plot
-                        chart4.Series["Wacpowermeter"].Points.AddXY(i, 0);
-                        chart4.Series["Wacpowermeter"].Points.AddXY(i, 3);
-                        chart4.Series["Wacpowermeter"].Points.AddXY(i, 0);
-                        //**********************Accumulate bugs to Chart 4*********
-                        //if the series is empty then add something
-                        if (chart4.Series["Accumulate"].Points.Count == 0)
+                        //Filter according to Vcnf
+                        if (maskVdccnf[i] > float.Parse(textBox5.Text) && maskVdccnf[i] < float.Parse(textBox6.Text))
                         {
-                            chart4.Series["Accumulate"].Points.AddXY(0, 0);
-                        }
-                        DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
-                        if (datapoint == null)
-                        {
-                            //chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                            chart4.Series["Accumulate"].Points.AddXY(i, 1);
-                            //chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                        }
-                        else
-                        {
-                            datapoint.SetValueY(datapoint.YValues.Last() + 1);
-                            ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                            //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
-                            //last += 1;
-                            //chart4.Series["Accumulate"].Points.AddXY(i, last);
-                            ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            Wacpowerbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
+                            //Plot the congfigured w/va powermeter values
+                            Wacpowermeter.Points.AddXY(0, 0);
+                            Wacpowermeter.Points.AddXY(Wacpm[i], 0);
+                            Wacpowermeter.Points.AddXY(Wacpm[i], Wvarpm[i]);
+                            Wacpowermeter.Points.AddXY(0, 0);
+                            ////Plot the congfigured w/va configured values
+                            Waccnfseries.Points.AddXY(Waccnf[i], 0);
+                            Waccnfseries.Points.AddXY(Waccnf[i], Wvarcnf[i]);
+                            //**************************CHART4*************************
+                            //Add bug plot to the line plot
+                            chart4.Series["Wacpowermeter"].Points.AddXY(i, 0);
+                            chart4.Series["Wacpowermeter"].Points.AddXY(i, 3);
+                            chart4.Series["Wacpowermeter"].Points.AddXY(i, 0);
+                            //**********************Accumulate bugs to Chart 4*********
+                            //if the series is empty then add something
+                            if (chart4.Series["Accumulate"].Points.Count == 0)
+                            {
+                                chart4.Series["Accumulate"].Points.AddXY(0, 0);
+                            }
+                            DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
+                            if (datapoint == null)
+                            {
+                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                chart4.Series["Accumulate"].Points.AddXY(i, 1);
+                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            }
+                            else
+                            {
+                                datapoint.SetValueY(datapoint.YValues.Last() + 1);
+                            }
                         }
                     }
                  }
@@ -133,7 +134,7 @@ namespace PlotDVT
             //clear the richtext box
             richTextBox1.Clear();
             //hunt bugs kicks of a series of bug plots with Wacpm as the filter list
-            huntbugs(Wacpm);
+            huntbugs(Wacpm, maskVdccnf);
             //Writes to richtext box, this needs to be function
             printbugs(Bugslist);
         }
@@ -167,21 +168,21 @@ namespace PlotDVT
         /// the filter values is checked again values textbox values and if it is smaller or larger
         /// then the other value is not plotted. to filter again say output power values
         /// </summary>
-        private async void huntbugs(List<float> the_filter_mask)
+        private async void huntbugs(List<float> the_filter_mask, List<float> the_filter_mask2)
         {
             //The filter mask in these are the List of parameter that will be searched in addition 
             //to the plotted values, and it will not plot the values if it does not meet the 
             //mask requirements
             //Vac
-            plot_general("Vacpcu", "Vacpowermeter", "Vacpcu", "ChartArea4", (float)numericUpDown5.Value, the_filter_mask);
+            plot_general("Vacpcu", "Vacpowermeter", "Vacpcu", "ChartArea4", (float)numericUpDown5.Value, the_filter_mask, the_filter_mask2);
             //Idc
-            plot_general("Idcpcu", "Idcpowermeter", "Idcconfigured", "ChartArea3", (float)numericUpDown3.Value, the_filter_mask);
+            plot_general("Idcpcu", "Idcpowermeter", "Idcconfigured", "ChartArea3", (float)numericUpDown3.Value, the_filter_mask, the_filter_mask2);
             //Wdc can use the generic plot
-            plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", (float)numericUpDown4.Value, the_filter_mask);
+            plot_general("Wdcpcu", "Wdcpowermeter", "Wdcconfigured", "ChartArea6", (float)numericUpDown4.Value, the_filter_mask, the_filter_mask2);
             //DC plots
-            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", (float)numericUpDown2.Value, the_filter_mask);
+            plot_general("Vdcpcu", "Vdcpowermeter", "Vdcconfigured", "ChartArea2", (float)numericUpDown2.Value, the_filter_mask, the_filter_mask2);
             //special plot for apparant current pcu ac current rerting
-            plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", (float)numericUpDown6.Value, the_filter_mask);
+            plot_apparant_current("Iacpcu", "Iacpowermeter", "Iacimagpcu", "ChartArea5", (float)numericUpDown6.Value, the_filter_mask, the_filter_mask2);
         }
         /// <summary>
         /// Atthis stage it plots and writes to richtext. Should change it.
@@ -192,7 +193,8 @@ namespace PlotDVT
         /// <param name="chartarea">The chart area name where data should go</param>
         /// <param name="FS">the fulscale value used for accuracy</param>
         /// <param name="filter_mask">the mask to filter plotted values</param>
-        private void plot_general(string pcu, string powermeter, string cnf, string chartarea, float persent_fail_margin, List<float> filter_mask)
+        private void plot_general(string pcu, string powermeter, string cnf, string chartarea, float persent_fail_margin, List<float> filter_mask,
+            List<float> maskVdccnf)
         {
             List<string> valuesforreport = new List<string>(){"Wacvarconfigured", "Wacconfigured", "Wdcconfigured", "Vdcconfigured",
                 "Phaseconfigured", "Temperature", "Vacpowermeter" };
@@ -227,43 +229,47 @@ namespace PlotDVT
                 //ignore the values that is below this value in textbox10 and above textBox13
                 if (filter_mask[i] > float.Parse(textBox10.Text) && filter_mask[i] < float.Parse(textBox13.Text))
                 {
-                    if (accuracyfaillist[i] == false)
-                    {
-                        if (CSVrowManager.GetaCSVrow(i) != null)
+                    //Filter according to Vcnf
+                    if (maskVdccnf[i] > float.Parse(textBox5.Text) && maskVdccnf[i] < float.Parse(textBox6.Text))
+                    { 
+                        if (accuracyfaillist[i] == false)
                         {
-                            //Append text to the richtext box
-                            richTextBox1.AppendText(CSVrowManager.GetaCSVrow(i).Humantext(valuesforreport) + "\r\n");
-                            //Add point to the chart
-                            chart3.Series[powermeter].Points.AddY(PM[i]);
-                            chart3.Series[cnf].Points.AddY(CNF[i]);
-                            //**************************CHART4*************************
-                            //Add bug plot to the line plot
-                            chart4.Series[pcu].Points.AddXY(i, 0);
-                            chart4.Series[pcu].Points.AddXY(i, 3);
-                            chart4.Series[pcu].Points.AddXY(i, 0);
-                            //**********************Accumulate bugs to Chart 4****************
-                            //if the series is empty then add something
-                            if (chart4.Series["Accumulate"].Points.Count == 0)
+                            if (CSVrowManager.GetaCSVrow(i) != null)
                             {
-                                chart4.Series["Accumulate"].Points.AddXY(0, 0);
-                            }
-                            //If the series is empty then add something
-                            DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
-                            if (datapoint == null)
-                            {
-                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                                chart4.Series["Accumulate"].Points.AddXY(i, 1);
-                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                            }
-                            else
-                            {
-                                datapoint.SetValueY(datapoint.YValues.Last() + 1);
-                                //chart4.Series["Accumulate"].Points.AddXY(i, datapoint.YValues.Last() + 1);
-                                ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                                //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
-                                //last += 1;
-                                //chart4.Series["Accumulate"].Points.AddXY(i, last);
-                                ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                //Append text to the richtext box
+                                richTextBox1.AppendText(CSVrowManager.GetaCSVrow(i).Humantext(valuesforreport) + "\r\n");
+                                //Add point to the chart
+                                chart3.Series[powermeter].Points.AddY(PM[i]);
+                                chart3.Series[cnf].Points.AddY(CNF[i]);
+                                //**************************CHART4*************************
+                                //Add bug plot to the line plot
+                                chart4.Series[pcu].Points.AddXY(i, 0);
+                                chart4.Series[pcu].Points.AddXY(i, 3);
+                                chart4.Series[pcu].Points.AddXY(i, 0);
+                                //**********************Accumulate bugs to Chart 4****************
+                                //if the series is empty then add something
+                                if (chart4.Series["Accumulate"].Points.Count == 0)
+                                {
+                                    chart4.Series["Accumulate"].Points.AddXY(0, 0);
+                                }
+                                //If the series is empty then add something
+                                DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
+                                if (datapoint == null)
+                                {
+                                    //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                    chart4.Series["Accumulate"].Points.AddXY(i, 1);
+                                    //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                }
+                                else
+                                {
+                                    datapoint.SetValueY(datapoint.YValues.Last() + 1);
+                                    //chart4.Series["Accumulate"].Points.AddXY(i, datapoint.YValues.Last() + 1);
+                                    ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                    //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
+                                    //last += 1;
+                                    //chart4.Series["Accumulate"].Points.AddXY(i, last);
+                                    ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                }
                             }
                         }
                     }
@@ -279,7 +285,8 @@ namespace PlotDVT
         /// <param name="reactive"></param>
         /// <param name="chartarea"></param>
         /// <param name="FS"></param>
-        private void plot_apparant_current(string pcureal, string powermeter, string reactive, string chartarea, float persent_fail_margin, List<float> filter_mask)
+        private void plot_apparant_current(string pcureal, string powermeter, string reactive, string chartarea, float persent_fail_margin,
+            List<float> filter_mask, List<float> maskVdccnf)
         {
             //clear series and add the series
             //chart3.Series.Clear();
@@ -311,38 +318,42 @@ namespace PlotDVT
                 //ignore the values that is below this value in textbox10 and above textBox13
                 if (filter_mask[i] > float.Parse(textBox10.Text) && filter_mask[i] < float.Parse(textBox13.Text))
                 {
-                    if (accuracyfaillist[i] == false)
+                    //Filter according to Vcnf
+                    if (maskVdccnf[i] > float.Parse(textBox5.Text) && maskVdccnf[i] < float.Parse(textBox6.Text))
                     {
-                        //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
-                        chart3.Series[powermeter].Points.AddY(PM[i]);
-                        chart3.Series["pcuIacs"].Points.AddY(appartcurrent[i]);
-                        //**************************CHART4 load point*************************
-                        //Add bug plot to the line plot
-                        chart4.Series[pcureal].Points.AddXY(i, 0);
-                        chart4.Series[pcureal].Points.AddXY(i, 3);
-                        chart4.Series[pcureal].Points.AddXY(i, 0);
-                        //**********************Accumulate bugs to Chart 4****************
-                        //if the series is empty then add something
-                        if (chart4.Series["Accumulate"].Points.Count == 0)
+                        if (accuracyfaillist[i] == false)
                         {
-                            chart4.Series["Accumulate"].Points.AddXY(0, 0);
-                        }
-                        //If the series is empty then add something
-                        DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
-                        if (datapoint == null)
-                        {
-                            //chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                            chart4.Series["Accumulate"].Points.AddXY(i, 1);
-                            //chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                        }
-                        else
-                        {
-                            datapoint.SetValueY(datapoint.YValues.Last() + 1);
-                            ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                            //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
-                            //last += 1;
-                            //chart4.Series["Accumulate"].Points.AddXY(i, last);
-                            ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            //Vdcvbuglist.Addbug(CSVrowManager.GetaCSVrow(i));
+                            chart3.Series[powermeter].Points.AddY(PM[i]);
+                            chart3.Series["pcuIacs"].Points.AddY(appartcurrent[i]);
+                            //**************************CHART4 load point*************************
+                            //Add bug plot to the line plot
+                            chart4.Series[pcureal].Points.AddXY(i, 0);
+                            chart4.Series[pcureal].Points.AddXY(i, 3);
+                            chart4.Series[pcureal].Points.AddXY(i, 0);
+                            //**********************Accumulate bugs to Chart 4****************
+                            //if the series is empty then add something
+                            if (chart4.Series["Accumulate"].Points.Count == 0)
+                            {
+                                chart4.Series["Accumulate"].Points.AddXY(0, 0);
+                            }
+                            //If the series is empty then add something
+                            DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
+                            if (datapoint == null)
+                            {
+                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                chart4.Series["Accumulate"].Points.AddXY(i, 1);
+                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            }
+                            else
+                            {
+                                datapoint.SetValueY(datapoint.YValues.Last() + 1);
+                                ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                                //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
+                                //last += 1;
+                                //chart4.Series["Accumulate"].Points.AddXY(i, last);
+                                ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
+                            }
                         }
                     }
                 }
@@ -459,7 +470,9 @@ namespace PlotDVT
         private void setup_chart4axes(Chart x, int xaxeslegth)
         {
             x.ChartAreas[0].AxisX.Minimum = 0;
-            x.ChartAreas[0].AxisX.Maximum = xaxeslegth + 10;
+            //set the x axes lenth to custom length depending on data
+           // x.ChartAreas[0].AxisX.Enabled = AxisEnabled.True; 
+            x.ChartAreas[0].AxisX.Maximum = xaxeslegth + 5;
             x.ChartAreas[0].AxisX.Interval = 1;
             x.ChartAreas[0].AxisY.Minimum = 0;
             x.ChartAreas[0].AxisY.Maximum = 8;

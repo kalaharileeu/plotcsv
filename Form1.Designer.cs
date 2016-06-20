@@ -638,19 +638,20 @@
             // chart4
             // 
             chartArea9.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
-            chartArea9.AxisX.LineColor = System.Drawing.Color.Transparent;
+            chartArea9.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.Lines;
+            chartArea9.AxisX.InterlacedColor = System.Drawing.Color.Transparent;
             chartArea9.AxisX.MajorGrid.LineColor = System.Drawing.Color.Transparent;
             chartArea9.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Transparent;
             chartArea9.AxisX.Maximum = 100D;
             chartArea9.AxisX.MaximumAutoSize = 100F;
-            chartArea9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            chartArea9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             chartArea9.BorderColor = System.Drawing.Color.Transparent;
             chartArea9.InnerPlotPosition.Auto = false;
             chartArea9.InnerPlotPosition.Height = 100F;
             chartArea9.InnerPlotPosition.Width = 100F;
             chartArea9.Name = "ChartArea1";
             chartArea9.Position.Auto = false;
-            chartArea9.Position.Height = 94F;
+            chartArea9.Position.Height = 85F;
             chartArea9.Position.Width = 100F;
             chartArea9.Position.Y = 3F;
             this.chart4.ChartAreas.Add(chartArea9);
