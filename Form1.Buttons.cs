@@ -244,16 +244,16 @@ namespace PlotDVT
 
         private void button19_Click(object sender, EventArgs e)
         {
-            if (!reverse)
-            {
-                reverse = true;
-                button19.BackColor = Color.DarkGreen;
-            }
-            else
-            {
-                reverse = false;
-                button19.BackColor = Color.LightYellow;
-            }
+            //if (!reverse)
+            //{
+            //    reverse = true;
+            //    button19.BackColor = Color.DarkGreen;
+            //}
+            //else
+            //{
+            //    reverse = false;
+            //    button19.BackColor = Color.LightYellow;
+            //}
         }
 
         private void button21_Click(object sender, EventArgs e)

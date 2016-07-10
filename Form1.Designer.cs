@@ -85,7 +85,6 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button19 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -94,7 +93,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -139,7 +137,7 @@
             this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 103);
             this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(666, 179);
+            this.chart1.Size = new System.Drawing.Size(651, 179);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -152,7 +150,7 @@
             this.chart2.Legends.Add(legend2);
             this.chart2.Location = new System.Drawing.Point(9, 453);
             this.chart2.Name = "chart2";
-            this.chart2.Size = new System.Drawing.Size(660, 207);
+            this.chart2.Size = new System.Drawing.Size(645, 207);
             this.chart2.TabIndex = 2;
             this.chart2.Text = "chart2";
             // 
@@ -369,7 +367,7 @@
             this.groupBox1.Controls.Add(this.button15);
             this.groupBox1.Location = new System.Drawing.Point(358, 662);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(194, 80);
+            this.groupBox1.Size = new System.Drawing.Size(170, 80);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Compare accuracy";
@@ -433,7 +431,7 @@
             // 
             this.groupBox2.BackColor = System.Drawing.Color.DarkGray;
             this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Location = new System.Drawing.Point(552, 662);
+            this.groupBox2.Location = new System.Drawing.Point(528, 662);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(117, 80);
             this.groupBox2.TabIndex = 22;
@@ -499,7 +497,7 @@
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(666, 59);
+            this.textBox3.Size = new System.Drawing.Size(651, 59);
             this.textBox3.TabIndex = 30;
             // 
             // textBox4
@@ -508,7 +506,7 @@
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox4.Size = new System.Drawing.Size(660, 62);
+            this.textBox4.Size = new System.Drawing.Size(645, 62);
             this.textBox4.TabIndex = 31;
             // 
             // chart3
@@ -570,7 +568,7 @@
             this.chart3.Location = new System.Drawing.Point(13, 19);
             this.chart3.Name = "chart3";
             this.chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            this.chart3.Size = new System.Drawing.Size(495, 556);
+            this.chart3.Size = new System.Drawing.Size(495, 545);
             this.chart3.TabIndex = 33;
             this.chart3.Text = "chart3";
             title1.BackColor = System.Drawing.Color.White;
@@ -628,9 +626,9 @@
             this.groupBox8.Controls.Add(this.chart4);
             this.groupBox8.Controls.Add(this.richTextBox1);
             this.groupBox8.Controls.Add(this.chart3);
-            this.groupBox8.Location = new System.Drawing.Point(675, 4);
+            this.groupBox8.Location = new System.Drawing.Point(660, 4);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(1072, 701);
+            this.groupBox8.Size = new System.Drawing.Size(1087, 716);
             this.groupBox8.TabIndex = 34;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Bug plot";
@@ -644,20 +642,22 @@
             chartArea9.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Transparent;
             chartArea9.AxisX.Maximum = 100D;
             chartArea9.AxisX.MaximumAutoSize = 100F;
+            chartArea9.AxisX.Title = "CSV line number";
             chartArea9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             chartArea9.BorderColor = System.Drawing.Color.Transparent;
             chartArea9.InnerPlotPosition.Auto = false;
-            chartArea9.InnerPlotPosition.Height = 100F;
-            chartArea9.InnerPlotPosition.Width = 100F;
+            chartArea9.InnerPlotPosition.Height = 70F;
+            chartArea9.InnerPlotPosition.Width = 95F;
             chartArea9.Name = "ChartArea1";
             chartArea9.Position.Auto = false;
-            chartArea9.Position.Height = 85F;
-            chartArea9.Position.Width = 100F;
+            chartArea9.Position.Height = 90F;
+            chartArea9.Position.Width = 90F;
+            chartArea9.Position.X = 1F;
             chartArea9.Position.Y = 3F;
             this.chart4.ChartAreas.Add(chartArea9);
-            this.chart4.Location = new System.Drawing.Point(13, 581);
+            this.chart4.Location = new System.Drawing.Point(13, 570);
             this.chart4.Name = "chart4";
-            this.chart4.Size = new System.Drawing.Size(1051, 114);
+            this.chart4.Size = new System.Drawing.Size(1068, 142);
             this.chart4.TabIndex = 34;
             this.chart4.Text = "chart4";
             // 
@@ -666,23 +666,13 @@
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(514, 19);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(550, 556);
+            this.richTextBox1.Size = new System.Drawing.Size(567, 545);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
-            // button19
-            // 
-            this.button19.BackColor = System.Drawing.Color.Silver;
-            this.button19.Location = new System.Drawing.Point(22, 66);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(47, 23);
-            this.button19.TabIndex = 27;
-            this.button19.Text = "Refresh";
-            this.button19.UseVisualStyleBackColor = false;
-            // 
             // button18
             // 
-            this.button18.BackColor = System.Drawing.Color.Red;
+            this.button18.BackColor = System.Drawing.Color.Tomato;
             this.button18.Location = new System.Drawing.Point(22, 32);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(89, 23);
@@ -755,13 +745,6 @@
             this.label5.Size = new System.Drawing.Size(128, 13);
             this.label5.TabIndex = 40;
             this.label5.Text = "Vac % of reading, fail";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(75, 64);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(25, 20);
-            this.textBox2.TabIndex = 26;
             // 
             // label9
             // 
@@ -868,7 +851,6 @@
             this.groupBox5.Controls.Add(this.numericUpDown2);
             this.groupBox5.Controls.Add(this.groupBox7);
             this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Controls.Add(this.textBox2);
             this.groupBox5.Controls.Add(this.label5);
             this.groupBox5.Controls.Add(this.label8);
             this.groupBox5.Controls.Add(this.label4);
@@ -877,10 +859,9 @@
             this.groupBox5.Controls.Add(this.label7);
             this.groupBox5.Controls.Add(this.textBox9);
             this.groupBox5.Controls.Add(this.button18);
-            this.groupBox5.Controls.Add(this.button19);
-            this.groupBox5.Location = new System.Drawing.Point(675, 705);
+            this.groupBox5.Location = new System.Drawing.Point(663, 718);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(1072, 110);
+            this.groupBox5.Size = new System.Drawing.Size(1087, 101);
             this.groupBox5.TabIndex = 28;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Bug finder";
@@ -1100,7 +1081,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
@@ -1109,7 +1089,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.Button button19;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.NumericUpDown numericUpDown4;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -209,7 +210,6 @@ namespace PlotDVT
             float failpersentage = persent_fail_margin;
             List<bool> accuracyfaillist = new List<bool>(Calculate.Pesentage_faillist(PCU, PM, failpersentage));
             //**************************Setup chart4********************************************************
-           // setup_chart4axes(chart4);
             addlist_series_tochart(chart4, new List<string>() { pcu });
             setupseriesline(chart4.Series[pcu]);//setup the color and the line type plot
             chart4.Series[pcu].Points.AddXY(0, 0);//Add the first dot to the line
@@ -256,19 +256,11 @@ namespace PlotDVT
                                 DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
                                 if (datapoint == null)
                                 {
-                                    //chart4.Series["Accumulate"].Points.AddXY(i, 0);
                                     chart4.Series["Accumulate"].Points.AddXY(i, 1);
-                                    //chart4.Series["Accumulate"].Points.AddXY(i, 0);
                                 }
                                 else
                                 {
                                     datapoint.SetValueY(datapoint.YValues.Last() + 1);
-                                    //chart4.Series["Accumulate"].Points.AddXY(i, datapoint.YValues.Last() + 1);
-                                    ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                                    //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
-                                    //last += 1;
-                                    //chart4.Series["Accumulate"].Points.AddXY(i, last);
-                                    ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
                                 }
                             }
                         }
@@ -341,18 +333,11 @@ namespace PlotDVT
                             DataPoint datapoint = chart4.Series["Accumulate"].Points.FindByValue(i, "X", 0);//o is start index
                             if (datapoint == null)
                             {
-                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
                                 chart4.Series["Accumulate"].Points.AddXY(i, 1);
-                                //chart4.Series["Accumulate"].Points.AddXY(i, 0);
                             }
                             else
                             {
                                 datapoint.SetValueY(datapoint.YValues.Last() + 1);
-                                ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
-                                //double last = chart4.Series["Accumulate"].Points[i].YValues.Last();
-                                //last += 1;
-                                //chart4.Series["Accumulate"].Points.AddXY(i, last);
-                                ////chart4.Series["Accumulate"].Points.AddXY(i, 0);
                             }
                         }
                     }
@@ -477,8 +462,19 @@ namespace PlotDVT
             x.ChartAreas[0].AxisY.Minimum = 0;
             x.ChartAreas[0].AxisY.Maximum = 8;
             x.ChartAreas[0].AxisY.Interval = 1;
-            x.ChartAreas[0].InnerPlotPosition.Height = 100;
+            x.ChartAreas[0].InnerPlotPosition.Height = 70;
             x.ChartAreas[0].InnerPlotPosition.Width = 100;
+
+            chart4.ChartAreas[0].AxisX.Title = "CSV Line number";
+            chart4.ChartAreas[0].AxisY.Title = "No of bugs";
+            chart4.ChartAreas[0].BackColor = Color.White;
+            chart4.Series.Clear();
+            chart4.Titles.Clear();
+            chart4.ChartAreas[0].AxisX.Minimum = Double.NaN;
+            chart4.ChartAreas[0].AxisY.Minimum = Double.NaN;
+            chart4.ChartAreas[0].AxisX.Maximum = Double.NaN;
+            chart4.ChartAreas[0].AxisY.Maximum = Double.NaN;
+
         }
     }
 }

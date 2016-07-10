@@ -52,7 +52,7 @@ namespace PlotDVT
         /// </summary>
         private void setupploatarea()
         {
-            textBox2.Text = "20";//delay synchronous plotting
+           // textBox2.Text = "20";//delay synchronous plotting
             numericUpDown6.Value = 1.0M;
             numericUpDown5.Value = 1.0M;
             numericUpDown4.Value = 1.0M;
@@ -68,6 +68,8 @@ namespace PlotDVT
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
             chart1.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.Dot;
+            //Added below to get axes scaling to int and not float values in axes labelstyle
+            chart1.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0}";
             //Xrid lines
             chart2.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Solid;
             chart2.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
@@ -372,17 +374,6 @@ namespace PlotDVT
             chart2.ChartAreas[0].AxisY.Minimum = Double.NaN;
             chart2.ChartAreas[0].AxisX.Maximum = Double.NaN;
             chart2.ChartAreas[0].AxisY.Maximum = Double.NaN;
-
-            chart4.ChartAreas[0].AxisX.Title = "";
-            chart4.ChartAreas[0].AxisY.Title = "";
-            chart4.ChartAreas[0].BackColor = Color.White;
-            chart4.Series.Clear();
-            chart4.Titles.Clear();
-            chart4.ChartAreas[0].AxisX.Minimum = Double.NaN;
-            chart4.ChartAreas[0].AxisY.Minimum = Double.NaN;
-            chart4.ChartAreas[0].AxisX.Maximum = Double.NaN;
-            chart4.ChartAreas[0].AxisY.Maximum = Double.NaN;
-
             //chart2.ChartAreas.Clear();
         }
 //**********************************Done populating data for unit undertest*********************
@@ -416,16 +407,17 @@ namespace PlotDVT
                     chartseries = chartseries.Substring(0, 4);
                 chartseries += "CNF";
                 //Add a series
-                this.chart1.Series.Add(chartseries);
+                chart1.Series.Add(chartseries);
+                chart1.Series[chartseries].IsVisibleInLegend = false;
                 //set the chart type
-                this.chart1.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart1.Series[chartseries].Color = Color.CadetBlue;
-                this.chart1.Series[chartseries].MarkerStyle = MarkerStyle.Star6;
-                this.chart1.Series[chartseries].MarkerSize = 13;
+                chart1.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart1.Series[chartseries].Color = Color.CadetBlue;
+                chart1.Series[chartseries].MarkerStyle = MarkerStyle.Star6;
+                chart1.Series[chartseries].MarkerSize = 13;
                 //this.chart1.Series[chartseries].BorderWidth = 8;
                 foreach (var v in kv.Value)
                 {
-                    this.chart1.Series[chartseries].Points.AddXY(kv.Key, v);
+                    chart1.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
 
@@ -475,7 +467,6 @@ namespace PlotDVT
                 this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
                 this.chart2.Series[chartseries].MarkerSize = 7;
                 this.chart2.Series[chartseries].Color = Color.Black;
-                //    this.chart2.ChartAreas[0].AxisX.Minimum = 13;
                 foreach (var v in kv.Value)
                 {
                     if (v < 0.1f)
@@ -666,7 +657,6 @@ namespace PlotDVT
                 //Add a series
                 this.chart2.Series.Add(chartseries);
                 this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
                 this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
                 this.chart2.Series[chartseries].MarkerSize = 9;
                 this.chart2.Series[chartseries].Color = Color.Black;
@@ -689,7 +679,6 @@ namespace PlotDVT
                 //Add a series
                 this.chart2.Series.Add(chartseries);
                 this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
                 this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
                 this.chart2.Series[chartseries].MarkerSize = 9;
                 this.chart2.Series[chartseries].Color = Color.DarkOrange;
@@ -710,42 +699,39 @@ namespace PlotDVT
 
             Title title = new Title("Vdc compare: Vdc configured, powermeter and PCU", 
                 Docking.Top, new Font("Verdana", 8, FontStyle.Regular), Color.Black);
-            this.chart1.Titles.Add(title);
+            chart1.Titles.Add(title);
             title.IsDockedInsideChartArea = false;
             title.DockedToChartArea = this.chart1.ChartAreas[0].Name;
             Title title2 = new Title("Vdc reported: Test pm vs Baseline pm",
                 Docking.Top, new Font("Verdana", 8, FontStyle.Regular), Color.Black);
             this.chart2.Titles.Add(title2);
             title.DockedToChartArea = this.chart2.ChartAreas[0].Name;
-
             //plot diagonal grey conf line
             string series = "_conf";
             //Add a series
-            this.chart1.Series.Add(series);
+            chart1.Series.Add(series);
             //set the chart type
-            this.chart1.Series[series].ChartType = SeriesChartType.Point;
-            this.chart1.Series[series].MarkerStyle = MarkerStyle.Star6;
-            this.chart1.Series[series].MarkerSize = 10;
-            this.chart1.Series[series].Color = Color.CadetBlue;
-            //this.chart1.Series[series].BorderWidth = 8;
+            chart1.Series[series].ChartType = SeriesChartType.Point;
+            chart1.Series[series].MarkerStyle = MarkerStyle.Star6;
+            chart1.Series[series].MarkerSize = 10;
+            chart1.Series[series].Color = Color.CadetBlue;
             IBaselist ibl = colobjinterflist.First(item => item.GetName() == "Vdcpcu");
             foreach (var kv in ibl.GetSlices())
             {
                 //Name the series
-                this.chart1.Series[series].Points.AddXY(kv.Key, kv.Key);
+                chart1.Series[series].Points.AddXY(kv.Key, kv.Key);
             }
             series = "conf2";
             //Add a series
-            this.chart1.Series.Add(series);
+            chart1.Series.Add(series);
             //set the chart type
-            this.chart1.Series[series].ChartType = SeriesChartType.Line;
-            this.chart1.Series[series].BorderWidth = 1;
-            this.chart1.Series[series].Color = Color.CadetBlue;
-            //this.chart1.Series[series].BorderWidth = 8;
+            chart1.Series[series].ChartType = SeriesChartType.Line;
+            chart1.Series[series].BorderWidth = 1;
+            chart1.Series[series].Color = Color.CadetBlue;
             foreach (var kv in ibl.GetSlices())
             {
                 //Name the series
-                this.chart1.Series[series].Points.AddXY(kv.Key, kv.Key);
+                chart1.Series[series].Points.AddXY(kv.Key, kv.Key);
             }
 
             // plot the DIFF V powermeter on chart 2
@@ -758,15 +744,15 @@ namespace PlotDVT
                     chartseries = chartseries.Substring(0, 4);
                 chartseries += "_basel_pm";
                 //Add a series
-                this.chart2.Series.Add(chartseries);
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series.Add(chartseries);
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
                 //this.chart1.Series[chartseries].Palette = ChartColorPalette.Bright;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                this.chart2.Series[chartseries].MarkerSize = 9;
-                this.chart2.Series[chartseries].Color = Color.Black;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                chart2.Series[chartseries].MarkerSize = 9;
+                chart2.Series[chartseries].Color = Color.Black;
                 foreach (var v in kv.Value)
                 {
-                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                    chart2.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
 
@@ -780,27 +766,25 @@ namespace PlotDVT
                     chartseries = chartseries.Substring(0, 4);
                 chartseries += "_pm";
                 //Add a series
-                this.chart1.Series.Add(chartseries);
+                chart1.Series.Add(chartseries);
                 //set the chart type
-                this.chart1.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart1.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
-                this.chart1.Series[chartseries].MarkerSize = 7;
-                this.chart1.Series[chartseries].Color = Color.Black;
-
+                chart1.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart1.Series[chartseries].MarkerStyle = MarkerStyle.Circle;
+                chart1.Series[chartseries].MarkerSize = 7;
+                chart1.Series[chartseries].Color = Color.Black;
                 // plot the pcu on chart 2
                 //Add a series
-                this.chart2.Series.Add(chartseries);
+                chart2.Series.Add(chartseries);
                 //set the chart type
-                this.chart2.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                this.chart2.Series[chartseries].MarkerSize = 7;
-                this.chart2.Series[chartseries].Color = Color.DarkOrange;
+                chart2.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart2.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                chart2.Series[chartseries].MarkerSize = 7;
+                chart2.Series[chartseries].Color = Color.DarkOrange;
                 //Scale the x axis
-
                 foreach (var v in kv.Value)
                 {
-                    this.chart1.Series[chartseries].Points.AddXY(kv.Key, v);
-                    this.chart2.Series[chartseries].Points.AddXY(kv.Key, v);
+                    chart1.Series[chartseries].Points.AddXY(kv.Key, v);
+                    chart2.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
             //plot the pcu on chart 1 and 2
@@ -813,15 +797,15 @@ namespace PlotDVT
                     chartseries = chartseries.Substring(0, 4);
                 chartseries += "_pcu";
                 //Add a series
-                this.chart1.Series.Add(chartseries);
+                chart1.Series.Add(chartseries);
                 //set the chart type
-                this.chart1.Series[chartseries].ChartType = SeriesChartType.Point;
-                this.chart1.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
-                this.chart1.Series[chartseries].MarkerSize = 8;
-                this.chart1.Series[chartseries].Color = Color.DarkOrange;
+                chart1.Series[chartseries].ChartType = SeriesChartType.Point;
+                chart1.Series[chartseries].MarkerStyle = MarkerStyle.Cross;
+                chart1.Series[chartseries].MarkerSize = 8;
+                chart1.Series[chartseries].Color = Color.DarkOrange;
                 foreach (var v in kv.Value)
                 {
-                    this.chart1.Series[chartseries].Points.AddXY(kv.Key, v);
+                    chart1.Series[chartseries].Points.AddXY(kv.Key, v);
                 }
             }
         }
@@ -1071,7 +1055,7 @@ namespace PlotDVT
                             chart2.Series[serieschart2cnf].Points.AddXY(waccnfbl[i], wacvarcnfbl[i]);
 
                         }
-                        await Task.Delay(Convert.ToInt16(textBox2.Text));
+                        await Task.Delay(20);
                     }
                     if (reverse)//not actually reverse, just delete previous plot
                     {
