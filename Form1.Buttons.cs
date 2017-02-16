@@ -74,6 +74,7 @@ namespace PlotDVT
             }
         }
         //Read the auxilliary information from the test folder text file
+		//Read inforamation from a file to get inverter information
         private void uutreadauxinfo(string fn)
         {
             textBox3.Clear();//clear the textbox for new results
@@ -88,7 +89,6 @@ namespace PlotDVT
 
             if (filesindir.Length != 0)//error: if there is not in relultstring then it will also find the text dile
             {
-
                 Directory.CreateDirectory(difftooldir);//no need to check it exists
                 foreach (var lin in File.ReadLines(filesindir[0].FullName).SkipWhile
                     (line => !line.Contains("Debugger")).TakeWhile(line => !line.Contains("d>")))

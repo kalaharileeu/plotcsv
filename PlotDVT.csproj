@@ -69,7 +69,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IBaselist.cs" />
-    <Compile Include="JsontoObject.cs" />
     <Compile Include="PhaseConfiguredI.cs" />
     <Compile Include="Reportsandbox.cs">
       <SubType>Form</SubType>

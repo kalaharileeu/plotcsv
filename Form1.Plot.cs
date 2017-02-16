@@ -37,6 +37,7 @@ namespace PlotDVT
 
             //enter a dalay for user feedback to show chart is updated
             await Task.Delay(100);
+            
             //chart3.Titles.Clear();
             //AC plots Below are the values for chart one, Wacpm also used for filter
             List<float> Wacpm = getfloatlist("Wacpowermeter");
@@ -174,6 +175,7 @@ namespace PlotDVT
             //The filter mask in these are the List of parameter that will be searched in addition 
             //to the plotted values, and it will not plot the values if it does not meet the 
             //mask requirements
+            
             //Vac
             plot_general("Vacpcu", "Vacpowermeter", "Vacpcu", "ChartArea4", (float)numericUpDown5.Value, the_filter_mask, the_filter_mask2);
             //Idc
@@ -462,18 +464,26 @@ namespace PlotDVT
             x.ChartAreas[0].AxisY.Minimum = 0;
             x.ChartAreas[0].AxisY.Maximum = 8;
             x.ChartAreas[0].AxisY.Interval = 1;
-            x.ChartAreas[0].InnerPlotPosition.Height = 70;
+            //indicates the percentage of area used
+            x.ChartAreas[0].InnerPlotPosition.Height = 73;
             x.ChartAreas[0].InnerPlotPosition.Width = 100;
+            //Had to move the X start position along to show axis label
+            x.ChartAreas[0].InnerPlotPosition.X = 5;
 
-            chart4.ChartAreas[0].AxisX.Title = "CSV Line number";
-            chart4.ChartAreas[0].AxisY.Title = "No of bugs";
-            chart4.ChartAreas[0].BackColor = Color.White;
-            chart4.Series.Clear();
-            chart4.Titles.Clear();
-            chart4.ChartAreas[0].AxisX.Minimum = Double.NaN;
-            chart4.ChartAreas[0].AxisY.Minimum = Double.NaN;
-            chart4.ChartAreas[0].AxisX.Maximum = Double.NaN;
-            chart4.ChartAreas[0].AxisY.Maximum = Double.NaN;
+            x.ChartAreas[0].AxisX.Title = "CSV Line number";
+            x.ChartAreas[0].AxisY.Title = "No. of bugs";
+            //Rotate the axis label 90 degrees
+            x.ChartAreas[0].AxisY.TextOrientation = TextOrientation.Rotated90;
+            x.ChartAreas[0].BackColor = Color.White;
+            x.Series.Clear();
+            x.Titles.Clear();
+            //chart4.ChartAreas[0].AxisX.Minimum = Double.NaN;
+            x.ChartAreas[0].AxisY.Minimum = Double.NaN;
+            //chart4.ChartAreas[0].AxisX.Maximum = Double.NaN;
+            x.ChartAreas[0].AxisY.Maximum = Double.NaN;
+            //Had to do the below else the x axis number did not show
+            x.ChartAreas[0].AxisX.Minimum = 0;
+            x.ChartAreas[0].AxisX.Interval = 60;
 
         }
     }
